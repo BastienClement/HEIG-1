@@ -1,33 +1,58 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage[frenchb]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
 
-\title{Labo TIB: Wireshark}
-\author{Bastien Clément et Christophe Peretti}
+\usepackage{fancyhdr}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{titling}
+\usepackage{courier}
+\usepackage{lipsum}
+%\usepackage{showframe}
+\usepackage{fullpage}
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.5em}
+\topmargin=-10mm
+\headsep=5mm
+\headheight=10mm
+
+\linespread{1.1}
+
+\setlength\parindent{0pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\thetitle}
+\rhead{\today \\ \theauthor}
+\cfoot{\thepage}
+
+\title{TIB-1-B \\ Labo 1: Wireshark}
+\author{Bastien Clément \and Christophe Peretti}
 
 \begin{document}
+
 \maketitle
 
-\section{Wireshark et diagramme en flèches}
+\section*{Problème 1: Wireshark et diagrammes}
 
 \subsection{Objectifs}
 Apprendre et effectuer une capture Wireshark simple et documenter les résultats.
 
 Objectifs:
+
 \begin{enumerate}
   \item Effectuer une capture Wireshark
   \item Utiliser un filtre d'affichage
   \item Réaliser un diagramme en flèche
 \end{enumerate}
 
+Test
+
 \subsection{Diagramme}
 
-\section{Image cachée}
+\section*{Problème 2: Image cachée}
 
 \subsection{Objectifs}
 
@@ -48,4 +73,10 @@ Apprendre à utiliser Wireshark pour analyser le trafic réseau et trouver les i
 
 Apprendre à utiliser les fonctions avancées (conversations, flux) de Wireshark. L'objectif est atteint en effectuant l'analyse et en répondant aux questions.
 
-\end{document}  
+\section{Analyse forensique}
+
+\subsection{Objectifs}
+
+Apprendre à utiliser les fonctions avancées (conversations, flux) de Wireshark. L'objectif est atteint en effectuant l'analyse et en répondant aux questions.
+
+\end{document}

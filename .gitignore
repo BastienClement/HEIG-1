@@ -3,3 +3,9 @@ Makefile
 dist/
 build/
 .dep.inc
+*.aux
+*.dvi
+*.log
+*.pdf
+*.synctex.gz
+*.toc
