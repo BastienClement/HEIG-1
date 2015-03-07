@@ -4,63 +4,53 @@
 \usepackage[utf8]{inputenc}
 \usepackage[french]{babel}
 
-\usepackage{fancyhdr}
-\usepackage[usenames,dvipsnames]{color}
-\usepackage{graphicx}
-\usepackage{listings}
-\usepackage{titling}
-\usepackage{courier}
-\usepackage{lipsum}
-%\usepackage{showframe}
-\usepackage{fullpage}
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+%\usepackage{showframe} % layout debug
 
 \topmargin=-10mm
 \headsep=5mm
 \headheight=10mm
 
-\linespread{1.1}
+\linespread{1.0}
 
 \setlength\parindent{0pt}
 
 \pagestyle{fancy}
 \fancyhf{}
-\lhead{\thetitle}
-\rhead{\today \\ \theauthor}
+\rhead{\theauthor \\ \today}
 \cfoot{\thepage}
 
+\renewcommand{\thesection}{Problème \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\newcommand{\shellcmd}[1]{\texttt{\footnotesize\# #1}}
+
 \title{TIB-1-B \\ Labo 1: Wireshark}
+\lhead{TIB-1-B \\ Labo 1: Wireshark}
+
 \author{Bastien Clément \and Christophe Peretti}
 
 \begin{document}
 
 \maketitle
 
-\section*{Problème 1: Wireshark et diagrammes}
+\section{Wireshark et diagrammes}
 
-\subsection{Objectifs}
-Apprendre et effectuer une capture Wireshark simple et documenter les résultats.
-
-Objectifs:
-
-\begin{enumerate}
-  \item Effectuer une capture Wireshark
-  \item Utiliser un filtre d'affichage
-  \item Réaliser un diagramme en flèche
-\end{enumerate}
-
-Test
+L'objectif de ce premier exercice est d'apprendre à effectuer des captures simples avec le logiciel Wireshark et d'utiliser des filtres d'affichage puis de documenter nos résultats à l'aide de diagrammes en flèche.
 
 \subsection{Diagramme}
 
-\section*{Problème 2: Image cachée}
+\section{Image cachée}
 
-\subsection{Objectifs}
-
-Apprendre à utiliser Wireshark pour analyser le trafic réseau et trouver les indices et l'image cachés.
-
-\subsection{Image}
-
-\subsection{Procédure}
+Ce second exercice a pour but d'apprendre à utiliser Wireshark pour analyser le trafic réseau généré par une requête HTTP et de trouver une image cachée parmi les données échangées.
 
 \begin{enumerate}
   \item ...
@@ -69,14 +59,54 @@ Apprendre à utiliser Wireshark pour analyser le trafic réseau et trouver les i
 
 \section{Analyse forensique}
 
-\subsection{Objectifs}
+Cet exercice à pour but d'apprendre à utiliser les fonctions avancées (conversations, flux) de Wireshark afin de répondre aux questions portant sur le contenu d'un email transmis sur le réseau à l'aide du protocole SMTP.
 
-Apprendre à utiliser les fonctions avancées (conversations, flux) de Wireshark. L'objectif est atteint en effectuant l'analyse et en répondant aux questions.
+\subsection{Adresse d'Anne}
 
-\section{Analyse forensique}
+On peut observer qu'il y a deux messages différents dans les données interceptées. Le premier semble être destiné à un collègue de Anne et le prévient qu'elle ne sera pas disponible. Même si ce n'est pas le message qui nous intéresse, nous pouvons déjà en extraire l'adresse de Anne disponible dans les entêtes du message.
 
-\subsection{Objectifs}
+\texttt{... \\ From: \textbf{sneakyg33k@aol.com} \\ ...}
 
-Apprendre à utiliser les fonctions avancées (conversations, flux) de Wireshark. L'objectif est atteint en effectuant l'analyse et en répondant aux questions.
+\subsection{Adresse de l'amant secret}
+
+Le second message est en revanche celui qui nous intéresse puisqu'il est destiné à l'amant secret et contient donc son adresse en tant que destinataire, toujours dans les entêtes du message.
+
+\texttt{... \\ To: \textbf{mistersecretx@aol.com} \\ ...}
+
+\subsection{Objets demandés}
+
+Finalement, juste après les entêtes vient le corps du message où l'on peut lire:
+
+
+
+\newpage
+
+\emph{\footnotesize 
+Nous nous permettons de dépasser la limite de 2 pages afin de pouvoir inclure les résultats des exercices facultatifs.
+}
+
+\section{Exercices avancés}
+
+Ce dernier problème a pour but d'introduire des protocoles dont les données ne transitent pas directement en clair mais encodées. L'objectif est, encore une fois, d'extraire des informations à partir du trafic réseau enregistré. Cette fois-ci, le trafic n'est pas obtenu depuis notre propre activité mais récupéré d'une sessions enregistrée dans un fichier \texttt{.pcap}.
+
+\subsection{Mot de passe}
+
+Dans cet exercice, le client e-mail de Anne a choisi d'utiliser la méthode \texttt{AUTH LOGIN} pour s'authentifier avec le serveur. Conformément au protocole et aux indications du laboratoire, le nom d'utilisateur (son adresse e-mail) et le mot de passe sont transmis séquentiellement et sont encodés selon le format Base64.
+
+Ce mot de passe peut être décodé avec la commande:
+
+\shellcmd{echo "..mdp.." | base64 -d}
+
+Nous obtenons ainsi le mot de passe \textbf{558r00lz}.
+
+\subsection{Ville du rendez-vous}
+
+Dans le message envoyé à l'amant secret, nous pouvons observer une grande quantité de données encodées en Base64 à la fin du message transmis. Un regard plus attentif aux en-têtes permet de découvrir le type et le nom du document: \texttt{icantremember.docx}.
+
+Le laboratoire suggère d'utiliser l'outil \texttt{munpack} pour extraire ce fichier. Cependant, n'ayant pas lu la donnée jusqu'au bout, nous avons extrait les données à la main dans un fichier \texttt{fichier.b64} puis décodé son contenu via la commande:
+
+\shellcmd{cat fichier.b64 | base64 -d > fichier.docx}
+
+Ce fichier contient une carte de la ville \textbf{Playa del Carmen}, au Brésil.
 
 \end{document}
