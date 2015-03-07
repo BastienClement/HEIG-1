@@ -22,6 +22,7 @@
 \linespread{1.0}
 
 \setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -35,7 +36,6 @@
 
 \title{TIB-1-B \\ Labo 1: Wireshark}
 \lhead{TIB-1-B \\ Labo 1: Wireshark}
-
 \author{Bastien Clément \and Christophe Peretti}
 
 \begin{document}
@@ -44,9 +44,29 @@
 
 \section{Wireshark et diagrammes}
 
-L'objectif de ce premier exercice est d'apprendre à effectuer des captures simples avec le logiciel Wireshark et d'utiliser des filtres d'affichage puis de documenter nos résultats à l'aide de diagrammes en flèche.
+L'objectif de ce premier exercice est d'apprendre à effectuer des captures simples avec le logiciel Wireshark, utiliser des filtres d'affichage puis documenter nos résultats à l'aide de diagrammes en flèche.
 
-\subsection{Diagramme}
+\subsection{Diagramme en flèche}
+
+\begin{picture}(15,7.2)
+\put(1.05,6.5){Ubuntu-11}
+\put(0.8,6.0){10.192.72.127}
+\put(7.1,6.5){Gmail}
+\put(6.5,6.0){173.194.40.86}
+\put(0.3,5){7.3165}
+\put(8.2,5){Client Hello}
+\put(0.3,4.2){7.3240}
+\put(8.2,4.2){Server Hello}
+\put(0.3,3.4){7.3252}
+\put(8.2,3.4){Certificate}
+\put(0.3,2.6){7.3286}
+\put(8.2,2.6){Server Key, Server Hello done}
+\put(0.3,1.8){7.3286}
+\put(8.2,1.8){Client Key, Change Cipher, Encrypted}
+\put(0.3,1){7.3363}
+\put(8.2,1){Encrypted, Change Cipher, Encrypted}
+\put(0,0.55){\includegraphics[width=\textwidth]{img_diagram2} }
+\end{picture}
 
 \section{Image cachée}
 

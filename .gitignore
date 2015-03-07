@@ -7,5 +7,6 @@ build/
 *.dvi
 *.log
 *.pdf
+!img_*.pdf
 *.synctex.gz
 *.toc
