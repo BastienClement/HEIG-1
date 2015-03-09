@@ -1,0 +1,91 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{listings}
+%\usepackage{showframe} % layout debug
+
+\topmargin=-10mm
+\headsep=5mm
+\headheight=10mm
+
+\linespread{1.0}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\lstset{
+	tabsize=4,
+	frame=single,
+	language=Pascal
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doctitle { ASD1-D \\ Labo 1: Évaluation de polynômes }
+\author{Bastien Clément \and Christophe Peretti}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doctitle }
+\title{\doctitle }
+
+\begin{document}
+
+\maketitle
+
+\section{Partie théorique}
+
+\subsection{Algorithme 1: $ P(X_{0}) = \sum\limits_{i=0}^{n} a_{i} \cdot X_{0}^{i} $}
+
+Ce premier algorithme correspond à la transcription directe et naïve de la somme des termes correspondants à chaque degré pour calculer la valeur du polynôme.
+
+\begin{lstlisting}
+var value = 0
+for i = 0 to n do
+	term = a[i]
+	for j = 0 until i do
+		term = term * x
+	end
+	value = value + term
+end
+\end{lstlisting}
+
+\subsection{Algorithme 2: Optimisation $ X_{0}^{i+1} = X_{0}^{i+1} \cdot X_{0} $}
+
+Une optimisation évidente du premier algorithme consiste à ne pas recommencer l'exponentiation de la variable x de 0 à chaque terme. Mémoriser la puissance précédente et la multiplier une fois de plus est suffisant.
+
+\begin{lstlisting}
+var value = 0
+var term = 1
+for i = 0 to n do
+	value = value + ( a[i] * term )
+	term = term * x
+end
+\end{lstlisting}
+
+\subsection{Algorithme 3: $ P(X_{0}) = a_{0} + X_{0} \cdot (a_{1} + X_{0} \cdot (a_{2} + \cdots + X_{0} \cdot (a_{n-1} + X_{0} \cdot a_{n}))) $}
+
+\begin{lstlisting}
+var value = a[n]
+for i = n-1 to 0 do
+	value = (value * x) + a[i]
+end
+\end{lstlisting}
+
+\subsection{Comparaisons}
+
+\end{document}
