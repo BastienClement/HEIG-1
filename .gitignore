@@ -10,3 +10,4 @@ build/
 !img_*.pdf
 *.synctex.gz
 *.toc
+*.bak
