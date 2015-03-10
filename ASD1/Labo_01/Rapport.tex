@@ -138,23 +138,23 @@ De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucl
 \subsection{Comparaison}
 
 \begin{center}
-\begin{tabular}{ | c | c | c | c | c | }
+\begin{tabular}{ | c | c | c | c | c | c | }
 	\hline  
-	 & Itérations & Adds/Iter & Mults/Iter & Complexité \\
+	 & Itérations & Adds/Iter & Mults/Iter & Opérations & Complexité \\
 	\hline                       
-	Algo. 1 & $n$ & 1 & $n/2$ & $O(n^{2})$ \\
-	Algo. 2 & $n$ & 1 & 2 & $O(n)$ \\
-	Algo. 3 & $n-1$ & 1 & 1 & $O(n)$ \\
+	Algo. 1 & $n+1$ & 1 & $(n+1)/2$ & $\frac{1}{2}(n^{2}+3n+2)$ & $O(n^{2})$ \\
+	Algo. 2 & $n+1$ & 1 & 2 & $3n+3$ & $O(n)$ \\
+	Algo. 3 & $n$ & 1 & 1 & $2n$ & $O(n)$ \\
 	\hline  
 \end{tabular}
 \end{center}
 
 \vspace{1em}
 
-L'algorithme 1 correspondant à l'implémentation naïve apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que les deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
+L'algorithme 1, correspondant à l'implémentation naïve, apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que celle des deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
 
-Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donnée la nécessité de traiter les $n$ coefficients, nous pouvons considérer les deux méthodes comme efficace pour évaluer un polynôme.
+Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donné la nécessité de traiter chacun des $n$ coefficients, nous pouvons considérer ces deux méthodes comme efficaces pour évaluer un polynôme.
 
-Une observation plus attentive permet cependant d'observer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe plus rapide à exécuter.
+Une observation plus attentive permet cependant de remarquer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe toujours plus rapide à exécuter.
 
 \end{document}
