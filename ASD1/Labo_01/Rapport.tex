@@ -150,6 +150,8 @@ De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucl
 
 \vspace{1em}
 
+
+
 L'algorithme 1, correspondant à l'implémentation naïve, apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que celle des deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
 
 Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donné la nécessité de traiter chacun des $n$ coefficients, nous pouvons considérer ces deux méthodes comme efficaces pour évaluer un polynôme.
@@ -159,5 +161,50 @@ Une observation plus attentive permet cependant de remarquer que l'algorithme 3 
 \section{Partie pratique}
 
 La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus qu'à implémenter les trois algorithmes d'évaluation.
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | }
+	\hline  
+	N & Adds & Mults & Total \\
+	\hline                       
+	10 & 11 & 55 & 66 \\
+	100 & 101 & 5050 & 5151 \\
+	1000 & 1001 & 500500 & 501501 \\
+	10000 & 10001 & 50005000 & 50015001 \\
+	100000 & 100001 & 5000050000 & 5000150001 \\
+	\hline  
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{ | c | c | c | c | }
+	\hline  
+	N & Adds & Mults & Total \\
+	\hline                       
+	10 & 11 & 22 & 33 \\
+	100 & 101 & 202 & 303 \\
+	1000 & 1001 & 2002 & 3003 \\
+	10000 & 10001 & 20002 & 30003 \\
+	100000 & 100001 & 200002 & 300003 \\
+	\hline  
+\end{tabular}
+\end{center}
+\begin{center}
+\begin{tabular}{ | c | c | c | c | }
+	\hline  
+	N & Adds & Mults & Total \\
+	\hline                       
+	10 & 10 & 10 & 20 \\
+	100 & 100 & 100 & 200 \\
+	1000 & 1000 & 1000 & 2000 \\
+	10000 & 10000 & 10000 & 20000 \\
+	100000 & 100000 & 100000 & 200000 \\
+	\hline  
+\end{tabular}
+\end{center}
+\vspace{1em}
+
+\begin{center}
+\includegraphics[width=13cm]{img_graph}
+\end{center}
 
 \end{document}
