@@ -97,7 +97,7 @@ end
 
 \textbf{Complexité}
 
-La boucle extérieure est évaluée $n$ fois. La boucle intérieure est évaluée $i$ fois, avec $i = n-1$ dans le cas le plus défavorable. Nous avons donc une complexité en $O(n^{2})$.
+La boucle extérieure est évaluée $n+1$ fois. La boucle intérieure est évaluée $i$ fois, avec $i = n$ dans le cas le plus défavorable. Nous avons donc une complexité en $O(n^{2})$.
 
 \subsection{Algorithme 2: Optimisation $ (X_{0})^{i+1} = (X_{0})^{i} \cdot X_{0} $}
 
@@ -142,7 +142,7 @@ De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucl
 	\hline  
 	 & Itérations & Adds/Iter & Mults/Iter & Opérations & Complexité \\
 	\hline                       
-	Algo. 1 & $n+1$ & 1 & $(n+1)/2$ & $\frac{1}{2}(n^{2}+3n+2)$ & $O(n^{2})$ \\
+	Algo. 1 & $n+1$ & 1 & $n/2$ & $\frac{1}{2}(n^{2}+3n+2)$ & $O(n^{2})$ \\
 	Algo. 2 & $n+1$ & 1 & 2 & $3n+3$ & $O(n)$ \\
 	Algo. 3 & $n$ & 1 & 1 & $2n$ & $O(n)$ \\
 	\hline  
