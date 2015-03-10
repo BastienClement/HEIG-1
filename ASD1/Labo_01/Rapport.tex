@@ -1,0 +1,160 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{listings}
+\usepackage{amsmath}
+%\usepackage{showframe} % layout debug
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\lstset{
+	tabsize=4,
+	frame=single,
+	language=Pascal
+}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { ASD1-D }
+\def \doctitle {Labo 1 : Évaluation de polynômes }
+\author{Bastien Clément \and Christophe Peretti}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1cm}
+
+\section{Introduction}
+
+L'objectif de ce laboratoire est d'implémenter trois algorithmes permettant de calculer la valeur d'un polynôme $P$ de degré $n$, évalué en un point $X_{0}$:
+
+\[
+	P(X_{0})
+		= a_{n} \cdot (X_{0})^{n}
+		+ a_{n-1} \cdot (X_{0})^{n-1}
+		+ \cdots
+		+ a_{2} \cdot (X_{0})^{2}
+		+ a_{1} \cdot X_{0}
+		+ a_{0}
+\]
+
+Nous nous intéresserons à l'évolution des performances en fonction du degré du polynôme.
+
+Il ne sera probablement pas possible de faire mieux que $O(n)$ puisqu'il est nécessaire d'utiliser les $n$ coefficients et le terme constant pour évaluer entièrement la somme.
+
+La principale difficulté sera ensuite d'évaluer rapidement $(X_{0})^{i}$ pour chaque terme. Dans le cadre de ce laboratoire, nous nous servirons au départ uniquement de la méthode naïve:
+
+\[
+	(X_{0})^{i} = \underbrace{X_{0} \cdot X_{0} \cdot \ldots \cdot X_{0} \cdot X_{0}}_{i \text{ fois}}
+\]
+
+\pagebreak
+
+\section{Partie théorique}
+
+\subsection{Algorithme 1: $ P(X_{0}) = \sum\limits_{i=0}^{n} a_{i} \cdot (X_{0})^{i} $}
+
+Ce premier algorithme correspond à la transcription directe de la somme ci-dessus. Comme mentionné dans l'introduction, l'exponentiation de $X_{0}$ est calculée de façon naïve.
+
+\vspace{1em} \begin{lstlisting}
+value = 0
+for i = 0 to n do
+	term = a[i]
+	for j = 0 until i do
+		term = term * x
+	end
+	value = value + term
+end
+\end{lstlisting}
+
+\textbf{Complexité}
+
+La boucle extérieure est évaluée $n+1$ fois. La boucle intérieure est évaluée $i$ fois, avec $i = n$ dans le cas le plus défavorable. Nous avons donc une complexité en $O(n^{2})$.
+
+\subsection{Algorithme 2: Optimisation $ (X_{0})^{i+1} = (X_{0})^{i} \cdot X_{0} $}
+
+Une optimisation évidente du premier algorithme consiste à ne pas réitérer entièrement l'exponentiation de la variable $x$ à chaque terme mais de réutiliser la puissance précédente et de la multiplier une fois de plus à chaque itération.
+
+\vspace{1em} \begin{lstlisting}
+value = 0
+power = 1
+for i = 0 to n do
+	value = value + ( a[i] * power )
+	power = power * x
+end
+\end{lstlisting}
+
+\textbf{Complexité}
+
+Ici, la boucle intérieure a été retirée. Puisque la boucle effectue $n$ itérations et que son corps ne contient plus que des opérations à temps constant, nous avons une complexité en $O(n)$.
+
+\subsection{Algorithme 3: $ P(X_{0}) = a_{0} + X_{0} \cdot (a_{1} + X_{0} \cdot (a_{2} + \cdots + X_{0} \cdot (a_{n-1} + X_{0} \cdot a_{n}))) $}
+
+Ce dernier algorithme est basé sur la méthode de Ruffini-Horner, sensée être une méthode d'évaluation plus efficace que les précédentes.
+
+La transcription de cette formule en pseudo-code est évidente si l'on respecte l'ordre de priorité des opérations. En effet, même s'il est tentant de commencer par l'indice $n = 0$, il est faux d'évaluer $a_{0} + X_{0}$ en premier si l'on souhaite éviter une implémentation récursive. Il est beaucoup plus simple de commencer à partir du groupe intérieur $(a_{n-1} + X_{0} \cdot a_{n})$ puis de remonter. 
+
+Afin de simplifier encore l'implémentation, il est même possible d'extraire $a_{n}$ de la boucle et de commencer à partir de $n-1$.
+
+\vspace{1em} \begin{lstlisting}
+value = a[n]
+for i = n-1 to 0 do
+	value = (value * x) + a[i]
+end
+\end{lstlisting}
+
+\textbf{Complexité}
+
+De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucle effectuant $n-1$ itérations et dont le corps n'est composé que d'opérations à temps constant. Il s'agit donc aussi d'une complexité en $O(n)$.
+
+\subsection{Comparaison}
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | c | }
+	\hline  
+	 & Itérations & Adds/Iter & Mults/Iter & Opérations & Complexité \\
+	\hline                       
+	Algo. 1 & $n+1$ & 1 & $n/2$ & $\frac{1}{2}(n^{2}+3n+2)$ & $O(n^{2})$ \\
+	Algo. 2 & $n+1$ & 1 & 2 & $3n+3$ & $O(n)$ \\
+	Algo. 3 & $n$ & 1 & 1 & $2n$ & $O(n)$ \\
+	\hline  
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+L'algorithme 1, correspondant à l'implémentation naïve, apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que celle des deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
+
+Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donné la nécessité de traiter chacun des $n$ coefficients, nous pouvons considérer ces deux méthodes comme efficaces pour évaluer un polynôme.
+
+Une observation plus attentive permet cependant de remarquer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe toujours plus rapide à exécuter.
+
+\end{document}
