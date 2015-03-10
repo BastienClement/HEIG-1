@@ -50,7 +50,7 @@
 \begin{document}
 
 \maketitle
-\vspace{1cm}
+%\vspace{1cm}
 
 \section{Introduction}
 
@@ -76,7 +76,7 @@ La principale difficulté sera ensuite d'évaluer rapidement $(X_{0})^{i}$ pour 
 	(X_{0})^{i} = \underbrace{X_{0} \cdot X_{0} \cdot \ldots \cdot X_{0} \cdot X_{0}}_{i \text{ fois}}
 \]
 
-\pagebreak
+%\pagebreak
 
 \section{Partie théorique}
 
@@ -114,7 +114,7 @@ end
 
 \textbf{Complexité}
 
-Ici, la boucle intérieure a été retirée. Puisque la boucle effectue $n$ itérations et que son corps ne contient plus que des opérations à temps constant, nous avons une complexité en $O(n)$.
+Ici, la boucle intérieure a été retirée. Puisque la boucle effectue $n$ itérations et que son corps ne contient plus que des opérations en temps constant, nous avons une complexité en $O(n)$.
 
 \subsection{Algorithme 3: $ P(X_{0}) = a_{0} + X_{0} \cdot (a_{1} + X_{0} \cdot (a_{2} + \cdots + X_{0} \cdot (a_{n-1} + X_{0} \cdot a_{n}))) $}
 
@@ -156,5 +156,9 @@ L'algorithme 1, correspondant à l'implémentation naïve, apparait immédiateme
 Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donné la nécessité de traiter chacun des $n$ coefficients, nous pouvons considérer ces deux méthodes comme efficaces pour évaluer un polynôme.
 
 Une observation plus attentive permet cependant de remarquer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe toujours plus rapide à exécuter.
+
+\section{Partie pratique}
+
+La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus qu'à implémenter les trois algorithmes d'évaluation.
 
 \end{document}
