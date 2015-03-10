@@ -1,10 +1,9 @@
 /*
  * Labo: 1
  * File: Labo1.cpp
- * Author: fatemeh.borran
+ * Author: Christophe Peretti et Bastien Clément
  * Description: Evaluation of the polynoms using three different algorithms.
- * Created on February 11, 2015, 1:59 PM
- * Modified by olivier.cuisenaire Feb 20, 2015.
+ * Created on : 06.03.2015
  */
 #include <cstdlib>
 #include <iostream>
