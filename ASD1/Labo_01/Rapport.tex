@@ -21,7 +21,8 @@
 \headsep 5mm
 \headheight 10mm
 
-\linespread{1.0}
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
 
 \setlength\parindent{0pt}
 \setlength{\unitlength}{1cm}
@@ -32,6 +33,7 @@
 	frame=single,
 	language=Pascal
 }
+
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -74,6 +76,8 @@ La principale difficulté sera ensuite d'évaluer rapidement $(X_{0})^{i}$ pour 
 	(X_{0})^{i} = \underbrace{X_{0} \cdot X_{0} \cdot \ldots \cdot X_{0} \cdot X_{0}}_{i \text{ fois}}
 \]
 
+\pagebreak
+
 \section{Partie théorique}
 
 \subsection{Algorithme 1: $ P(X_{0}) = \sum\limits_{i=0}^{n} a_{i} \cdot (X_{0})^{i} $}
@@ -91,6 +95,10 @@ for i = 0 to n do
 end
 \end{lstlisting}
 
+\textbf{Complexité}
+
+La boucle extérieure est évaluée $n$ fois. La boucle intérieure est évaluée $i$ fois, avec $i = n-1$ dans le cas le plus défavorable. Nous avons donc une complexité en $O(n^{2})$.
+
 \subsection{Algorithme 2: Optimisation $ (X_{0})^{i+1} = (X_{0})^{i} \cdot X_{0} $}
 
 Une optimisation évidente du premier algorithme consiste à ne pas réitérer entièrement l'exponentiation de la variable $x$ à chaque terme mais de réutiliser la puissance précédente et de la multiplier une fois de plus à chaque itération.
@@ -103,6 +111,10 @@ for i = 0 to n do
 	power = power * x
 end
 \end{lstlisting}
+
+\textbf{Complexité}
+
+Ici, la boucle intérieure a été retirée. Puisque la boucle effectue $n$ itérations et que son corps ne contient plus que des opérations à temps constant, nous avons une complexité en $O(n)$.
 
 \subsection{Algorithme 3: $ P(X_{0}) = a_{0} + X_{0} \cdot (a_{1} + X_{0} \cdot (a_{2} + \cdots + X_{0} \cdot (a_{n-1} + X_{0} \cdot a_{n}))) $}
 
@@ -119,6 +131,30 @@ for i = n-1 to 0 do
 end
 \end{lstlisting}
 
+\textbf{Complexité}
+
+De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucle effectuant $n-1$ itérations et dont le corps n'est composé que d'opérations à temps constant. Il s'agit donc aussi d'une complexité en $O(n)$.
+
 \subsection{Comparaison}
+
+\begin{center}
+\begin{tabular}{ | c | c | c | c | c | }
+	\hline  
+	 & Itérations & Adds/Iter & Mults/Iter & Complexité \\
+	\hline                       
+	Algo. 1 & $n$ & 1 & $n/2$ & $O(n^{2})$ \\
+	Algo. 2 & $n$ & 1 & 2 & $O(n)$ \\
+	Algo. 3 & $n-1$ & 1 & 1 & $O(n)$ \\
+	\hline  
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+L'algorithme 1 correspondant à l'implémentation naïve apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que les deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
+
+Puisqu'il semble improbable de pouvoir trouver une méthode de complexité inférieure à $O(n)$ étant donnée la nécessité de traiter les $n$ coefficients, nous pouvons considérer les deux méthodes comme efficace pour évaluer un polynôme.
+
+Une observation plus attentive permet cependant d'observer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe plus rapide à exécuter.
 
 \end{document}
