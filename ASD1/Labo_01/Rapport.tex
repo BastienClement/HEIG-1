@@ -16,6 +16,9 @@
 \usepackage{amsmath}
 %\usepackage{showframe} % layout debug
 
+\usepackage{float}
+\restylefloat{figure}
+
 \topmargin -10mm
 \headsep 5mm
 \headheight 10mm
@@ -49,7 +52,7 @@
 \begin{document}
 
 \maketitle
-%\vspace{1cm}
+\vspace{1em}
 
 \section{Introduction}
 
@@ -137,20 +140,16 @@ De façon similaire à l'algorithme précédent, nous n'avons qu'une seule boucl
 \subsection{Comparaison}
 
 \begin{center}
-\begin{tabular}{ | c | c | c | c | c | c | }
-	\hline  
+\begin{tabular}{ c | c | c | c | c | c }
 	 & Itérations & Adds/Iter & Mults/Iter & Opérations & Complexité \\
 	\hline                       
 	Algo. 1 & $n+1$ & 1 & $n/2$ & $\frac{1}{2}(n^{2}+3n+2)$ & $O(n^{2})$ \\
 	Algo. 2 & $n+1$ & 1 & 2 & $3n+3$ & $O(n)$ \\
 	Algo. 3 & $n$ & 1 & 1 & $2n$ & $O(n)$ \\
-	\hline  
 \end{tabular}
 \end{center}
 
 \vspace{1em}
-
-
 
 L'algorithme 1, correspondant à l'implémentation naïve, apparait immédiatement comme un mauvais candidat avec une complexité asymptotique plus importante que celle des deux autres. Les algorithmes 2 et 3 sont en revanche de même complexité asymptotique, ce qui signifie que le nombre d'opérations à effectuer croît de façon similaire avec le degré du polynôme.
 
@@ -158,65 +157,95 @@ Puisqu'il semble improbable de pouvoir trouver une méthode de complexité infé
 
 Une observation plus attentive permet cependant de remarquer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe toujours plus rapide à exécuter.
 
-\pagebreak
+\textbf{Optimisation de l'algorithme 2}
+
+Après réalisation de la partie pratique, nous nous sommes rendu compte qu'il était possible d'initialiser \texttt{value} à \texttt{a[0]}, \texttt{power} à \texttt{x} et de commencer la boucle à partir de \texttt{1} plutôt que \texttt{0}. De cette façon, nous n'effectuons plus que $n$ itérations au lieu de $n+1$, réduisant ainsi le nombre d'opération effectuées à $3n$.
+
+En pratique, lorsque $n$ est grand, ce changement est insignifiant, nous n'avons donc pas actualisé nos résultats.
+
+%\pagebreak
 
 \section{Partie pratique}
 
-La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus qu'à implémenter les trois algorithmes d'évaluation.
+La plus gros du code de la partie pratique étant déjà fourni, il ne reste plus qu'à implémenter les trois algorithmes d'évaluation et à s'assurer de compter le nombre d'additions et de multiplications correctement. Le code source C++ est disponible en annexe dans le fichier ZIP.
 
-\begin{figure}[h]
-\caption{Résultats pour l'algorithme 1}
-\centering
-\begin{tabular}{ | c | c | c | c | }
-	\hline  
-	N & Adds & Mults & Total \\
+Nous avons eu besoin de modifier le type de donnée de \texttt{mults} et \texttt{adds} pour obtenir les résultats de l'algorithme 1. Définis initialement comme des valeurs \texttt{int} (32 bits), leur plage n'était pas suffisante pour encoder le nombre colossal d'opérations effectuées. Nous avons utilisé des \texttt{long long int} (64 bits) à la place.
+
+\subsection{Résultats pour l'algorithme 1}
+
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+	$n$ & Adds & Mults & Total \\
 	\hline                       
 	10 & 11 & 55 & 66 \\
 	100 & 101 & 5050 & 5151 \\
 	1000 & 1001 & 500500 & 501501 \\
 	10000 & 10001 & 50005000 & 50015001 \\
 	100000 & 100001 & 5000050000 & 5000150001 \\
-	\hline  
 \end{tabular}
-\end{figure}
+\end{center}
 
-\begin{figure}[h]
-\caption{Résultats pour l'algorithme 2}
-\centering
-\begin{tabular}{ | c | c | c | c | }
-	\hline  
-	N & Adds & Mults & Total \\
+\subsection{Résultats pour l'algorithme 2}
+
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+	$n$ & Adds & Mults & Total \\
 	\hline                       
 	10 & 11 & 22 & 33 \\
 	100 & 101 & 202 & 303 \\
 	1000 & 1001 & 2002 & 3003 \\
 	10000 & 10001 & 20002 & 30003 \\
 	100000 & 100001 & 200002 & 300003 \\
-	\hline  
 \end{tabular}
-\end{figure}
+\end{center}
 
-\begin{figure}
-\caption{Résultats pour l'algorithme 3}
-\centering
-\begin{tabular}{ | c | c | c | c | }
-	\hline
-	N & Adds & Mults & Total \\
+\subsection{Résultats pour l'algorithme 3}
+
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+	$n$ & Adds & Mults & Total \\
 	\hline                       
 	10 & 10 & 10 & 20 \\
 	100 & 100 & 100 & 200 \\
 	1000 & 1000 & 1000 & 2000 \\
 	10000 & 10000 & 10000 & 20000 \\
 	100000 & 100000 & 100000 & 200000 \\
-	\hline  
 \end{tabular}
-\end{figure}
+\end{center}
 
 
-\begin{figure}
-\caption{Nombre d'opération des 3 algorithmes en fonction de N}
-\centering
-\includegraphics[width=13cm]{img_graph}
-\end{figure}
+\subsection{Comparaison}
+
+\begin{center}
+\begin{tabular}{ c | c | c | c }
+	$n$ & Algo. 1 & Algo. 2 & Algo. 3 \\
+	\hline                       
+	10 & 66 & 33 & 20 \\
+	100 & 5151 & 303 & 200 \\
+	1000 & 501501 & 3003 & 2000 \\
+	10000 & 50015001 & 30003 & 20000 \\
+	100000 & 5000150001 & 300003 & 200000 \\
+	\hline  
+	$n$ & $\frac{1}{2}(n^{2}+3n+2)$ & $3n+3$ & $2n$ \\                     
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+Les valeurs observées par expérimentation correspondent parfaitement aux formules obtenues par analyse du pseudo-code de départ.
+
+L'algorithme 1 est effectivement considérablement plus lent que les deux autres (complexité en $O(n^{2})$ plutôt que $O(n)$). L'algorithme 2 et 3 ne diffèrent que d'un facteur et une constante, ce qui est en pratique largement moins significatif.
+
+\subsection{Représentation graphique}
+
+\begin{center}
+\includegraphics[width=10cm]{img_graph}
+\end{center}
+
+La représentation graphique des résultats montre clairement la différence de croissance du nombre d'opérations de chaque algorithmes. 
+
+Puisque nous utilisons une échelle logarithmique, l'algorithme 2 et 3 ont une pente identique. L'écart entre les deux droites est directement lié au facteur s'appliquant à la variable $n$. Le terme constant de l'algorithme 2 est totalement négligeable dès que $n$ augmente.
+
+La pente de la droite de l'algorithme 1 est plus importante, illustrant la croissance plus rapide du nombre d'opérations lorsque le degré du polynôme augmente.
 
 \end{document}
