@@ -158,11 +158,15 @@ Puisqu'il semble improbable de pouvoir trouver une méthode de complexité infé
 
 Une observation plus attentive permet cependant de remarquer que l'algorithme 3 effectue toujours une itération de moins que l'algorithme 2 et qu'il n'effectue qu'une seule multiplication par itération au lieu de 2. Dans la pratique, il sera donc en principe toujours plus rapide à exécuter.
 
+\pagebreak
+
 \section{Partie pratique}
 
 La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus qu'à implémenter les trois algorithmes d'évaluation.
 
-\begin{center}
+\begin{figure}[h]
+\caption{Résultats pour l'algorithme 1}
+\centering
 \begin{tabular}{ | c | c | c | c | }
 	\hline  
 	N & Adds & Mults & Total \\
@@ -174,8 +178,11 @@ La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus q
 	100000 & 100001 & 5000050000 & 5000150001 \\
 	\hline  
 \end{tabular}
-\end{center}
-\begin{center}
+\end{figure}
+
+\begin{figure}[h]
+\caption{Résultats pour l'algorithme 2}
+\centering
 \begin{tabular}{ | c | c | c | c | }
 	\hline  
 	N & Adds & Mults & Total \\
@@ -187,10 +194,13 @@ La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus q
 	100000 & 100001 & 200002 & 300003 \\
 	\hline  
 \end{tabular}
-\end{center}
-\begin{center}
+\end{figure}
+
+\begin{figure}
+\caption{Résultats pour l'algorithme 3}
+\centering
 \begin{tabular}{ | c | c | c | c | }
-	\hline  
+	\hline
 	N & Adds & Mults & Total \\
 	\hline                       
 	10 & 10 & 10 & 20 \\
@@ -200,11 +210,13 @@ La plus gros du code de la partie pratique est déjà fourni. Il ne reste plus q
 	100000 & 100000 & 100000 & 200000 \\
 	\hline  
 \end{tabular}
-\end{center}
-\vspace{1em}
+\end{figure}
 
-\begin{center}
+
+\begin{figure}
+\caption{Nombre d'opération des 3 algorithmes en fonction de N}
+\centering
 \includegraphics[width=13cm]{img_graph}
-\end{center}
+\end{figure}
 
 \end{document}
