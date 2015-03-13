@@ -65,7 +65,7 @@ Les câbles UTP (\textit{Unshielded Twisted Pair}) utilisés par Ethernet existe
 
 \subsection{Interface des équipements}
 
-Afin de correspondre aux câbles standards (câbles droits), les interfaces des équipements réseaux sont inversées par rapport aux interfaces des terminaux (ordinateurs et routeurs).
+Afin de correspondre aux câbles standards (câbles droits), les interfaces des équipements réseaux (switches et hubs) sont inversées par rapport aux interfaces des terminaux (ordinateurs et routeurs).
 
 \subsection{Matrice de correspondance}
 
@@ -168,6 +168,24 @@ Chaque paquet contient un numéro de transaction permettant à plusieurs négoci
 
 Nous considérons avoir atteint les objectifs de ce laboratoire.
 
+\pagebreak
+
+\textit{Tout comme les exercices auxquels elle se rapporte, cette page est optionnelle!}
+
 \section{Exercices avancés}
+
+\subsection{Pourquoi câbles droits et croisés}
+
+La raison de l'existence de deux types de câbles pour le réseau Ethernet est historique.
+
+Avant l'arrivée des réseaux d'ordinateurs, les bureaux étaient généralement connectés au réseau téléphonique. Les câbles utilisés par Ethernet sont des paires torsadées similaires à celles utilisée pour le téléphone. Ainsi, lorsqu'il a fallu réaliser les premiers réseaux informatique, l'utilisation de ce câblage déjà existant semblait une excellente idée.
+
+Cependant le réseau téléphonique utilise les quatre canaux de façon indépendante, les câbles étaient donc droits. Puisque Ethernet se sert de deux paires, une pour l'émission et l'autre pour la réception, il est devenu nécessaire d'inverser l'interface d'un des deux appareils.
+
+La configuration standard était de connecter les différentes machines ainsi qu'un routeur à un hub. C'est pourquoi routeurs et PC ont une interface droite et ne peuvent en principe pas être directement connectés. À l'inverse, les équipements intermédiaire disposent d'une interface croisée permettant leur connexion directe avec un PC.
+
+Lorsque la connexion de deux hubs l'un à l'autre devient nécessaire, il n'est plus possible de se servir de câbles droits puisque leurs interfaces sont identiques, il est alors nécessaire d'utiliser un câble croisé. La connexion d'un PC directement à un autre PC, bien que plus rare, nécessite un câble croisé pour la même raison.
+
+\subsection{Négociation de la vitesse des interfaces}
 
 \end{document}
