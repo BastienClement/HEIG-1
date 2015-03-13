@@ -1,0 +1,123 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{amsmath}
+%\usepackage{showframe} % layout debug
+
+\usepackage{float}
+\restylefloat{figure}
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { TIB1-B }
+\def \doctitle {Labo : Mise en place du réseau LAN \& DHCP}
+\author{Bastien Clément \and Christophe Peretti}
+
+\renewcommand{\thesection}{Objectif \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+\section{Mise en place d'un réseau LAN}
+
+L'objectif de cette première partie du laboratoire est de mettre en place un réseau LAN entre notre ordinateur et le réseau de l'école afin d'obtenir une connexion à internet et être en mesure d'effectuer un \textit{ping} sur le serveur mail de Google. Nous découvrirons ainsi les différents types de câbles utilisés pour relier les appareils réseau entre eux et établir un réseau.
+
+\subsection{Type de cable}
+
+Les câbles UTP (\textit{Unshielded Twisted Pair}) utilisés par Ethernet existent en deux variantes:
+
+\begin{enumerate}
+	\item Les \textbf{câbles droits}: le câblage aux deux extrémités de câble est identique.
+	\item Les \textbf{câbles croisés}: disposent d'un câblage inversé entre les deux connecteurs.
+\end{enumerate}
+
+\subsection{Interface des équipements}
+
+Afin de correspondre aux câbles standards (câbles droits), les interfaces des équipements réseaux sont inversées par rapport aux interfaces des terminaux (ordinateurs et routeurs).
+
+\subsection{Matrice de correspondance}
+
+Il est nécessaire d'utiliser des câbles croisés pour connecter des appareils de même catégorie:
+
+\begin{enumerate}
+	\item PC-PC / PC-Routeur / Routeur-Routeur
+	\item Switch-Switch / Switch-Hub / Hub-Hub
+\end{enumerate}
+
+À l'inverse des câbles droits sont utilisés pour connecter des appareils de catégorie différente.
+
+\begin{center}
+\begin{tabular}{c|ccc}
+	& \textbf{PC} & \textbf{Switch} & \textbf{Routeur} \\
+	\hline
+	\textbf{PC}      & Croisé & Droit  & Croisé \\
+	\textbf{Switch}  & Droit  & Croisé & Droit  \\
+	\textbf{Routeur} & Croisé & Droit  & Croisé \\
+\end{tabular}
+\end{center}
+
+\subsection{Comment vérifier l'état d'une interface sur un switch?}
+
+Cette question et la suivante ne sont pas très claires. La réponse la plus probablement attendue est l'observation du voyant d'activité sur le switch. En plus d'indiquer l'activité sur le lien, le voyant indique également la vitesse de connexion utilisée par l'intermédiaire d'un code couleur.
+
+\subsection{Comment vérifier l'état d'une interface en utilisant \texttt{ifconfig}?}
+
+Il n'est pas clair, si cette question concerne l'état d'activation de la carte réseau, l'état physique de connexion ou le fait que l'interface soit entièrement configurée et utilisable.
+
+L'activation ou désactivation de la carte réseau peux se faire par l'intermédiaire des commandes \texttt{ifconfig eth0 up} et \texttt{ifconfig eth0 down}. Cet état est indiqué dans la sortie de \texttt{ifconfig} par les mots-clés \texttt{UP} et \texttt{DOWN}.
+
+Nous n'avons observé aucune différence dans la sortie de \texttt{ifconfig} en fonction de l'état de connexion physique de l'ordinateur au réseau. Les informations affichées sont les même, que l'ordinateur soit connecté mais non configuré ou tout simplement débranché.
+
+Finalement, nous pouvons déterminer que la connexion est probablement utilisable quand \texttt{ifconfig} indique également les informations de configuration: adresse IP, masque, passerelle, etc.
+
+\subsection{Comment obtenir plus d'information sur la commande \texttt{ifconfig} ?}
+
+Comme pour toutes les commandes Linux: \texttt{man ifconfig}.
+
+\subsection{Explication des statistiques fournies par \texttt{ping} à la fin du test}
+
+Toutes ces informations concernent le \textit{rtt} du paquet envoyé: le \textit{round trip time}, c'est à dire le temps nécessaire à la transmission du message à la machine distante et à la réception de la confirmation. C'est à dire un aller-retour.
+
+Le reste est plutôt explicite:
+\begin{enumerate}
+	\item \textbf{min}: le temps minimum observé parmi tout les paquets envoyés
+	\item \textbf{avg}: le temps moyen
+	\item \textbf{max}: le temps maximal
+\end{enumerate}
+
+\section{DHCP}
+\section{Exercices avancés}
+
+\end{document}
