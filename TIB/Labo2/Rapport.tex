@@ -90,17 +90,19 @@ Il est nécessaire d'utiliser des câbles croisés pour connecter des appareils 
 
 \subsection{Comment vérifier l'état d'une interface sur un switch?}
 
-Cette question et la suivante ne sont pas très claires. La réponse la plus probablement attendue est l'observation du voyant d'activité sur le switch. En plus d'indiquer l'activité sur le lien, le voyant indique également la vitesse de connexion utilisée par l'intermédiaire d'un code couleur.
+Le voyant d'activité situé sur le switch indique l'état physique de la connexion (câble branché ou débranché) et l'activité réseau. Il indique également la vitesse de la connexion par l'intermédiaire d'un code couleur.
+
+Dans notre as, un voyant orange semble indiquer une connexion 100 Mbits/s alors qu'un voyant vert indique une connexion 1 Gbit/s.
 
 \subsection{Comment vérifier l'état d'une interface en utilisant \texttt{ifconfig}?}
 
-Il n'est pas clair, si cette question concerne l'état d'activation de la carte réseau, l'état physique de connexion ou le fait que l'interface soit entièrement configurée et utilisable.
+Il n'est pas clair, si cette question concerne l'état d'activation de la carte réseau elle-même, l'état physique de connexion (câble branché ou débranché) ou le fait que l'interface soit entièrement configurée et utilisable.
 
-L'activation ou désactivation de la carte réseau peux se faire par l'intermédiaire des commandes \texttt{ifconfig eth0 up} et \texttt{ifconfig eth0 down}. Cet état est indiqué dans la sortie de \texttt{ifconfig} par les mots-clés \texttt{UP} et \texttt{DOWN}.
+L'activation ou désactivation de la carte réseau peut se faire par l'intermédiaire des commandes \texttt{ifconfig eth0 up} et \texttt{ifconfig eth0 down}. Cet état est indiqué dans la sortie de \texttt{ifconfig} par les mots-clés \texttt{UP} et \texttt{DOWN}.
 
-Nous n'avons observé aucune différence dans la sortie de \texttt{ifconfig} en fonction de l'état de connexion physique de l'ordinateur au réseau. Les informations affichées sont les même, que l'ordinateur soit connecté mais non configuré ou tout simplement débranché.
+Nous n'avons observé aucune différence dans la sortie de \texttt{ifconfig} en fonction de l'état de connexion du câble réseau.
 
-Finalement, nous pouvons déterminer que la connexion est probablement utilisable quand \texttt{ifconfig} indique également les informations de configuration: adresse IP, masque, passerelle, etc.
+Finalement, nous pouvons déterminer que la connexion est probablement utilisable quand la sortie de la commande \texttt{ifconfig} indique également les informations de configuration: adresse IP, masque, passerelle, etc. Dans le cas d'une connexion configurée manuellement plutôt que par l'intermédiaire de DHCP, ceci peut ne pas être le cas.
 
 \subsection{Comment obtenir plus d'information sur la commande \texttt{ifconfig} ?}
 
@@ -108,16 +110,64 @@ Comme pour toutes les commandes Linux: \texttt{man ifconfig}.
 
 \subsection{Explication des statistiques fournies par \texttt{ping} à la fin du test}
 
-Toutes ces informations concernent le \textit{rtt} du paquet envoyé: le \textit{round trip time}, c'est à dire le temps nécessaire à la transmission du message à la machine distante et à la réception de la confirmation. C'est à dire un aller-retour.
+Toutes ces informations concernent le \textit{rtt} (\textit{round-trip time}), c'est à dire le temps nécessaire à la transmission du message à la machine distante et à la réception de la confirmation. Correspondant au délai d'un aller-retour.
 
-Le reste est plutôt explicite:
-\begin{enumerate}
+Le reste est plutôt évident:
+
+\begin{itemize}
 	\item \textbf{min}: le temps minimum observé parmi tout les paquets envoyés
 	\item \textbf{avg}: le temps moyen
 	\item \textbf{max}: le temps maximal
-\end{enumerate}
+\end{itemize}
 
 \section{DHCP}
+
+L'objectif de cette deuxième moitié de laboratoire et de découvrir et comprendre le fonctionnement du protocole DHCP.
+
+\subsection{Description}
+
+
+
+Généralement, avant de pouvoir communiquer sur le réseau et d'accéder à Internet, le système aura besoin de connaître
+
+\begin{enumerate}
+	\item Son \textbf{adresse IP}, l'identifiant de façon unique sur le réseau,
+	\item Le \textbf{masque de sous-réseau}, permettant de distinguer les machines locales des machines distantes, accessibles via Internet.
+	\item L'adresse d'une \textbf{passerelle} permettant d'acheminer un paquet à une machine distante.
+\end{enumerate}
+
+Puisque ces paramètres dépendent du réseau auquel on est connecté, et qu'il arrive régulièrement de connecter la même machine à différents réseaux, il n'est pas envisageable de les configurer manuellement à chaque fois. De plus, l'attribution manuelle d'adresse IP aux différentes machines sans jamais utiliser deux fois la même serait un cauchemar pour l'administrateur.
+
+Pour ces raisons, le protocole DHCP (\textit{Dynamic Host Configuration Protocol}) permet la configuration automatique des ces paramètres en interrogeant un serveur DHCP sur le réseau local.
+
+\subsection{Protocole DHCP}
+
+\subsection{Description des paquets}
+
+\begin{tabular}{|l||l|l|p{9cm}|}
+	\hline
+	\textbf{Type} & \textbf{Source} & \textbf{Destinataire} & \textbf{Description} \\
+	\hline
+	\textit{Discover} & PC & Broadcast & Message d'annonce demandant au serveur DHCP de proposer une configuration réseau à la machine \\
+	\hline
+	\textit{Offer} & Serveur & PC & Une proposition de configuration en réponse au message d'annonce \\
+	\hline
+	\textit{Request} & PC & Broadcast & Tentative d'acceptation de l'offre du serveur \\
+	\hline
+	\textit{Ack} & Serveur & PC & Confirmation que l'offre est toujours valable et que le client peut à présent se servir des informations reçues \\
+	\hline
+\end{tabular}
+
+\vspace{1em}
+
+Chaque paquet contient un numéro de transaction permettant à plusieurs négociations DHCP d'avoir lieu en même temps sans conflit.
+
+\subsection{Configuration fournie par le serveur DHCP}
+
+\section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
+
 \section{Exercices avancés}
 
 \end{document}
