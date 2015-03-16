@@ -31,15 +31,15 @@ public:
 	string getAdresseTravail() const;
 	unsigned int getSalaire() const;
 	
-	void setNom(string nom);
-	void setDateNaissance(Date dateNaissance);
-	void setAdresse(string adresse);
-	void setAdresseTravail(string adresseTravail);
-	void setSalaire(unsigned int salaire);
+	Personne& setNom(string nom);
+	Personne& setDateNaissance(Date dateNaissance);
+	Personne& setAdresse(string adresse);
+	Personne& setAdresseTravail(string adresseTravail);
+	Personne& setSalaire(unsigned int salaire);
 
 };
 
 	ostream& operator << (ostream& os, const Personne& p);
-	
+	istream& operator >> (istream& is, Personne& p);
 #endif	/* LABO_03_PERETTI_CLEMENT_PERSONNE_H */
 

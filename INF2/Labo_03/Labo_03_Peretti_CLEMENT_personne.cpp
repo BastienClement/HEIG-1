@@ -23,63 +23,55 @@ using namespace std;
 #define VIDER_BUFFER while (cin.get() != '\n')
 
 Personne::Personne(string nom2, Date dateNaissance2, string adresse2,
-        string adresseTravail2, unsigned int salaire2) {
+                   string adresseTravail2, unsigned int salaire2) {
    nom = nom2;
    dateNaissance = dateNaissance2;
    adresse = adresse2;
    adresseTravail = adresseTravail2;
    salaire = salaire2;
 }
+// Getters
+string Personne::getNom() const { return nom; }
+Date Personne::getDateNaissance() const { return dateNaissance; }
+string Personne::getAdresse() const { return adresse; }
+string Personne::getAdresseTravail() const { return adresseTravail; }
+unsigned int Personne::getSalaire() const { return salaire; }
 
-string Personne::getNom() const {
-   return nom;
-}
-
-Date Personne::getDateNaissance() const {
-   return dateNaissance;
-}
-
-string Personne::getAdresse() const {
-   return adresse;
-}
-
-string Personne::getAdresseTravail() const {
-   return adresseTravail;
-}
-
-unsigned int Personne::getSalaire() const {
-   return salaire;
-}
-
-void Personne::setNom(const string nom2) {
+// Setters
+Personne& Personne::setNom(const string nom2) {
    nom = nom2;
+   return *this;
 }
 
-void Personne::setDateNaissance(const Date dateNaissance2) {
+Personne& Personne::setDateNaissance(const Date dateNaissance2) {
    dateNaissance = dateNaissance2;
+   return *this;
 }
 
-void Personne::setAdresse(const string adresse2) {
+Personne& Personne::setAdresse(const string adresse2) {
    adresse = adresse2;
+   return *this;
 }
 
-void Personne::setAdresseTravail(const string adresseTravail2) {
+Personne& Personne::setAdresseTravail(const string adresseTravail2) {
    adresseTravail = adresseTravail2;
+   return *this;
 }
 
-void Personne::setSalaire(const unsigned int salaire2) {
+Personne& Personne::setSalaire(const unsigned int salaire2) {
    salaire = salaire2;
+   return *this;
 }
+
 
 ostream& operator<<(ostream& os, const Personne& p) {
    if (p.getNom() != "") {
       os << p.getNom() << endl;
    }
+   os << p.getDateNaissance() << endl;
    if (p.getAdresse() != "") {
       os << p.getAdresse() << endl;
    }
-   os << p.getDateNaissance() << endl;
-
    if (p.getAdresseTravail() != "") {
       os << p.getAdresseTravail() << endl;
    }
@@ -88,3 +80,6 @@ ostream& operator<<(ostream& os, const Personne& p) {
    }
       return os << endl << endl;
    }
+
+istream& operator >> (istream& is, Personne& p){
+}
