@@ -14,10 +14,6 @@ enum class Mois {
 	aout, septembre, octobre, novembre, decembre
 };
 
-const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai",
-	"juin", "juillet", "aout", "septembre",
-	"octobre", "novembre", "decembre"};
-
 struct Date {
 private:
 	int jour;

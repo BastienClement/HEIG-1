@@ -16,7 +16,8 @@
 #include "Labo_03_Peretti_CLEMENT_date.h"
 using namespace std;
 
-const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai",
+const std::string TAB_MOIS[] = {
+	"janvier", "fevrier", "mars", "avril", "mai",
 	"juin", "juillet", "aout", "septembre",
 	"octobre", "novembre", "decembre"};
 
