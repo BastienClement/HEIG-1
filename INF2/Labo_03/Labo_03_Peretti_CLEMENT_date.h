@@ -13,15 +13,33 @@ enum class Mois {
 	janvier, fevrier, mars, avril, mai, juin, juillet,
 	aout, septembre, octobre, novembre, decembre
 };
+
 const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai",
 	"juin", "juillet", "aout", "septembre",
 	"octobre", "novembre", "decembre"};
 
-struct tDates {
+struct Date {
+private:
 	int jour;
 	Mois mois;
-	
 	int annee;
+	
+public:
+	Date(int jour, Mois mois, int annee);
+	Date(std::string str);
+	
+	int getJour();
+	Mois getMois();
+	std::string getMoisStr();
+	int getAnnee();
+	
+	void setJour(int jour);
+	void setMois(Mois mois);
+	void setMoisStr(std::string str);
+	void setAnnee(int annee);
+	
+	std::string toString();
+	void fromString(std::string str);
 };
 
 

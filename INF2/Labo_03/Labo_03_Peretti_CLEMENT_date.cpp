@@ -13,10 +13,10 @@
  -----------------------------------------------------------------------------------
  */
 
-#include <cstdlib>
-#include <iostream>
 #include "Labo_03_Peretti_CLEMENT_date.h"
 using namespace std;
 
-#define VIDER_BUFFER while (cin.get() != '\n')
+const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai",
+	"juin", "juillet", "aout", "septembre",
+	"octobre", "novembre", "decembre"};
 
