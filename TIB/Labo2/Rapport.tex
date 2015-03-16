@@ -1,0 +1,242 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{amsmath}
+\usepackage{tikz}
+%\usepackage{showframe} % layout debug
+
+\usepackage{float}
+\restylefloat{figure}
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { TIB1-B }
+\def \doctitle {Labo : Mise en place du réseau LAN \& DHCP}
+\author{Bastien Clément \and Christophe Peretti}
+
+\renewcommand{\thesection}{Objectif \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+\section{Mise en place d'un réseau LAN}
+
+L'objectif de cette première partie du laboratoire est de mettre en place un réseau LAN entre notre ordinateur et le réseau de l'école afin d'obtenir une connexion à internet et être en mesure d'effectuer un \textit{ping} sur le serveur mail de Google. Nous découvrirons ainsi les différents types de câbles utilisés pour relier les appareils réseau entre eux et établir un réseau.
+
+\subsection{Type de cable}
+
+Les câbles UTP (\textit{Unshielded Twisted Pair}) utilisés par Ethernet existent en deux variantes:
+
+\begin{enumerate}
+	\item Les \textbf{câbles droits}: le câblage aux deux extrémités de câble est identique.
+	\item Les \textbf{câbles croisés}: disposent d'un câblage inversé entre les deux connecteurs.
+\end{enumerate}
+
+\subsection{Interface des équipements}
+
+Afin de correspondre aux câbles standards (câbles droits), les interfaces des équipements réseaux (switches et hubs) sont inversées par rapport aux interfaces des terminaux (ordinateurs et routeurs).
+
+\subsection{Matrice de correspondance}
+
+Il est nécessaire d'utiliser des câbles croisés pour connecter des appareils de même catégorie:
+
+\begin{enumerate}
+	\item PC-PC / PC-Routeur / Routeur-Routeur
+	\item Switch-Switch / Switch-Hub / Hub-Hub
+\end{enumerate}
+
+À l'inverse des câbles droits sont utilisés pour connecter des appareils de catégorie différente.
+
+\begin{center}
+\begin{tabular}{r|ccc}
+	& \textbf{PC} & \textbf{Switch} & \textbf{Routeur} \\
+	\hline
+	\textbf{PC}      & Croisé & Droit  & Croisé \\
+	\textbf{Switch}  & Droit  & Croisé & Droit  \\
+	\textbf{Routeur} & Croisé & Droit  & Croisé \\
+\end{tabular}
+\end{center}
+
+\subsection{Comment vérifier l'état d'une interface sur un switch?}
+
+Le voyant d'activité situé sur le switch indique l'état physique de la connexion (câble branché ou débranché) et l'activité réseau. Il indique également la vitesse de la connexion par l'intermédiaire d'un code couleur.
+
+Dans notre as, un voyant orange semble indiquer une connexion 100 Mbits/s alors qu'un voyant vert indique une connexion 1 Gbit/s.
+
+\subsection{Comment vérifier l'état d'une interface en utilisant \texttt{ifconfig}?}
+
+Il n'est pas clair, si cette question concerne l'état d'activation de la carte réseau elle-même, l'état physique de connexion (câble branché ou débranché) ou le fait que l'interface soit entièrement configurée et utilisable.
+
+L'activation ou désactivation de la carte réseau peut se faire par l'intermédiaire des commandes \texttt{ifconfig eth0 up} et \texttt{ifconfig eth0 down}. Cet état est indiqué dans la sortie de \texttt{ifconfig} par les mots-clés \texttt{UP} et \texttt{DOWN}.
+
+Nous n'avons observé aucune différence dans la sortie de \texttt{ifconfig} en fonction de l'état de connexion du câble réseau.
+
+Finalement, nous pouvons déterminer que la connexion est probablement utilisable quand la sortie de la commande \texttt{ifconfig} indique également les informations de configuration: adresse IP, masque, passerelle, etc. Dans le cas d'une connexion configurée manuellement plutôt que par l'intermédiaire de DHCP, ceci peut ne pas être le cas.
+
+\subsection{Comment obtenir plus d'information sur la commande \texttt{ifconfig} ?}
+
+Comme pour toutes les commandes Linux: \texttt{man ifconfig}.
+
+\subsection{Explication des statistiques fournies par \texttt{ping} à la fin du test}
+
+Toutes ces informations concernent le \textit{rtt} (\textit{round-trip time}), c'est à dire le temps nécessaire à la transmission du message à la machine distante et à la réception de la confirmation. Correspondant au délai d'un aller-retour.
+
+Le reste est plutôt évident:
+
+\begin{itemize}
+	\item \textbf{min}: le temps minimum observé parmi tout les paquets envoyés
+	\item \textbf{avg}: le temps moyen
+	\item \textbf{max}: le temps maximal
+\end{itemize}
+
+\section{DHCP}
+
+L'objectif de cette deuxième moitié de laboratoire et de découvrir et comprendre le fonctionnement du protocole DHCP.
+
+\subsection{Description}
+
+
+
+Généralement, avant de pouvoir communiquer sur le réseau et d'accéder à Internet, le système aura besoin de connaître
+
+\begin{enumerate}
+	\item Son \textbf{adresse IP}, l'identifiant de façon unique sur le réseau,
+	\item Le \textbf{masque de sous-réseau}, permettant de distinguer les machines locales des machines distantes, accessibles via Internet.
+	\item L'adresse d'une \textbf{passerelle} permettant d'acheminer un paquet à une machine distante.
+	\item L'adresse d'un \textbf{serveur de résolution de nom} (\textit{DNS}) pour transformer les adresses textuelles en adresse IP.
+\end{enumerate}
+
+Puisque ces paramètres dépendent du réseau auquel on est connecté, et qu'il arrive régulièrement de connecter la même machine à différents réseaux, il n'est pas envisageable de les configurer manuellement à chaque fois. De plus, l'attribution manuelle d'adresse IP aux différentes machines sans jamais utiliser deux fois la même serait un cauchemar pour l'administrateur.
+
+Pour ces raisons, le protocole DHCP (\textit{Dynamic Host Configuration Protocol}) permet la configuration automatique des ces paramètres en interrogeant un serveur DHCP sur le réseau local.
+
+\subsection{Graph}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[very thick] (3,0.5) -- (3,7);
+\draw[very thick] (8,0.5) -- (8,7);
+
+\draw[thick,->] (3.5,6.5) -- (7.5,6) node[anchor=north east] {Discover};
+\draw[thick,->] (7.5,5) -- (3.5,4.5) node[anchor=north west] {Offer};
+\draw[thick,->] (3.5,3.5) -- (7.5,3) node[anchor=north east] {Request};
+\draw[thick,->] (7.5,2) -- (3.5,1.5) node[anchor=north west] {Ack};
+
+\node[draw,text width=4.5cm,align=left] at (0,5.8) {
+	src: 0.0.0.0, 68\\
+	dst: 255.255.255.255, 67\\
+	transaction: 0xAEF247};
+	
+\node[draw,text width=4.5cm,align=left] at (11,3.8) {
+	src: 192.168.0.1, 67\\
+	dst: 192.168.0.130, 68\\
+	transaction: 0xAEF247\\
+	addr: 192.168.0.130\\
+	lease time: 1 day};
+
+\node[draw,text width=4.5cm,align=left] at (0,2.2) {
+	src: 0.0.0.0, 68\\
+	dst: 255.255.255.255, 67\\
+	transaction: 0xAEF247\\
+	addr: 192.168.0.130\\
+	lease time: 1 day};
+	
+\node[draw,text width=4.5cm,align=left] at (11,0.8) {
+	src: 192.168.0.1, 67\\
+	dst: 192.168.0.130, 68\\
+	transaction: 0xAEF247\\
+	addr: 192.168.0.130\\
+	lease time: 1 day};
+	
+\node[draw] at (3, 7.5) {PC};
+\node[draw] at (8, 7.5) {Serveur DHCP};
+\end{tikzpicture}
+\end{center}
+
+\subsection{Description des paquets}
+
+\begin{tabular}{|l||l|l|p{9cm}|}
+\hline
+	\textbf{Type} & \textbf{Source} & \textbf{Destinataire} & \textbf{Description} \\
+\hline
+	\textit{Discover} &
+	PC & Broadcast &
+	Message d'annonce demandant au serveur DHCP de proposer une configuration réseau à la machine \\
+\hline
+	\textit{Offer} &
+	Serveur & PC &
+	Une proposition de configuration en réponse au message d'annonce \\
+\hline
+	\textit{Request} &
+	PC & Broadcast &
+	Tentative d'acceptation de l'offre du serveur \\
+\hline
+	\textit{Ack} &
+	Serveur & PC &
+	Confirmation que l'offre est toujours valable et que le client peut à présent se servir des informations reçues \\
+	\hline
+\end{tabular}
+
+\vspace{1em}
+
+Chaque paquet contient un numéro de transaction permettant à plusieurs négociations DHCP d'avoir lieu en même temps sans conflit.
+
+\subsection{Configuration fournie par le serveur DHCP}
+
+\section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
+
+\pagebreak
+
+\textit{Tout comme les exercices auxquels elle se rapporte, cette page est optionnelle!}
+
+\section{Exercices avancés}
+
+\subsection{Pourquoi câbles droits et croisés}
+
+La raison de l'existence de deux types de câbles pour le réseau Ethernet est historique.
+
+Avant l'arrivée des réseaux d'ordinateurs, les bureaux étaient généralement connectés au réseau téléphonique. Les câbles utilisés par Ethernet sont des paires torsadées similaires à celles utilisées pour le téléphone. Ainsi, lorsqu'il a fallu réaliser les premiers réseaux informatique, l'utilisation de ce câblage déjà existant semblait une excellente idée.
+
+Cependant le réseau téléphonique utilise les quatre canaux de façon indépendante, les câbles étaient donc droits. Puisque Ethernet se sert de deux paires, une pour l'émission et l'autre pour la réception, il est devenu nécessaire d'inverser l'interface d'un des deux appareils.
+
+La configuration standard était de connecter les différentes machines ainsi qu'un routeur à un hub. C'est pourquoi routeurs et PC ont une interface droite et ne peuvent en principe pas être directement connectés. À l'inverse, les équipements intermédiaires disposent d'une interface croisée permettant leur connexion directe avec un PC.
+
+Lorsque la connexion de deux hubs l'un à l'autre devient nécessaire, il n'est plus possible de se servir de câbles droits puisque leurs interfaces sont identiques, il est alors nécessaire d'utiliser un câble croisé. La connexion d'un PC directement à un autre PC, bien que plus rare, nécessite de façon similaire un câble croisé.
+
+\subsection{Négociation de la vitesse des interfaces}
+
+\end{document}
