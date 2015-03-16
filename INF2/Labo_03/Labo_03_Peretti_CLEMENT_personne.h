@@ -8,6 +8,9 @@
 #ifndef LABO_03_PERETTI_CLEMENT_PERSONNE_H
 #define	LABO_03_PERETTI_CLEMENT_PERSONNE_H
 
+struct Personne{
+   
+};
 
 
 #endif	/* LABO_03_PERETTI_CLEMENT_PERSONNE_H */

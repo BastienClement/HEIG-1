@@ -9,16 +9,19 @@
 #define	LABO_03_PERETTI_CLEMENT_DATE_H
 #include <string>
 
-enum class Mois {janvier, fevrier, mars, avril, mai, juin, juillet, 
-                 aout, septembre, octobre, novembre, decembre};
-const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai", 
-                                "juin", "juillet", "aout", "septembre", 
-                                "octobre", "novembre", "decembre"};
+enum class Mois {
+	janvier, fevrier, mars, avril, mai, juin, juillet,
+	aout, septembre, octobre, novembre, decembre
+};
+const std::string TAB_MOIS[] = {"janvier", "fevrier", "mars", "avril", "mai",
+	"juin", "juillet", "aout", "septembre",
+	"octobre", "novembre", "decembre"};
 
 struct tDates {
-   int jour;
-   Mois mois;
-   int annee;
+	int jour;
+	Mois mois;
+	
+	int annee;
 };
 
 
