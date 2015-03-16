@@ -44,16 +44,19 @@ Date& Date::setDate(const string& str) {
 	return *this;
 }
 
+// Setter pour un jour
 Date& Date::setJour(int j) {
 	jour = j;
 	return *this;
 }
 
+// Setter pour un mois
 Date& Date::setMois(Mois m) {
 	mois = m;
 	return *this;
 }
 
+// Setter pour une annee
 Date& Date::setAnnee(int a) {
 	annee = a;
 	return *this;
