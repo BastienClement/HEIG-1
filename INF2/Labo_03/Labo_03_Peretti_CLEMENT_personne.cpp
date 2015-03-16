@@ -72,19 +72,19 @@ void Personne::setSalaire(const unsigned int salaire2) {
 }
 
 ostream& operator<<(ostream& os, const Personne& p) {
-   if (p.nom != "") {
-      os << p.nom << endl;
+   if (p.getNom() != "") {
+      os << p.getNom() << endl;
    }
-   if (p.adresse != "") {
-      os << p.adresse << endl;
+   if (p.getAdresse() != "") {
+      os << p.getAdresse() << endl;
    }
-   os << p.dateNaissance << endl;
+   os << p.getDateNaissance() << endl;
 
-   if (p.adresseTravail != "") {
-      os << p.adresseTravail << endl;
+   if (p.getAdresseTravail() != "") {
+      os << p.getAdresseTravail() << endl;
    }
-   if (p.salaire != 0) {
-      os << p.salaire << endl;
+   if (p.getSalaire() != 0) {
+      os << p.getSalaire() << endl;
    }
       return os << endl << endl;
    }
