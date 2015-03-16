@@ -11,7 +11,7 @@
 #include <iostream>
 
 enum class Mois {
-	janvier, fevrier, mars, avril, mai, juin, juillet,
+	invalide, janvier, fevrier, mars, avril, mai, juin, juillet,
 	aout, septembre, octobre, novembre, decembre
 };
 
@@ -50,8 +50,8 @@ public:
 std::ostream& operator << (std::ostream& os, Mois mois);
 std::ostream& operator << (std::ostream& os, const Date& date);
 
-std::istream& operator >> (std::istream& is, Mois mois);
-std::istream& operator >> (std::istream& is, const Date& date);
+std::istream& operator >> (std::istream& is, Mois& mois);
+std::istream& operator >> (std::istream& is, Date& date);
 
 #endif	/* LABO_03_PERETTI_CLEMENT_DATE_H */
 

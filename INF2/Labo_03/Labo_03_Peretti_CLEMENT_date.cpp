@@ -18,8 +18,9 @@
 #include <sstream>
 using namespace std;
 
-const std::string TAB_MOIS[] = {
-	"janvier", "fevrier", "mars", "avril", "mai",
+const size_t NB_MOIS = 13;
+const std::string TAB_MOIS[NB_MOIS] = {
+	"(invalide)", "janvier", "fevrier", "mars", "avril", "mai",
 	"juin", "juillet", "aout", "septembre",
 	"octobre", "novembre", "decembre"};
 
@@ -75,5 +76,30 @@ string Date::toString() const {
 }
 
 // Surcharge des opértaeurs de flux
-ostream& operator << (ostream& os, Mois m) { return os << TAB_MOIS[(int) m]; }
+ostream& operator << (ostream& os, Mois m) { return os << TAB_MOIS[(unsigned int) m]; }
 ostream& operator << (ostream& os, const Date& date) { return os << date.toString(); }
+
+std::istream& operator >> (std::istream& is, Mois& mois) {
+	size_t st_m;
+
+	if (!(cin >> st_m)) {
+		cin.clear();
+
+		string str_m;
+		cin >> str_m;
+
+		for (size_t i = 0; i < NB_MOIS; i++) {
+			if (TAB_MOIS[i] == str_m) {
+				st_m = i;
+				break;
+			}
+		}
+	}
+
+	mois = (st_m < NB_MOIS) ? (Mois) st_m : Mois::invalide;
+	return is;
+}
+
+std::istream& operator >> (std::istream& is, Date& date) {
+	return is;
+}
