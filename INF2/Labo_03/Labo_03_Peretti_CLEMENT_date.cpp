@@ -74,10 +74,6 @@ string Date::toString() const {
 	return oss.str();
 }
 
-// Conversion en d'autres types
-Date::operator bool() const { return isValid(); }
-Date::operator string() const { return toString(); }
-
 // Surcharge des opértaeurs de flux
 ostream& operator << (ostream& os, Mois m) { return os << TAB_MOIS[(int) m]; }
-ostream& operator << (ostream& os, const Date& date) { return os << date; }
+ostream& operator << (ostream& os, const Date& date) { return os << date.toString(); }

@@ -42,15 +42,16 @@ public:
 
 	// Vérifie la validité d'une date
 	bool isValid() const;
-	operator bool() const;
 
 	// Retourne la représentation textuelle d'une date
 	std::string toString() const;
-	operator std::string() const;
 };
 
 std::ostream& operator << (std::ostream& os, Mois mois);
 std::ostream& operator << (std::ostream& os, const Date& date);
+
+std::istream& operator >> (std::istream& is, Mois mois);
+std::istream& operator >> (std::istream& is, const Date& date);
 
 #endif	/* LABO_03_PERETTI_CLEMENT_DATE_H */
 
