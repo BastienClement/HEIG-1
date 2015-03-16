@@ -137,30 +137,28 @@ void printBoard() {
 //
 double score(int n, int player) {
     
-    double playerScore = rand();
-    double bestScore = -2;
-    double playerScore2;
-    applyMove(n,player);
-    if (isWinner(player)){
-       playerScore = 1;
-    } else if (isFull()){
-       playerScore = 0;       
-    } else {
-       for (int i = 0; i < 9; i++){
-          if (isValidMove(i)){
-             playerScore2 = score(i,-player);
-             if (playerScore2 > bestScore){
-                bestScore = playerScore2;
-             }
-          }
-       }
-       playerScore = -bestScore;
-    }
+   double playerScore = 0;
+   double rnd = ((double)rand()) / RAND_MAX;
+   applyMove(n,player);
+   if (isWinner(player)){
+      playerScore = 10 + rnd;
+   } else if (isFull()){
+      playerScore = 0;       
+   } else {
+      double opponentScore = -100;
+      for (int i = 1; i <= 9; i++){
+         if (isValidMove(i)){
+            double src = score(i,-player);
+            if (src > opponentScore){
+               opponentScore = src;
+            }
+         }
+      }
+      playerScore = -opponentScore - rnd;
+   }
 
-    eraseMove(n);
-    // A COMPLETER
-    
-    return playerScore;
+   eraseMove(n);
+   return playerScore;
 }
 
 // choisit automatiquement le prochain mouvement
@@ -276,7 +274,7 @@ int main() {
     if (winner != EMPTY)
         cout << " \n\n" << (winner == X ? 'X' : 'O') << " gagne! \n\n\n";
     else
-        cout << " \n\n Egalité! \n\n\n";
+        cout << " \n\n Egalite! \n\n\n";
     
     return EXIT_SUCCESS;
 }
