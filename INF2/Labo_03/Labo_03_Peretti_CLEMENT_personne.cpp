@@ -82,4 +82,5 @@ ostream& operator<<(ostream& os, const Personne& p) {
    }
 
 istream& operator >> (istream& is, Personne& p){
+	return is;
 }

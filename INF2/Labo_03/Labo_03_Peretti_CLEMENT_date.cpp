@@ -76,19 +76,27 @@ string Date::toString() const {
 }
 
 // Surcharge des opértaeurs de flux
-ostream& operator << (ostream& os, Mois m) { return os << TAB_MOIS[(unsigned int) m]; }
+ostream& operator << (ostream& os, Mois m) { return os << TAB_MOIS[(int) m]; }
 ostream& operator << (ostream& os, const Date& date) { return os << date.toString(); }
 
+// Lecture d'un mois
 std::istream& operator >> (std::istream& is, Mois& mois) {
-	size_t st_m;
+	int st_m;
 
+	// Tentative de lecture sous forme numérique
 	if (!(cin >> st_m)) {
+		// Rétablissement du flux
 		cin.clear();
 
+		// Lecture d'un mot
 		string str_m;
 		cin >> str_m;
 
-		for (size_t i = 0; i < NB_MOIS; i++) {
+		// Par défaut, mois invalide
+		st_m = 0;
+
+		// Recherche du mois correspondant
+		for (int i = 0; i < NB_MOIS; i++) {
 			if (TAB_MOIS[i] == str_m) {
 				st_m = i;
 				break;
@@ -96,6 +104,7 @@ std::istream& operator >> (std::istream& is, Mois& mois) {
 		}
 	}
 
+	// Assignation du mois correct
 	mois = (st_m < NB_MOIS) ? (Mois) st_m : Mois::invalide;
 	return is;
 }
