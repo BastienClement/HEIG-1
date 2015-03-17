@@ -41,7 +41,8 @@ public:
 	Date& setAnnee(int annee);
 
 	// Vérifie la validité d'une date
-	bool isValid() const;
+	bool isValide() const;
+	bool isBissextile() const;
 
 	// Retourne la représentation textuelle d'une date
 	std::string toString() const;

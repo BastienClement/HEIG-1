@@ -19,10 +19,13 @@
 using namespace std;
 
 const size_t NB_MOIS = 13;
-const std::string TAB_MOIS[NB_MOIS] = {
+
+static const std::string TAB_MOIS[NB_MOIS] = {
 	"(invalide)", "janvier", "fevrier", "mars", "avril", "mai",
 	"juin", "juillet", "aout", "septembre",
 	"octobre", "novembre", "decembre"};
+
+static int JOURS_MOIS[NB_MOIS] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 // Constructeurs
 // Equivalents à l'appel de la méthode setDate correspondante
@@ -64,8 +67,20 @@ Date& Date::setAnnee(int a) {
 }
 
 // Véréfie si la date est valide
-bool Date::isValid() const {
-	return false;
+bool Date::isValide() const {
+	if (mois == Mois::invalide)
+		return false;
+
+	if (jour < 1 || jour > (mois == Mois::fevrier ? (isBissextile() ? 29 : 28) : JOURS_MOIS[(int) jour]))
+		return false;
+
+	return true;
+}
+
+// Véréfie si la date est valide
+bool Date::isBissextile() const {
+	return (annee % 4) || ((annee % 100 == 0) &&
+						   (annee % 400)) ? false : true;
 }
 
 // Retourne une représentation textuelle de la date
@@ -81,10 +96,10 @@ ostream& operator << (ostream& os, const Date& date) { return os << date.toStrin
 
 // Lecture d'un mois
 std::istream& operator >> (std::istream& is, Mois& mois) {
-	int st_m;
+	int i_mois;
 
 	// Tentative de lecture sous forme numérique
-	if (!(cin >> st_m)) {
+	if (!(cin >> i_mois)) {
 		// Rétablissement du flux
 		cin.clear();
 
@@ -93,22 +108,34 @@ std::istream& operator >> (std::istream& is, Mois& mois) {
 		cin >> str_m;
 
 		// Par défaut, mois invalide
-		st_m = 0;
+		i_mois = 0;
 
 		// Recherche du mois correspondant
 		for (int i = 0; i < NB_MOIS; i++) {
 			if (TAB_MOIS[i] == str_m) {
-				st_m = i;
+				i_mois = i;
 				break;
 			}
 		}
 	}
 
-	// Assignation du mois correct
-	mois = (st_m < NB_MOIS) ? (Mois) st_m : Mois::invalide;
+	// Assignation du mois
+	mois = (i_mois < NB_MOIS) ? (Mois) i_mois : Mois::invalide;
 	return is;
 }
 
 std::istream& operator >> (std::istream& is, Date& date) {
+	int jour;
+	Mois mois;
+	int annee;
+
+	cin >> jour;
+	cin >> mois;
+	cin >> annee;
+
+	if (cin) {
+		date.setDate(jour, mois, annee);
+	}
+
 	return is;
 }
