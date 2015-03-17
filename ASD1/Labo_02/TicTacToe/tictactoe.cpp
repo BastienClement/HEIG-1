@@ -143,7 +143,7 @@ double score(int n, int player) {
    if (isWinner(player)){
       playerScore = 10 + rnd;
    } else if (isFull()){
-      playerScore = 0;       
+      playerScore = rnd;
    } else {
       double opponentScore = -100;
       for (int i = 1; i <= 9; i++){
@@ -154,7 +154,7 @@ double score(int n, int player) {
             }
          }
       }
-      playerScore = -opponentScore - rnd;
+      playerScore = -opponentScore;
    }
 
    eraseMove(n);
