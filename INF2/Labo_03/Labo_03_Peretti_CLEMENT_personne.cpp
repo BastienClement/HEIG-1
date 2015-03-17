@@ -120,18 +120,23 @@ istream& operator >> (istream& is, Personne& p){
    //p.setDateNaissance(dateNaissance);
    cout << "Quelle est son adresse? (Rue)" << endl;
    getline(cin, adresse);
+   VIDER_BUFFER;
    p.setAdresse(adresse);
    cout << "Dans quelle ville? (NPo - Ville)" << endl;
-   cin >> ville;
+   getline(cin, ville);
+   VIDER_BUFFER;
    p.setVille(ville);
    cout << "Quelle est son adresse de travail? (Rue)" << endl;
-   cin >> adresseTravail;
+   getline(cin, adresseTravail);
+   VIDER_BUFFER;
    p.setAdresseTravail(adresseTravail);
    cout << "Dans quelle ville? (NPo - Ville)" << endl;
-   cin >> villeTravail;
+   getline(cin, villeTravail);
+   VIDER_BUFFER;
    p.setVilleTravail(villeTravail);
    cout << "Quel est son salaire?" << endl;
    cin >> salaire;
+   VIDER_BUFFER;
    p.setSalaire(salaire);
    return is;
 }
