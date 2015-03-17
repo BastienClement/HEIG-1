@@ -23,9 +23,12 @@ using namespace std;
 
 int main() {
 
-   Personne p1 = Personne("Paul", Date(10, Mois::octobre, 2010), "Chemin de Moncul", "Avenue de Toncul", 5500);
-
+   Personne p1;
+   //Personne p1 = Personne("Paul", Date(10, Mois::octobre, 2010), "Chemin de Moncul", "1280 Geneve", "Avenue de Toncul", "1900 Yverdon", 5500);
+   cout << "Entrez une personne :" << endl;
+   cin >> p1;
    cout << p1;
+
 
    return EXIT_SUCCESS;
 }
