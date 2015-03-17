@@ -15,6 +15,7 @@
 \usepackage{parskip} % paragraphs spacing
 \usepackage{amsmath}
 \usepackage{tikz}
+\usepackage{siunitx}
 %\usepackage{showframe} % layout debug
 
 \usepackage{float}
@@ -142,7 +143,7 @@ Puisque ces paramètres dépendent du réseau auquel on est connecté, et qu'il 
 
 Pour ces raisons, le protocole DHCP (\textit{Dynamic Host Configuration Protocol}) permet la configuration automatique des ces paramètres en interrogeant un serveur DHCP sur le réseau local.
 
-\subsection{Graph}
+\subsection{Graphique en flèche}
 
 \begin{center}
 \begin{tikzpicture}
@@ -187,7 +188,7 @@ Pour ces raisons, le protocole DHCP (\textit{Dynamic Host Configuration Protocol
 
 \subsection{Description des paquets}
 
-\begin{tabular}{|l||l|l|p{9cm}|}
+\begin{tabular}{|l||l|l|p{8.9cm}|}
 \hline
 	\textbf{Type} & \textbf{Source} & \textbf{Destinataire} & \textbf{Description} \\
 \hline
@@ -215,6 +216,26 @@ Chaque paquet contient un numéro de transaction permettant à plusieurs négoci
 
 \subsection{Configuration fournie par le serveur DHCP}
 
+La configuration contient les paramètres réseau suivants:
+
+\begin{enumerate}
+	\item L'adresse IP attribuée: \texttt{192.160.0.103}
+	\item L'adresse du serveur DHCP: \texttt{192.160.0.1}
+	\item Le masque de sous-réseau à utiliser: \texttt{I.DONT.KNOW}
+	\item La passerelle par défaut: \texttt{192.168.0.1}
+	\item Un serveur DNS: \texttt{I.DONT.KNOW}
+\end{enumerate}
+
+Ainsi que différentes durées pendant lesquelles nous pouvons nous servir de l'adresse qui nous a été attribuée par le serveur:
+
+\begin{enumerate}
+	\item Le \textbf{lease time}, temps pendant lequel l'adresse est utilisable: \texttt{1 day}
+	\item Le \textbf{renewal time}: \texttt{18 hours}
+	\item Le \textbf{rebind time}: \texttt{21 hours}
+\end{enumerate}
+
+En principe, après que le temps indiqué dans \textbf{renewal time} soit écoulé, nous tentons de renouveler l'attribution de notre adresse auprès du serveur d'origine. Cependant, il se peut que ce serveur ne soit plus accessible sur le réseau (déconnexion, panne). C'est pourquoi après que le temps du \textbf{rebind time} soit écoulé, nous tentons de renouveler notre adresse auprès de n'importe quel serveur DHCP disponible sur le réseau, même si celui-ci n'est pas le serveur d'origine.
+
 \section{Auto-évaluation}
 
 Nous considérons avoir atteint les objectifs de ce laboratoire.
@@ -229,14 +250,20 @@ Nous considérons avoir atteint les objectifs de ce laboratoire.
 
 La raison de l'existence de deux types de câbles pour le réseau Ethernet est historique.
 
-Avant l'arrivée des réseaux d'ordinateurs, les bureaux étaient généralement connectés au réseau téléphonique. Les câbles utilisés par Ethernet sont des paires torsadées similaires à celles utilisées pour le téléphone. Ainsi, lorsqu'il a fallu réaliser les premiers réseaux informatique, l'utilisation de ce câblage déjà existant semblait une excellente idée.
+Avant l'arrivée des réseaux d'ordinateurs, les bâtiments étaient généralement connectés au réseau téléphonique à l'aide de câbles identiques à ceux utilisés par Ethernet, mais droits. Pour réduire les couts, il a été décidé de réutiliser ce câblage pour l'interconnexion des ordinateurs.
 
-Cependant le réseau téléphonique utilise les quatre canaux de façon indépendante, les câbles étaient donc droits. Puisque Ethernet se sert de deux paires, une pour l'émission et l'autre pour la réception, il est devenu nécessaire d'inverser l'interface d'un des deux appareils.
+L'interface des équipements d'interconnexion (switches et hubs) a donc été inversée pour correspondre aux câbles droit déjà présents. Il n'est alors nécessaire d'utiliser des câbles croisés que pour interconnecter deux de ces équipements ensemble.
 
-La configuration standard était de connecter les différentes machines ainsi qu'un routeur à un hub. C'est pourquoi routeurs et PC ont une interface droite et ne peuvent en principe pas être directement connectés. À l'inverse, les équipements intermédiaires disposent d'une interface croisée permettant leur connexion directe avec un PC.
-
-Lorsque la connexion de deux hubs l'un à l'autre devient nécessaire, il n'est plus possible de se servir de câbles droits puisque leurs interfaces sont identiques, il est alors nécessaire d'utiliser un câble croisé. La connexion d'un PC directement à un autre PC, bien que plus rare, nécessite de façon similaire un câble croisé.
+Aujourd'hui, la plupart des équipements réseau sont en mesure de détecter d'eux-même un mauvais câblage et d'inverser automatiquement leur interface pour s'adapter. Avant cela, il arrivait à certains appareils de proposer deux version de la même interface, l'une inversée et l'autre non. L'utilisateur avait ensuite le choix d'utiliser l'une ou l'autre en fonction des câbles à disposition.
 
 \subsection{Négociation de la vitesse des interfaces}
+
+Le standard initial d'Ethernet (10 Mbit/s) utilisait des pulsations régulières (toutes les 16 ms) pour vérifier l'état de la connexion en l'absence de communications récentes. Ces pulsations d'une durée de 100 ns étaient détectées par les autres équipements sur le réseau et confirmaient que l'appareil était effectivement connecté au réseau.
+
+Les standards suivants ont remplacé cette longue pulsation en un \textit{burst} de durée similaire composé de 17 à 33 impulsions espacées de 125 \si{\micro\second}.
+
+Ces impulsions encodent les vitesses et modes supportés par les équipements et permettent de déterminer la vitesse de transmission à utiliser sur une interface. Chaque appareil connecté au réseau (ou sous-réseau dans le cas d'un switch) choisira le meilleur mode possible parmi ceux supportés par les autres équipements.
+
+Les détails de ce mécanisme sont relativement complexes et nous n'avons pas jugé nécessaire d'approfondir d'avantage le sujet.
 
 \end{document}
