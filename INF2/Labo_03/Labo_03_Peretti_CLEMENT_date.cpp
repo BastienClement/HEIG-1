@@ -18,13 +18,16 @@
 #include <sstream>
 using namespace std;
 
+// Nombre de mois (12 + invalide = 13)
 const size_t NB_MOIS = 13;
 
+// Nom des mois
 static const std::string TAB_MOIS[NB_MOIS] = {
 	"(invalide)", "janvier", "fevrier", "mars", "avril", "mai",
 	"juin", "juillet", "aout", "septembre",
 	"octobre", "novembre", "decembre"};
 
+// Nombre de jours dans chaque mois
 static int JOURS_MOIS[NB_MOIS] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 // Constructeurs
@@ -68,12 +71,15 @@ Date& Date::setAnnee(int a) {
 
 // Véréfie si la date est valide
 bool Date::isValide() const {
+	// Vérification du mois
 	if (mois == Mois::invalide)
 		return false;
 
+	// Vérification des jours
 	if (jour < 1 || jour > (mois == Mois::fevrier ? (isBissextile() ? 29 : 28) : JOURS_MOIS[(int) jour]))
 		return false;
 
+	// L'année est toujours valide
 	return true;
 }
 
@@ -129,11 +135,13 @@ std::istream& operator >> (std::istream& is, Date& date) {
 	Mois mois;
 	int annee;
 
+	// On lit les trois composantes de la date
 	cin >> jour;
 	cin >> mois;
 	cin >> annee;
 
-	if (cin) {
+	// Si le flux n'est pas en erreur, nous modifions la date
+	if (cin.good()) {
 		date.setDate(jour, mois, annee);
 	}
 
