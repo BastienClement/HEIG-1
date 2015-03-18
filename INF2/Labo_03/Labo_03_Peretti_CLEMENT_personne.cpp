@@ -136,7 +136,7 @@ istream& operator >> (istream& is, Personne& p){
    cout << "Quelle est son adresse de travail? (Rue)" << endl;
    getline(cin, adresseTravail);
    p.setAdresseTravail(adresseTravail);
-   cout << "Dans quelle ville? (NPo - Ville)" << endl;
+   cout << "Dans quelle ville? (NPA - Ville)" << endl;
    getline(cin, villeTravail);
    p.setVilleTravail(villeTravail);
    cout << "Quel est son salaire?" << endl;
