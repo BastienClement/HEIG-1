@@ -115,24 +115,29 @@ istream& operator >> (istream& is, Personne& p){
    cin >> nom;
    VIDER_BUFFER;
    p.setNom(nom);
-   cout << "Quelle est sa date de naissance" << endl;
-   //cin >> dateNaissance;
-   //p.setDateNaissance(dateNaissance);
+   bool dateValide;
+   do{
+       dateValide = true;
+      cout << "Quelle est sa date de naissance" << endl;
+      if (cin >> dateNaissance && dateNaissance.isValide()){
+         VIDER_BUFFER;
+         p.setDateNaissance(dateNaissance);
+      } else {
+         dateValide = false;
+      }
+   } while (!dateValide && cout << "Date invalide" << endl);
+   
    cout << "Quelle est son adresse? (Rue)" << endl;
    getline(cin, adresse);
-   VIDER_BUFFER;
    p.setAdresse(adresse);
    cout << "Dans quelle ville? (NPo - Ville)" << endl;
    getline(cin, ville);
-   VIDER_BUFFER;
    p.setVille(ville);
    cout << "Quelle est son adresse de travail? (Rue)" << endl;
    getline(cin, adresseTravail);
-   VIDER_BUFFER;
    p.setAdresseTravail(adresseTravail);
    cout << "Dans quelle ville? (NPo - Ville)" << endl;
    getline(cin, villeTravail);
-   VIDER_BUFFER;
    p.setVilleTravail(villeTravail);
    cout << "Quel est son salaire?" << endl;
    cin >> salaire;

@@ -94,11 +94,10 @@ Il est nécessaire d'utiliser des câbles croisés pour connecter des appareils 
 
 Le voyant d'activité situé sur le switch indique l'état physique de la connexion (câble branché ou débranché) et l'activité réseau. Il indique également la vitesse de la connexion par l'intermédiaire d'un code couleur.
 
-Dans notre as, un voyant orange semble indiquer une connexion 100 Mbits/s alors qu'un voyant vert indique une connexion 1 Gbit/s.
 
 \subsection{Comment vérifier l'état d'une interface en utilisant \texttt{ifconfig}?}
 
-Il n'est pas clair, si cette question concerne l'état d'activation de la carte réseau elle-même, l'état physique de connexion (câble branché ou débranché) ou le fait que l'interface soit entièrement configurée et utilisable.
+Il n'est pas clair si cette question concerne l'état d'activation de la carte réseau elle-même, l'état physique de connexion (câble branché ou débranché) ou le fait que l'interface soit entièrement configurée et utilisable.
 
 L'activation ou désactivation de la carte réseau peut se faire par l'intermédiaire des commandes \texttt{ifconfig eth0 up} et \texttt{ifconfig eth0 down}. Cet état est indiqué dans la sortie de \texttt{ifconfig} par les mots-clés \texttt{UP} et \texttt{DOWN}.
 
@@ -121,6 +120,7 @@ Le reste est plutôt évident:
 	\item \textbf{avg}: le temps moyen
 	\item \textbf{max}: le temps maximal
 \end{itemize}
+\pagebreak
 
 \section{DHCP}
 
@@ -143,7 +143,7 @@ Puisque ces paramètres dépendent du réseau auquel on est connecté, et qu'il 
 
 Pour ces raisons, le protocole DHCP (\textit{Dynamic Host Configuration Protocol}) permet la configuration automatique des ces paramètres en interrogeant un serveur DHCP sur le réseau local.
 
-\subsection{Graphique en flèche}
+\subsection{Diagramme en flèche}
 
 \begin{center}
 \begin{tikzpicture}
@@ -219,18 +219,18 @@ Chaque paquet contient un numéro de transaction permettant à plusieurs négoci
 La configuration contient les paramètres réseau suivants:
 
 \begin{enumerate}
-	\item L'adresse IP attribuée: \texttt{192.160.0.103}
+	\item L'adresse IP attribuée: \texttt{192.160.0.130}
 	\item L'adresse du serveur DHCP: \texttt{192.160.0.1}
-	\item Le masque de sous-réseau à utiliser: \texttt{I.DONT.KNOW}
+	\item Le masque de sous-réseau à utiliser: \texttt{255.255.255.0}
 	\item La passerelle par défaut: \texttt{192.168.0.1}
-	\item Un serveur DNS: \texttt{I.DONT.KNOW}
+	\item Un serveur DNS: \texttt{10.192.22.5}
 \end{enumerate}
 
 Ainsi que différentes durées pendant lesquelles nous pouvons nous servir de l'adresse qui nous a été attribuée par le serveur:
 
 \begin{enumerate}
 	\item Le \textbf{lease time}, temps pendant lequel l'adresse est utilisable: \texttt{1 day}
-	\item Le \textbf{renewal time}: \texttt{18 hours}
+	\item Le \textbf{renewal time}: \texttt{12 hours}
 	\item Le \textbf{rebind time}: \texttt{21 hours}
 \end{enumerate}
 
