@@ -10,6 +10,9 @@
 #include <ctime>
 #include <iostream>
 #include <limits>
+#include <stack>
+#include <cstring>
+#include <utility>
 using namespace std;
 
 //
@@ -23,6 +26,14 @@ using namespace std;
 // les joueurs sont +1 et -1. 0 pour les cases vides
 const int X = 1, O = -1, EMPTY = 0;
 
+int grid[7][6];
+stack<int> moves;
+
+struct BestMove {
+	int col;
+	double score;
+};
+
 /////////////////////////////////////////////////
 
 //
@@ -35,46 +46,95 @@ const int X = 1, O = -1, EMPTY = 0;
 
 // efface le tableau
 void clearBoard() {
-    
-    // A COMPLETER
-    
+	memset(grid, EMPTY, sizeof(grid));
 }
 
 // applique un movement en mettant à
 // currentPlayer la case du tableau
 // correspondante.
 void applyMove(int n, int player) {
-    
-    // A COMPLETER
-    
+	int row = 0;
+	while (grid[n][row] != EMPTY && row < 5) row++;
+
+	if (grid[n][row] == EMPTY) {
+		grid[n][row] = player;
+		moves.push(n);
+	}
+}
+
+bool findLastMove(int& x, int& y) {
+	if (moves.empty())
+		return false;
+
+	x = moves.top();
+	y = 5;
+	while (y > 0 && grid[x][y] == EMPTY) y--;
+	return true;
+}
+
+bool canPlay() {
+	return moves.size() < 10;
+}
+
+void cancelMove() {
+	int x, y;
+	if (!findLastMove(x, y)) return;
+	grid[x][y] = EMPTY;
+	moves.pop();
+}
+
+int countSequence(int x, int y, int dx, int dy) {
+	int player = grid[x][y];
+	int count = 0;
+
+	for (int i = 1; i < 4; i++) {
+		int ix = x + (i * dx);
+		int iy = y + (i * dy);
+
+		if (ix < 0 || ix > 6) break;
+		if (iy < 0 || iy > 5) break;
+
+		if (grid[ix][iy] == player) {
+			count++;
+		} else {
+			break;
+		}
+	}
+
+	return count;
 }
 
 // trouve le joueur gagnant. Renvoie EMPTY
 // si aucun joueur ne gagne à ce stade.
 int  getWinner() {
-    
-    // A COMPLETER
-    
-    return 0;
+	int x, y;
+	if (!findLastMove(x, y)) return EMPTY;
+
+	int player = grid[x][y];
+	if ((countSequence(x, y, 1, 0) + countSequence(x, y, -1, 0) >= 3) ||
+		(countSequence(x, y, 0, 1) + countSequence(x, y, 0, -1) >= 3) ||
+		(countSequence(x, y, 1, 1) + countSequence(x, y, -1, -1) >= 3) ||
+		(countSequence(x, y, 1, -1) + countSequence(x, y, -1, 1) >= 3))
+		return player;
+
+	return EMPTY;
 }
 
 // indique si le tableau est plein
 // (les 7 colonnes sont pleines)
 bool isFull() {
-    
-    // A COMPLETER
-    
-    return true;
+	for (int i = 0; i < 7; i++) {
+		if (grid[i][5] == EMPTY)
+			return false;
+	}
+	return true;
 }
 
 // verifie le validite d'un movement.
 // doit etre entre 1 et 7 (inclus) et
 // la colonne corrspondant doit avoir de la place.
 bool isValidMove(int n) {
-    
-    // A COMPLETER
-    
-    return true;
+	return grid[n][5] == EMPTY;
 }
 
 // affiche le tableau
@@ -84,13 +144,48 @@ void printBoard() {
     
 }
 
+BestMove bestMove(int player);
+
+double score(int n, int player) {
+	double playerScore = 0;
+
+	applyMove(n, player);
+
+	if (getWinner() == player) {
+		playerScore = 10;
+	} else if (isFull() || !canPlay()) {
+		playerScore = 0;
+	} else {
+		playerScore = -bestMove(-player).score;
+	}
+
+	cancelMove();
+	return playerScore + double(rand()) / RAND_MAX;
+}
+
+
+
+BestMove bestMove(int player) {
+	int bestCol = 0;
+	double bestScore = -100;
+
+	for (int i = 0; i < 7; i++) {
+		if (isValidMove(i)) {
+			double scr = score(i, player);
+			if (scr > bestScore) {
+				bestScore = scr;
+				bestCol = i;
+			}
+		}
+	}
+
+	return {bestCol, bestScore};
+}
+
 // choisit automatiquement le prochain mouvement
 // comme etant celui qui donne le meilleur score
 int ai(int player) {
-
-    // A COMPLETER
-    
-    return 0;
+	return bestMove(player).col;
 }
 
 
