@@ -72,10 +72,6 @@ bool findLastMove(int& x, int& y) {
 	return true;
 }
 
-bool canPlay() {
-	return moves.size() < 10;
-}
-
 void cancelMove() {
 	int x, y;
 	if (!findLastMove(x, y)) return;
@@ -139,39 +135,49 @@ bool isValidMove(int n) {
 
 // affiche le tableau
 void printBoard() {
-    
-    // A COMPLETER
-    
+	cout << "\n  1   2   3   4   5   6   7\n";
+	cout << "\n+---+---+---+---+---+---+---+\n";
+
+	for (int i = 5; i >= 0; i--) {
+		cout << "|";
+		for (int j = 0; j < 7; j++) {
+			switch (grid[j][i]) {
+				case X: cout << " X "; break;
+				case O: cout << " O "; break;
+				case EMPTY: cout << "   ";
+			}
+			cout << "|";
+		}
+		cout << "\n+---+---+---+---+---+---+---+\n";
+	}
 }
 
-BestMove bestMove(int player);
+BestMove bestMove(int player, int depth = 6);
 
-double score(int n, int player) {
+double score(int n, int player, int depth) {
 	double playerScore = 0;
 
 	applyMove(n, player);
 
 	if (getWinner() == player) {
 		playerScore = 10;
-	} else if (isFull() || !canPlay()) {
+	} else if (isFull() || depth == 0) {
 		playerScore = 0;
 	} else {
-		playerScore = -bestMove(-player).score;
+		playerScore = -bestMove(-player, depth - 1).score;
 	}
 
 	cancelMove();
 	return playerScore + double(rand()) / RAND_MAX;
 }
 
-
-
-BestMove bestMove(int player) {
+BestMove bestMove(int player, int depth) {
 	int bestCol = 0;
 	double bestScore = -100;
 
 	for (int i = 0; i < 7; i++) {
 		if (isValidMove(i)) {
-			double scr = score(i, player);
+			double scr = score(i, player, depth);
 			if (scr > bestScore) {
 				bestScore = scr;
 				bestCol = i;
@@ -204,6 +210,9 @@ int interactive(int player) {
     int n;
     cin >> n;
     cout << endl;
+
+	// Simple correction pour les index utilisé dans le code ci-dessus
+	n -= 1;
     
     if(!cin.good() || !isValidMove(n)) {
         cin.clear();
@@ -277,7 +286,7 @@ int main() {
             nextMove = interactive(currentPlayer);
         else {
             nextMove = ai(currentPlayer);
-            cout << endl << "AI joue " << nextMove << endl;
+            cout << endl << "AI joue " << nextMove + 1 << endl;
         }
         applyMove(nextMove,currentPlayer);
         currentPlayer = - currentPlayer;
