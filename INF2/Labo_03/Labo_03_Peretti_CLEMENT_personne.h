@@ -1,8 +1,8 @@
 /* 
  * Fichier      : Labo_03_Peretti_CLEMENT_personne.h
- * Auteur(s)    : Christophe Peretti
+ * Auteur(s)    : Christophe Peretti et Bastien Clément
  *
- * Date         : 11. mars 2015, 11:29
+ * Date         : 23 mars 2015
  */
 
 #ifndef LABO_03_PERETTI_CLEMENT_PERSONNE_H

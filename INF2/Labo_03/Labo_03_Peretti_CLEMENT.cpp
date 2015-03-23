@@ -2,10 +2,11 @@
  -----------------------------------------------------------------------------------
  Laboratoire    : Labo_03
  Fichier        : labo_03_Peretti_CLEMENT.cpp
- Auteur(s)      : Christophe Peretti
- Date           : 11. mars 2015
+ Auteur(s)      : Christophe Peretti et Bastien Clément
+ Date           : 23 mars 2015
  
- But            :
+ But            : Utiliser les librairies personnes et dates 
+                  pour créer une collection de personne
  
  Remarques(s)   :
  

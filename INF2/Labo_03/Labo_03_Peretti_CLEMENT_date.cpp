@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire    : Labo_03
  Fichier        : labo_03_Peretti_CLEMENT_date.cpp
- Auteur(s)      : Christophe Peretti
- Date           : 11. mars 2015
+ Auteur(s)      : Christophe Peretti et Bastien Clément
+ Date           : 23 mars 2015
  
- But            :
+ But            : Outils permettant de gérer la structure date
  
  Remarques(s)   :
  

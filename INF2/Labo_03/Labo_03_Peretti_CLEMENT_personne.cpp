@@ -2,10 +2,10 @@
  -----------------------------------------------------------------------------------
  Laboratoire    : Labo_03
  Fichier        : labo_03_Peretti_CLEMENT_personne.cpp
- Auteur(s)      : Christophe Peretti
- Date           : 11. mars 2015
+ Auteur(s)      : Christophe Peretti et Bastien Clément
+ Date           : 23 mars 2015
  
- But            :
+ But            : Outils permettant de gérer la structure personne
  
  Remarques(s)   :
  
@@ -78,7 +78,7 @@ Personne& Personne::setSalaire(const unsigned int salaire2) {
    return *this;
 }
 
-
+// Gestion des flux
 ostream& operator<<(ostream& os, const Personne& p) {
    if (p.getNom() != "") {
       os << p.getNom() << endl;
