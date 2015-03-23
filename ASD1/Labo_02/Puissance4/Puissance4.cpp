@@ -142,7 +142,7 @@ bool isValidMove(int n) {
 void printBoard() {
 	bool has_winner = getWinner() != EMPTY;
 	int win_x, win_y;
-	findLastMove(win_x, win_y);
+	if (has_winner) findLastMove(win_x, win_y);
 
 	cout << "\n  1   2   3   4   5   6   7\n";
 	cout << "\n+---+---+---+---+---+---+---+\n";
