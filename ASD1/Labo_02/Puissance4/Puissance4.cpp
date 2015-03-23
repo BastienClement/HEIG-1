@@ -140,17 +140,23 @@ bool isValidMove(int n) {
 // affiche le tableau
 
 void printBoard() {
+	bool has_winner = getWinner() != EMPTY;
+	int win_x, win_y;
+	findLastMove(win_x, win_y);
+
 	cout << "\n  1   2   3   4   5   6   7\n";
 	cout << "\n+---+---+---+---+---+---+---+\n";
 
 	for (int i = 5; i >= 0; i--) {
 		cout << "|";
 		for (int j = 0; j < 7; j++) {
+			cout << (has_winner && win_x == j && win_y == i ? "(" : " ");
 			switch (grid[j][i]) {
 				case X: cout << "X"; break;
 				case O: cout << "O"; break;
 				case EMPTY: cout << " ";
 			}
+			cout << (has_winner && win_x == j && win_y == i ? ")" : " ");
 			cout << "|";
 		}
 		cout << "\n+---+---+---+---+---+---+---+\n";
