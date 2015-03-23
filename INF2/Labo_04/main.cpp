@@ -3,7 +3,7 @@ using namespace std;
 
 typedef int Element;
 
-struct ListeStatique {
+struct DequeStatique {
 private:
 	Element* data;
 	size_t taille;
@@ -11,8 +11,8 @@ private:
 	size_t elements = 0;
 
 public:
-	ListeStatique(size_t taille = 0);
-	~ListeStatique();
+	DequeStatique(size_t taille = 0);
+	~DequeStatique();
 
 	bool push_back(Element& e);
 	bool pop_back(Element& e);
@@ -26,19 +26,19 @@ public:
 	void resize(size_t taille);
 };
 
-ListeStatique::ListeStatique(size_t t) {
+DequeStatique::DequeStatique(size_t t) {
 	data = t ? new Element[t] : nullptr;
 	taille = t;
 	debut = 0;
 	elements = 0;
 }
 
-ListeStatique::~ListeStatique() {
+DequeStatique::~DequeStatique() {
 	delete[] data;
 }
 
-// Redimensionnement de la liste statique
-void ListeStatique::resize(size_t t) {
+// Redimensionnement de la Deque statique
+void DequeStatique::resize(size_t t) {
 	// Taille identique
 	if (t == taille) return;
 
@@ -73,15 +73,15 @@ struct Noeud {
 	Noeud* suivant;
 };
 
-struct ListeDynamique {
+struct DequeDynamique {
 private:
 	Noeud* tete;
 	Noeud* queue;
 	size_t taille;
 
 public:
-	ListeDynamique();
-	~ListeDynamique();
+	DequeDynamique();
+	~DequeDynamique();
 
 	bool push_back(Element& e);
 	bool pop_back(Element& e);
@@ -93,13 +93,13 @@ public:
 	bool estPresent(const Element& e) const;
 };
 
-ListeDynamique::ListeDynamique() {
+DequeDynamique::DequeDynamique() {
 	tete = nullptr;
 	queue = nullptr;
 	taille = 0;
 }
 
-ListeDynamique::~ListeDynamique() {
+DequeDynamique::~DequeDynamique() {
 	Noeud* n = tete;
 	while (n) {
 		n = n->suivant;
@@ -111,7 +111,7 @@ ListeDynamique::~ListeDynamique() {
 
 struct PileDynamique {
 private:
-	ListeDynamique liste;
+	DequeDynamique Deque;
 
 public:
 	PileDynamique();
@@ -131,10 +131,10 @@ PileDynamique::~PileDynamique() {
 }
 
 PileDynamique::empiler(const Element& e) {
-	liste.push_front(e);
+	Deque.push_front(e);
 	}
 PileDynamique::depiler() {
-	liste.pop_front();
+	Deque.pop_front();
 	}
 PileDynamique::estPleine() {
 	
@@ -149,7 +149,7 @@ PileDynamique::estPresent() {
 
 struct PileStatique {
 private:
-	ListeStatique liste;
+	DequeStatique Deque;
 
 public:
 	PileStatique(size_t taille = 50);
@@ -163,7 +163,7 @@ public:
 };
 
 PileStatique::PileStatique(size_t taille) {
-	liste.resize(taille);
+	Deque.resize(taille);
 }
 
 PileStatique::~PileStatique() {
