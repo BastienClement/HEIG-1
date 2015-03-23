@@ -11,7 +11,7 @@ private:
 	size_t fin;
 
 public:
-	ListeStatique(size_t taille = 50);
+	ListeStatique(size_t taille = 0);
 	~ListeStatique();
 
 	bool push_back(Element& e);
@@ -27,7 +27,7 @@ public:
 };
 
 ListeStatique::ListeStatique(size_t t) {
-	data = new Element[t];
+	data = t ? new Element[t] : nullptr;
 	taille = t;
 	debut = 0;
 	fin = 0;
