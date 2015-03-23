@@ -99,7 +99,7 @@ ostream& operator<<(ostream& os, const Personne& p) {
    if (p.getSalaire() != 0) {
       os << p.getSalaire() << endl;
    }
-      return os << endl << endl;
+      return os << endl;
    }
 
 istream& operator >> (istream& is, Personne& p){
