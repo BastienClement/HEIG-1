@@ -14,14 +14,16 @@ public:
 	ListeStatique(size_t taille = 50);
 	~ListeStatique();
 
-	bool empiler(Element& e);
-	bool depiler(Element& e);
-	bool inserer(Element& e);
-	bool prelever(Element& e);
+	bool push_back(Element& e);
+	bool pop_back(Element& e);
+	bool push_front(Element& e);
+	bool pop_front(Element& e);
 
 	bool estPleine() const;
 	bool estVide() const;
 	bool estPresent(const Element& e) const;
+	
+	void resize(size_t taille);
 };
 
 ListeStatique::ListeStatique(size_t t) {
@@ -52,10 +54,10 @@ public:
 	ListeDynamique();
 	~ListeDynamique();
 
-	bool empiler(Element& e);
-	bool depiler(Element& e);
-	bool inserer(Element& e);
-	bool prelever(Element& e);
+	bool push_back(Element& e);
+	bool pop_back(Element& e);
+	bool push_front(Element& e);
+	bool pop_front(Element& e);
 
 	bool estPleine() const;
 	bool estVide() const;
