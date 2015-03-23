@@ -181,7 +181,7 @@ double score(int n, int player, int depth) {
    cancelMove();
    // Pondération du score en fonction de la colonne
    // l'IA aura tendance à plus jouer dans les colonnes centrales
-   return playerScore + (double(rand()) / RAND_MAX) * (0.66+2*n/9-n*n/27);
+   return playerScore + (double(rand()) / RAND_MAX) * (0.5+2*n/3-n*n/9);
 }
 
 BestMove bestMove(int player, int depth) {
@@ -314,7 +314,7 @@ int main() {
     if (winner != EMPTY)
         cout << " \n\n" << (winner == X ? 'X' : 'O') << " gagne! \n\n\n";
     else
-        cout << " \n\n EgalitÃ©! \n\n\n";
+        cout << " \n\n Egalite! \n\n\n";
     
     return EXIT_SUCCESS;
 }
