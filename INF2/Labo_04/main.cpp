@@ -8,7 +8,7 @@ private:
 	Element* data;
 	size_t taille;
 	size_t debut;
-	size_t fin;
+	size_t elements = 0;
 
 public:
 	ListeStatique(size_t taille = 0);
@@ -30,11 +30,39 @@ ListeStatique::ListeStatique(size_t t) {
 	data = t ? new Element[t] : nullptr;
 	taille = t;
 	debut = 0;
-	fin = 0;
+	elements = 0;
 }
 
 ListeStatique::~ListeStatique() {
 	delete[] data;
+}
+
+// Redimensionnement de la liste statique
+void ListeStatique::resize(size_t t) {
+	// Taille identique
+	if (t == taille) return;
+
+	// S'il y a trop d'éléments à copier
+	if (elements > t) {
+		elements = t;
+	}
+
+	// Allocation de l'espace
+	Element* new_data = new Element[t];
+
+	// Il y a des éléments à copier
+	if (data) {
+		for (size_t i = 0, j = debut; i < elements; i++, j++) {
+			new_data[i] = data[j % taille];
+		}
+
+		// Supression de l'ancien buffer
+		delete[] data;
+	}
+
+	data = new_data;
+	debut = 0;
+	taille = t;
 }
 
 // =================================================================================================
