@@ -82,31 +82,45 @@ ListeDynamique::~ListeDynamique() {
 
 struct PileDynamique {
 private:
-	Noeud* sommet;
+	ListeDynamique liste;
 
 public:
 	PileDynamique();
 	~PileDynamique();
-	bool empiler(Element& e);
-	bool depiler(Element& e);
+	bool empiler(const Element& e);
+	bool depiler();
 	bool estPleine();
 	bool estVide();
 	bool estPresent(const Element& e);
 };
 
 PileDynamique::PileDynamique() {
-	sommet = nullptr;
+	
 }
 
 PileDynamique::~PileDynamique() {
 }
 
+PileDynamique::empiler(const Element& e) {
+	liste.push_front(e);
+	}
+PileDynamique::depiler() {
+	liste.pop_front();
+	}
+PileDynamique::estPleine() {
+	
+}
+PileDynamique::estVide() {
+	
+}
+PileDynamique::estPresent() {
+	
+}
 // =================================================================================================
 
 struct PileStatique {
 private:
-	Element* data;
-	size_t taille;
+	ListeStatique liste;
 
 public:
 	PileStatique(size_t taille = 50);
@@ -120,7 +134,7 @@ public:
 };
 
 PileStatique::PileStatique(size_t taille) {
-	data = new Element[taille];
+	liste.resize(taille);
 }
 
 PileStatique::~PileStatique() {
