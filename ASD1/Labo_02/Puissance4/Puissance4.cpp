@@ -49,7 +49,7 @@ void clearBoard() {
    memset(grid, EMPTY, sizeof (grid));
 }
 
-// applique un movement en mettant à
+// applique un movement en mettant Ã 
 // currentPlayer la case du tableau
 // correspondante.
 
@@ -102,7 +102,7 @@ int countSequence(int x, int y, int dx, int dy) {
 }
 
 // trouve le joueur gagnant. Renvoie EMPTY
-// si aucun joueur ne gagne à ce stade.
+// si aucun joueur ne gagne Ã  ce stade.
 
 int getWinner() {
    int x, y;
@@ -147,9 +147,9 @@ void printBoard() {
 		cout << "|";
 		for (int j = 0; j < 7; j++) {
 			switch (grid[j][i]) {
-				case X: cout << " X "; break;
-				case O: cout << " O "; break;
-				case EMPTY: cout << "   ";
+				case X: cout << "X"; break;
+				case O: cout << "O"; break;
+				case EMPTY: cout << " ";
 			}
 			cout << "|";
 		}
@@ -157,7 +157,7 @@ void printBoard() {
 	}
 }
 
-BestMove bestMove(int player, int depth = 6);
+BestMove bestMove(int player, int depth = 7);
 
 double score(int n, int player, int depth) {
 	double playerScore = 0;
@@ -166,14 +166,16 @@ double score(int n, int player, int depth) {
 
 	if (getWinner() == player) {
 		playerScore = 10;
-	} else if (isFull() || depth == 0) {
+	} else if (isFull() || depth <= 0) {
 		playerScore = 0;
 	} else {
 		playerScore = -bestMove(-player, depth - 1).score;
 	}
 
    cancelMove();
-   return playerScore + double(rand()) / RAND_MAX;
+   // Pondération du score en fonction de la colonne
+   // l'IA aura tendance à plus jouer dans les colonnes centrales
+   return playerScore + (double(rand()) / RAND_MAX) * (0.66+2*n/9-n*n/27);
 }
 
 BestMove bestMove(int player, int depth) {
@@ -218,7 +220,7 @@ int interactive(int player) {
     cin >> n;
     cout << endl;
 
-	// Simple correction pour les index utilisé dans le code ci-dessus
+	// Simple correction pour les index utilisÃ© dans le code ci-dessus
 	n -= 1;
     
     if(!cin.good() || !isValidMove(n)) {
@@ -306,7 +308,7 @@ int main() {
     if (winner != EMPTY)
         cout << " \n\n" << (winner == X ? 'X' : 'O') << " gagne! \n\n\n";
     else
-        cout << " \n\n Egalité! \n\n\n";
+        cout << " \n\n EgalitÃ©! \n\n\n";
     
     return EXIT_SUCCESS;
 }
