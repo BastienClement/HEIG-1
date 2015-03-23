@@ -69,6 +69,7 @@ void ListeStatique::resize(size_t t) {
 
 struct Noeud {
 	Element valeur;
+	Noeud* precedent;
 	Noeud* suivant;
 };
 
