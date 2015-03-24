@@ -18,14 +18,15 @@ public:
 
 	void resize(size_t taille);
 
-	bool push_back(Element& e);
+	bool push_back(Element e);
 	bool pop_back(Element& e);
-	bool push_front(Element& e);
+
+	bool push_front(Element e);
 	bool pop_front(Element& e);
 
 	bool estPlein() const;
 	bool estVide() const;
-	bool estPresent(const Element& e) const;
+	bool estPresent(Element e) const;
 };
 
 DequeStatique::DequeStatique(size_t t) {
@@ -71,7 +72,7 @@ void DequeStatique::resize(size_t t) {
 	taille = t;
 }
 
-bool DequeStatique::push_back(Element& e) {
+bool DequeStatique::push_back(Element e) {
 	if (estPlein()) return false;
 	element(elements++) = e;
 	return true;
@@ -83,16 +84,18 @@ bool DequeStatique::pop_back(Element& e) {
 	return true;
 }
 
-bool DequeStatique::push_front(Element& e) {
+bool DequeStatique::push_front(Element e) {
 	if (estPlein()) return false;
 	debut = (debut == 0) ? taille - 1 : (debut - 1 % taille);
 	element(0) = e;
+	elements++;
 	return true;
 }
 
 bool DequeStatique::pop_front(Element& e) {
 	if (estVide()) return false;
 	e = element(0);
+	elements--;
 	debut = (debut + 1) % taille;
 	return true;
 }
@@ -105,7 +108,7 @@ bool DequeStatique::estVide() const {
 	return elements == 0;
 }
 
-bool DequeStatique::estPresent(const Element &e) const {
+bool DequeStatique::estPresent(Element e) const {
 	for (size_t i = 0; i < elements; i++) {
 		if (data[(debut + i) % taille] == e) return true;
 	}
@@ -130,14 +133,14 @@ public:
 	DequeDynamique();
 	~DequeDynamique();
 
-	bool push_back(Element& e);
+	bool push_back(Element e);
 	bool pop_back(Element& e);
-	bool push_front(Element& e);
+	bool push_front(Element e);
 	bool pop_front(Element& e);
 
 	bool estPlein() const;
 	bool estVide() const;
-	bool estPresent(const Element& e) const;
+	bool estPresent(Element e) const;
 };
 
 DequeDynamique::DequeDynamique() {
@@ -154,7 +157,7 @@ DequeDynamique::~DequeDynamique() {
 	}
 }
 
-bool DequeDynamique::push_back(Element &e) {
+bool DequeDynamique::push_back(Element e) {
 	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
@@ -182,7 +185,7 @@ bool DequeDynamique::push_back(Element &e) {
 	return true;
 }
 
-bool DequeDynamique::pop_back(Element &e) {
+bool DequeDynamique::pop_back(Element& e) {
 	if (estVide()) return false;
 
 	// Pointeur sur le dernier élément
@@ -204,7 +207,7 @@ bool DequeDynamique::pop_back(Element &e) {
 	return true;
 }
 
-bool DequeDynamique::push_front(Element &e) {
+bool DequeDynamique::push_front(Element e) {
 	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
@@ -232,7 +235,7 @@ bool DequeDynamique::push_front(Element &e) {
 	return true;
 }
 
-bool DequeDynamique::pop_front(Element &e) {
+bool DequeDynamique::pop_front(Element& e) {
 	if (estVide()) return false;
 
 	// Pointeur sur le premier élément
@@ -263,7 +266,7 @@ bool DequeDynamique::estVide() const {
 	return elements == 0;
 }
 
-bool DequeDynamique::estPresent(const Element &e) const {
+bool DequeDynamique::estPresent(Element e) const {
 	Noeud* n = tete;
 	while (n) {
 		if (n->valeur == e) return true;
