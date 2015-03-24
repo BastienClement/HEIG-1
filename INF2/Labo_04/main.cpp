@@ -10,7 +10,7 @@ private:
 	size_t debut;
 	size_t elements = 0;
 
-	Element& get(size_t index);
+	Element& element(size_t index);
 
 public:
 	DequeStatique(size_t taille = 0);
@@ -39,7 +39,7 @@ DequeStatique::~DequeStatique() {
 	delete[] data;
 }
 
-Element& DequeStatique::get(size_t index) {
+Element& DequeStatique::element(size_t index) {
 	return data[(debut + index) % taille];
 }
 
@@ -59,7 +59,7 @@ void DequeStatique::resize(size_t t) {
 	// Il y a des éléments à copier
 	if (data) {
 		for (size_t i = 0; i < elements; i++) {
-			new_data[i] = get(i);
+			new_data[i] = element(i);
 		}
 
 		// Supression de l'ancien buffer
@@ -73,26 +73,26 @@ void DequeStatique::resize(size_t t) {
 
 bool DequeStatique::push_back(Element& e) {
 	if (estPleine()) return false;
-	get(elements++) = e;
+	element(elements++) = e;
 	return true;
 }
 
 bool DequeStatique::pop_back(Element& e) {
 	if (estVide()) return false;
-	e = get(--elements);
+	e = element(--elements);
 	return true;
 }
 
 bool DequeStatique::push_front(Element& e) {
 	if (estPleine()) return false;
-	debut = (debut + taille - 1) % taille;
-	get(0) = e;
+	debut = (debut == 0) ? taille - 1 : (debut - 1 % taille);
+	element(0) = e;
 	return true;
 }
 
 bool DequeStatique::pop_front(Element& e) {
 	if (estVide()) return false;
-	e = get(0);
+	e = element(0);
 	debut = (debut + 1) % taille;
 	return true;
 }
