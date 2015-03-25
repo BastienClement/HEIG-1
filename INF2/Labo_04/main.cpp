@@ -18,10 +18,10 @@ public:
 
 	void resize(size_t taille);
 
-	bool push_back(Element e);
+	bool push_back(const Element& e);
 	bool pop_back(Element& e);
 
-	bool push_front(Element e);
+	bool push_front(const Element& e);
 	bool pop_front(Element& e);
 
 	bool estPlein() const;
@@ -72,7 +72,7 @@ void DequeStatique::resize(size_t t) {
 	taille = t;
 }
 
-bool DequeStatique::push_back(Element e) {
+bool DequeStatique::push_back(const Element& e) {
 	if (estPlein()) return false;
 	element(elements++) = e;
 	return true;
@@ -84,7 +84,7 @@ bool DequeStatique::pop_back(Element& e) {
 	return true;
 }
 
-bool DequeStatique::push_front(Element e) {
+bool DequeStatique::push_front(const Element& e) {
 	if (estPlein()) return false;
 	debut = (debut == 0 ? taille : debut ) - 1;
 	element(0) = e;
@@ -133,9 +133,9 @@ public:
 	DequeDynamique();
 	~DequeDynamique();
 
-	bool push_back(Element e);
+	bool push_back(const Element& e);
 	bool pop_back(Element& e);
-	bool push_front(Element e);
+	bool push_front(const Element& e);
 	bool pop_front(Element& e);
 
 	bool estPlein() const;
@@ -157,7 +157,7 @@ DequeDynamique::~DequeDynamique() {
 	}
 }
 
-bool DequeDynamique::push_back(Element e) {
+bool DequeDynamique::push_back(const Element& e) {
 	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
@@ -207,7 +207,7 @@ bool DequeDynamique::pop_back(Element& e) {
 	return true;
 }
 
-bool DequeDynamique::push_front(Element e) {
+bool DequeDynamique::push_front(const Element& e) {
 	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
