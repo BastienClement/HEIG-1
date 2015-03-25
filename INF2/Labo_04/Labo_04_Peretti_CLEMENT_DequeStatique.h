@@ -43,18 +43,18 @@ public:
 	DequeStatique(size_t taille = 0);
 	~DequeStatique();
 
-	// Redimmensionne le tableau interne
+	// Redimensionne le tableau interne
 	void resize(size_t taille);
 
-	// Ajoute et retire des éléments à la fin du buffer
+	// Ajoute et retire des éléments à la fin du deque
 	bool push_back(const Element& e);
 	bool pop_back(Element& e);
 
-	// Ajoute et retire des éléments au début du buffer
+	// Ajoute et retire des éléments au début du deque
 	bool push_front(const Element& e);
 	bool pop_front(Element& e);
 
-	// Information d'état du Deque
+	// Information d'état du deque
 	bool estPlein() const;
 	bool estVide() const;
 	bool estPresent(const Element& e) const;

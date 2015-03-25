@@ -18,9 +18,7 @@
 
 #include "Labo_04_Peretti_CLEMENT.h"
 
-//
-// Un élément du Deque dynamique
-//
+// Un élément du deque dynamique
 struct Noeud {
 	Element valeur;
 	Noeud* precedent;
@@ -28,26 +26,33 @@ struct Noeud {
 };
 
 //
-// Deque dynamique, implémenté comme un liste doublement chaînée circulaire
+// Deque dynamique, implémenté comme une liste doublement chaînée circulaire
 //
 struct DequeDynamique {
 private:
-	// Pointeur vers le premier élément
+	// Pointeurs vers le premier et dernier élément
 	Noeud* tete;
 	Noeud* queue;
 
+	// Crée un nouveau noeud dans la structure interne, modifie le pointeur ptr
 	bool creerNoeud(const Element& e, Noeud*& ptr);
+
+	// Supprime un noeud de la structure interne et modifie le pointeur ptr
 	bool supprimerNoeud(Element& e, Noeud*& ptr);
 
 public:
 	DequeDynamique();
 	~DequeDynamique();
 
+	// Ajout et suppression à la fin du deque
 	bool push_back(const Element& e);
 	bool pop_back(Element& e);
+
+	// Ajout et suppression au début du deque
 	bool push_front(const Element& e);
 	bool pop_front(Element& e);
 
+	// Information d'état du deque
 	bool estPlein() const;
 	bool estVide() const;
 	bool estPresent(const Element& e) const;

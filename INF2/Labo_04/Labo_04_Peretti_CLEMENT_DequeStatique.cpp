@@ -94,9 +94,14 @@ bool DequeStatique::push_front(const Element& e) {
 
 bool DequeStatique::pop_front(Element& e) {
 	if (estVide()) return false;
+
+	// Lecture du premier élément
 	e = element(0);
 	elements--;
+
+	// On avance d'un élément
 	debut = (debut + 1) % taille;
+
 	return true;
 }
 
