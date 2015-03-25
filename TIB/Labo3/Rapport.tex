@@ -82,7 +82,9 @@ Pour observer cette différence, nous avons réitéré la capture de l'objectif 
 
 \subsection{Auto-apprentissage du switch}
 
+Le switch ne nécessite aucune configuration pour fonctionner mais apprend dynamiquement la configuration du réseau en observant les paquets reçus et transmis.
 
+Lorsqu'il reçoit une trame adressée à un destinataire qu'il ne connaît pas encore, il la transmet simplement sur toutes ses interfaces. Par la suite, il est probable que la machine venant de recevoir la trame transmette à son tour quelque chose sur le réseau. À ce moment, le switch identifiera l'adresse MAC encore inconnue et l'interface depuis laquelle cette trame a été reçue. Il mettra donc à jour sa table interne pour pouvoir à présent diriger les trames adressées à cette adresse sur la bon interface.
 
 \section{Performances d'un hub et d'un switch}
 
