@@ -53,28 +53,36 @@ bool DequeDynamique::creerNoeud(const Element& e, Noeud*& ptr) {
 	return n;
 }
 
+bool DequeDynamique::supprimerNoeud(Element& e, Noeud*& ptr) {
+	if (estVide()) return false;
+
+	e = ptr->valeur;
+
+	if (ptr->suivant == ptr) {
+		// Un seul élément
+		delete ptr;
+		tete = queue = nullptr;
+	} else {
+		// Au moins deux éléments
+		ptr->precedent->suivant = ptr->suivant;
+		ptr->suivant->precedent = ptr->precedent;
+		delete ptr;
+		if (ptr == tete) {
+			tete = queue->suivant;
+		} else {
+			queue = tete->precedent;
+		}
+	}
+
+	return true;
+}
+
 bool DequeDynamique::push_back(const Element& e) {
 	return creerNoeud(e, queue);
 }
 
 bool DequeDynamique::pop_back(Element& e) {
-	if (estVide()) return false;
-
-	e = queue->valeur;
-
-	if (queue->precedent == queue) {
-		// Un seul élément
-		delete queue;
-		tete = queue = nullptr;
-	} else {
-		// Au moins deux éléments
-		queue->precedent->suivant = tete;
-		tete->precedent = queue->precedent;
-		delete queue;
-		queue = tete->precedent;
-	}
-
-	return true;
+	return supprimerNoeud(e, queue);
 }
 
 bool DequeDynamique::push_front(const Element& e) {
@@ -82,23 +90,7 @@ bool DequeDynamique::push_front(const Element& e) {
 }
 
 bool DequeDynamique::pop_front(Element& e) {
-	if (estVide()) return false;
-
-	e = tete->valeur;
-
-	if (tete->suivant == tete) {
-		// Un seul élément
-		delete tete;
-		tete = queue = nullptr;
-	} else {
-		// Au moins deux éléments
-		queue->suivant = tete->suivant;
-		tete->suivant->precedent = queue;
-		delete tete;
-		tete = queue->suivant;
-	}
-
-	return true;
+	return supprimerNoeud(e, tete);
 }
 
 bool DequeDynamique::estPlein() const {

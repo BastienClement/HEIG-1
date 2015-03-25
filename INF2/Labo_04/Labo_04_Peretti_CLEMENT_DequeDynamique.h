@@ -37,6 +37,7 @@ private:
 	Noeud* queue;
 
 	bool creerNoeud(const Element& e, Noeud*& ptr);
+	bool supprimerNoeud(Element& e, Noeud*& ptr);
 
 public:
 	DequeDynamique();
