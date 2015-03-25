@@ -86,7 +86,7 @@ bool DequeStatique::pop_back(Element& e) {
 
 bool DequeStatique::push_front(Element e) {
 	if (estPlein()) return false;
-	debut = (debut == 0) ? taille - 1 : (debut - 1 % taille);
+	debut = (debut == 0 ? taille : debut ) - 1;
 	element(0) = e;
 	elements++;
 	return true;
