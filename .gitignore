@@ -12,3 +12,7 @@ build/
 *.synctex.gz
 *.toc
 *.bak
+.cproject
+.project
+.settings
+**/.gitignore
