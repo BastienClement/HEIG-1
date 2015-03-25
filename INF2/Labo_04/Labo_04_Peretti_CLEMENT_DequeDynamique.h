@@ -36,7 +36,7 @@ private:
 	Noeud* tete;
 	Noeud* queue;
 
-	Noeud* creerNoeud(const Element& e);
+	bool creerNoeud(const Element& e, Noeud*& ptr);
 
 public:
 	DequeDynamique();

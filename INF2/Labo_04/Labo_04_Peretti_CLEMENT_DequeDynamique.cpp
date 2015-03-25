@@ -37,25 +37,24 @@ DequeDynamique::~DequeDynamique() {
 	}
 }
 
-Noeud* DequeDynamique::creerNoeud(const Element& e) {
+bool DequeDynamique::creerNoeud(const Element& e, Noeud*& ptr) {
 	Noeud* n = new(nothrow) Noeud;
 	if (n) {
 		if (tete) {
 			*n = { e, queue, tete };
 			queue->suivant = n;
 			tete->precedent = n;
+			ptr = n;
 		} else {
 			*n = { e, n, n };
+			tete = queue = n;
 		}
 	}
 	return n;
 }
 
 bool DequeDynamique::push_back(const Element& e) {
-	Noeud* n = creerNoeud(e);
-	if (!n) return false;
-	queue = n;
-	return true;
+	return creerNoeud(e, queue);
 }
 
 bool DequeDynamique::pop_back(Element& e) {
@@ -69,20 +68,17 @@ bool DequeDynamique::pop_back(Element& e) {
 		tete = queue = nullptr;
 	} else {
 		// Au moins deux éléments
-		queue->precedent->suivant = queue->suivant;
-		Noeud* n = queue->suivant->precedent = queue->precedent;
+		queue->precedent->suivant = tete;
+		tete->precedent = queue->precedent;
 		delete queue;
-		queue = n;
+		queue = tete->precedent;
 	}
 
 	return true;
 }
 
 bool DequeDynamique::push_front(const Element& e) {
-	Noeud* n = creerNoeud(e);
-	if (!n) return false;
-	tete = n;
-	return true;
+	return creerNoeud(e, tete);
 }
 
 bool DequeDynamique::pop_front(Element& e) {
@@ -96,10 +92,10 @@ bool DequeDynamique::pop_front(Element& e) {
 		tete = queue = nullptr;
 	} else {
 		// Au moins deux éléments
-		tete->precedent->suivant = tete->suivant;
-		Noeud* n = tete->suivant->precedent = tete->precedent;
+		queue->suivant = tete->suivant;
+		tete->suivant->precedent = queue;
 		delete tete;
-		queue = n;
+		tete = queue->suivant;
 	}
 
 	return true;
