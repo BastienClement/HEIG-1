@@ -18,17 +18,25 @@
 
 #include "Labo_04_Peretti_CLEMENT.h"
 
+//
+// Un élément du Deque dynamique
+//
 struct Noeud {
 	Element valeur;
 	Noeud* precedent;
 	Noeud* suivant;
 };
 
+//
+// Deque dynamique, implémenté comme un liste doublement chaînée circulaire
+//
 struct DequeDynamique {
 private:
+	// Pointeur vers le premier élément
 	Noeud* tete;
 	Noeud* queue;
-	size_t elements;
+
+	Noeud* creerNoeud(const Element& e);
 
 public:
 	DequeDynamique();
@@ -41,7 +49,7 @@ public:
 
 	bool estPlein() const;
 	bool estVide() const;
-	bool estPresent(Element e) const;
+	bool estPresent(const Element& e) const;
 };
 
 #endif /* LABO_04_PERETTI_CLEMENT_DEQUEDYNAMIQUE_H_ */
