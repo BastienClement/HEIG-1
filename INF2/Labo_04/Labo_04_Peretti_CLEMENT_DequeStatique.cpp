@@ -35,6 +35,10 @@ Element& DequeStatique::element(size_t index) {
 	return data[(debut + index) % taille];
 }
 
+const Element& DequeStatique::element(size_t index) const {
+	return data[(debut + index) % taille];
+}
+
 void DequeStatique::resize(size_t t) {
 	// Taille identique
 	if (t == taille) return;

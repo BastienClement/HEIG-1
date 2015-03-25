@@ -37,6 +37,7 @@ private:
 
 	// Returne une référence vers l'élément à l'index donné
 	Element& element(size_t index);
+	const Element& element(size_t index) const;
 
 public:
 	DequeStatique(size_t taille = 0);
