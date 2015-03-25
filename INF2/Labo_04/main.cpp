@@ -285,7 +285,7 @@ public:
 	PileDynamique();
 	~PileDynamique();
 	bool empiler(const Element& e);
-	bool depiler();
+	bool depiler(Element& e);
 	bool estPleine();
 	bool estVide();
 	bool estPresent(const Element& e);
@@ -298,20 +298,20 @@ PileDynamique::PileDynamique() {
 PileDynamique::~PileDynamique() {
 }
 
-PileDynamique::empiler(const Element& e) {
-	Deque.push_front(e);
+bool PileDynamique::empiler(const Element& e) {
+	return Deque.push_front(e);
 	}
-PileDynamique::depiler() {
-	Deque.pop_front();
+bool PileDynamique::depiler(Element& e) {
+	return Deque.pop_front(e);
 	}
-PileDynamique::estPleine() {
-	
+bool PileDynamique::estPleine() {
+	return true;
 }
-PileDynamique::estVide() {
-	
+bool PileDynamique::estVide() {
+	return true;
 }
-PileDynamique::estPresent() {
-	
+bool PileDynamique::estPresent(const Element& e) {
+	return true;
 }
 // =================================================================================================
 
@@ -321,7 +321,6 @@ private:
 
 public:
 	PileStatique(size_t taille = 50);
-	~PileStatique();
 
 	bool empiler(Element& e);
 	bool depiler(Element& e);
@@ -330,13 +329,8 @@ public:
 	bool estPresent(const Element& e);
 };
 
-PileStatique::PileStatique(size_t taille) {
-	Deque.resize(taille);
-}
+PileStatique::PileStatique(size_t taille) : Deque(taille) {}
 
-PileStatique::~PileStatique() {
-	delete[] data;
-}
 
 // =================================================================================================
 
