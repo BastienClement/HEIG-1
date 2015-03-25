@@ -16,7 +16,7 @@
 #include "Labo_04_Peretti_CLEMENT_QueueDynamique.h"
 
 bool QueueDynamique::inserer(Element& e) {
-	return Deque.push_front(e);
+	return Deque.push_back(e);
 }
 
 bool QueueDynamique::prelever(Element& e) {
