@@ -49,7 +49,7 @@ void DequeStatique::resize(size_t t) {
 	// Taille identique
 	if (t == taille) return;
 
-	// S'il y a trop d'Ã©lÃ©ments Ã  copier
+	// S'il y a trop d'éléments à copier
 	if (elements > t) {
 		elements = t;
 	}
@@ -57,7 +57,7 @@ void DequeStatique::resize(size_t t) {
 	// Allocation de l'espace
 	Element* new_data = new Element[t];
 
-	// Il y a des Ã©lÃ©ments Ã  copier
+	// Il y a des éléments à copier
 	if (data) {
 		for (size_t i = 0; i < elements; i++) {
 			new_data[i] = element(i);
@@ -86,7 +86,7 @@ bool DequeStatique::pop_back(Element& e) {
 
 bool DequeStatique::push_front(Element e) {
 	if (estPlein()) return false;
-	debut = (debut == 0 ? taille : debut) - 1;
+	debut = (debut == 0) ? taille - 1 : (debut - 1 % taille);
 	element(0) = e;
 	elements++;
 	return true;
@@ -158,7 +158,7 @@ DequeDynamique::~DequeDynamique() {
 }
 
 bool DequeDynamique::push_back(Element e) {
-	// CrÃ©ation d'un nouveau noeud
+	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
 
@@ -168,18 +168,18 @@ bool DequeDynamique::push_back(Element e) {
 
 	if (estVide()) {
 		// Si le deque est vide, la nouvelle queue
-		// est aussi la tÃªte
+		// est aussi la tête
 		tete = n;
 	} else {
-		// Sinon on dÃ©fini la nouvelle queue comme Ã©tant
+		// Sinon on défini la nouvelle queue comme étant
 		// le noeud suivant de la queue actuelle
 		queue->suivant = n;
 	}
 
-	// Mise Ã  jour de la queue
+	// Mise à jour de la queue
 	queue = n;
 
-	// IncrÃ©mentation du nombre d'Ã©lÃ©ment
+	// Incrémentation du nombre d'élément
 	elements++;
 
 	return true;
@@ -188,11 +188,11 @@ bool DequeDynamique::push_back(Element e) {
 bool DequeDynamique::pop_back(Element& e) {
 	if (estVide()) return false;
 
-	// Pointeur sur le dernier Ã©lÃ©ment
+	// Pointeur sur le dernier élément
 	Noeud* q = queue;
 	e = q->valeur;
 
-	// On recule la queue d'un Ã©lÃ©ment
+	// On recule la queue d'un élément
 	queue = queue->precedent;
 
 	if (queue) {
@@ -201,35 +201,35 @@ bool DequeDynamique::pop_back(Element& e) {
 		tete = nullptr;
 	}
 
-	// DÃ©crÃ©mentation du nombre d'Ã©lÃ©ments dans le deque
+	// Décrémentation du nombre d'éléments dans le deque
 	elements--;
 
 	return true;
 }
 
 bool DequeDynamique::push_front(Element e) {
-	// CrÃ©ation d'un nouveau noeud
+	// Création d'un nouveau noeud
 	Noeud* n = new(nothrow) Noeud;
 	if (!n) return false;
 
 	// Initialisation du noeud avec un pointeur
-	// vers la tÃªte actuelle et aucun noeud prÃ©cÃ©dent
+	// vers la tête actuelle et aucun noeud précédent
 	*n = { e, nullptr, tete };
 
 	if (estVide()) {
-		// Si le deque est vide, la nouvelle tÃªte
+		// Si le deque est vide, la nouvelle tête
 		// est aussi la queue
 		queue = n;
 	} else {
-		// Sinon on dÃ©fini la nouvelle tÃªte comme Ã©tant
-		// le noeud prÃ©cÃ©dent de la tÃªte actuelle
+		// Sinon on défini la nouvelle tête comme étant
+		// le noeud précédent de la tête actuelle
 		tete->precedent = n;
 	}
 
-	// Mise Ã  jour de la tÃªte
+	// Mise à jour de la tête
 	tete = n;
 
-	// Mise Ã  jour du nombre d'Ã©lÃ©ments
+	// Mise à jour du nombre d'éléments
 	elements++;
 
 	return true;
@@ -238,11 +238,11 @@ bool DequeDynamique::push_front(Element e) {
 bool DequeDynamique::pop_front(Element& e) {
 	if (estVide()) return false;
 
-	// Pointeur sur le premier Ã©lÃ©ment
+	// Pointeur sur le premier élément
 	Noeud* t = tete;
 	e = t->valeur;
 
-	// On avant la tÃªte d'un Ã©lÃ©ment
+	// On avant la tête d'un élément
 	tete = tete->suivant;
 
 	if (tete) {
@@ -251,7 +251,7 @@ bool DequeDynamique::pop_front(Element& e) {
 		queue = nullptr;
 	}
 
-	// DÃ©crÃ©mentation du nombre d'Ã©lÃ©ments dans le deque
+	// Décrémentation du nombre d'éléments dans le deque
 	elements--;
 
 	return true;
