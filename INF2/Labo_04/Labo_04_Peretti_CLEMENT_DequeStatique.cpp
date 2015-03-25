@@ -17,12 +17,17 @@
 
 DequeStatique::DequeStatique(size_t t) {
 	data = t ? new Element[t] : nullptr;
+
+	// Note: pas de nothrow ici. Il n'y a pas de réponse correcte à l'erreur
+	// d'allocation du buffer statique pour un Deque sans utiliser les exceptions.
+
 	taille = t;
 	debut = 0;
 	elements = 0;
 }
 
 DequeStatique::~DequeStatique() {
+	// On libère le buffer interne
 	delete[] data;
 }
 
@@ -30,12 +35,11 @@ Element& DequeStatique::element(size_t index) {
 	return data[(debut + index) % taille];
 }
 
-// Redimensionnement du deque statique
 void DequeStatique::resize(size_t t) {
 	// Taille identique
 	if (t == taille) return;
 
-	// S'il y a trop d'éléments à copier
+	// S'il y a trop d'éléments à copier, on tronque le buffer actuel
 	if (elements > t) {
 		elements = t;
 	}
@@ -72,9 +76,15 @@ bool DequeStatique::pop_back(Element& e) {
 
 bool DequeStatique::push_front(const Element& e) {
 	if (estPlein()) return false;
+
+	// Gestion du cas où les données commencent à l'index 0,
+	// on recule le début du buffer
 	debut = (debut == 0 ? taille : debut ) - 1;
+
+	// ... puis on insère à l'index 0
 	element(0) = e;
 	elements++;
+
 	return true;
 }
 
@@ -94,9 +104,9 @@ bool DequeStatique::estVide() const {
 	return elements == 0;
 }
 
-bool DequeStatique::estPresent(Element e) const {
+bool DequeStatique::estPresent(const Element& e) const {
 	for (size_t i = 0; i < elements; i++) {
-		if (data[(debut + i) % taille] == e) return true;
+		if (element(i) == e) return true;
 	}
 	return false;
 }
