@@ -24,8 +24,6 @@ private:
 	DequeDynamique Deque;
 
 public:
-	PileDynamique();
-	~PileDynamique();
 	bool empiler(const Element& e);
 	bool depiler(Element& e);
 	bool estPleine();

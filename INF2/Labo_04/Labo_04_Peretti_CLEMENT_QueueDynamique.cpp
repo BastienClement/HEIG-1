@@ -13,6 +13,24 @@
  -----------------------------------------------------------------------------------
  */
 
+#include "Labo_04_Peretti_CLEMENT_QueueDynamique.h"
 
+bool QueueDynamique::inserer(Element& e) {
+	return Deque.push_front(e);
+}
 
+bool QueueDynamique::prelever(Element& e) {
+	return Deque.pop_front(e);
+}
 
+bool QueueDynamique::estPleine() {
+	return Deque.estPlein();
+}
+
+bool QueueDynamique::estVide() {
+	return Deque.estVide();
+}
+
+bool QueueDynamique::estPresent(const Element& e) {
+	return Deque.estPresent(e);
+}

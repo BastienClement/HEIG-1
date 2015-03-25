@@ -26,7 +26,7 @@ private:
 public:
 	PileStatique(size_t taille = 50);
 
-	bool empiler(Element& e);
+	bool empiler(const Element& e);
 	bool depiler(Element& e);
 	bool estPleine();
 	bool estVide();

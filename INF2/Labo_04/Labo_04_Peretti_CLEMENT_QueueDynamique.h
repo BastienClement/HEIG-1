@@ -17,8 +17,13 @@
 #define LABO_04_PERETTI_CLEMENT_QUEUEDYNAMIQUE_H_
 
 #include "Labo_04_Peretti_CLEMENT.h"
+#include "Labo_04_Peretti_CLEMENT_DequeDynamique.h"
 
 struct QueueDynamique {
+private:
+	DequeDynamique Deque;
+
+public:
 	bool inserer(Element& e);
 	bool prelever(Element& e);
 	bool estPleine();

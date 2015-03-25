@@ -17,4 +17,22 @@
 
 PileStatique::PileStatique(size_t taille) : Deque(taille) {}
 
+bool PileStatique::empiler(const Element& e) {
+	return Deque.push_front(e);
+}
 
+bool PileStatique::depiler(Element& e) {
+	return Deque.pop_front(e);
+}
+
+bool PileStatique::estPleine() {
+	return Deque.estPlein();
+}
+
+bool PileStatique::estVide() {
+	return Deque.estVide();
+}
+
+bool PileStatique::estPresent(const Element& e) {
+	return Deque.estPresent(e);
+}

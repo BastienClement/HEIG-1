@@ -15,13 +15,6 @@
 
 #include "Labo_04_Peretti_CLEMENT_PileDynamique.h"
 
-PileDynamique::PileDynamique() {
-
-}
-
-PileDynamique::~PileDynamique() {
-}
-
 bool PileDynamique::empiler(const Element& e) {
 	return Deque.push_front(e);
 }
@@ -31,14 +24,13 @@ bool PileDynamique::depiler(Element& e) {
 }
 
 bool PileDynamique::estPleine() {
-	return true;
+	return Deque.estPlein();
 }
 
 bool PileDynamique::estVide() {
-	return true;
+	return Deque.estVide();
 }
 
 bool PileDynamique::estPresent(const Element& e) {
-	return true;
+	return Deque.estPresent(e);
 }
-
