@@ -24,16 +24,20 @@ PileDynamique::~PileDynamique() {
 
 bool PileDynamique::empiler(const Element& e) {
 	return Deque.push_front(e);
-	}
+}
+
 bool PileDynamique::depiler(Element& e) {
 	return Deque.pop_front(e);
-	}
+}
+
 bool PileDynamique::estPleine() {
 	return true;
 }
+
 bool PileDynamique::estVide() {
 	return true;
 }
+
 bool PileDynamique::estPresent(const Element& e) {
 	return true;
 }

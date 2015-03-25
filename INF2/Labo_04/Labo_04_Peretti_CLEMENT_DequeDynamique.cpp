@@ -15,6 +15,7 @@
 
 #include "Labo_04_Peretti_CLEMENT_DequeDynamique.h"
 #include <new>
+
 DequeDynamique::DequeDynamique() {
 	tete = nullptr;
 	queue = nullptr;
