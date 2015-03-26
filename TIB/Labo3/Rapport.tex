@@ -54,33 +54,60 @@
 
 \section{Adresses IP et MAC et le protocole ARP}
 
-Objectif et critère de succès
+L'objectif de cette première partie est de comprendre et d'expliquer le but et le fonctionnement du protocole ARP (\textit{Address Resolution Protocol}).
 
 \subsection{Protocole ARP}
 
-Le protocole ARP permet la traduction des adresses IP locales en adresses MAC. En effet, pour pouvoir indiquer correctement la machine de destination des trames qu'il émet, notre ordinateur a besoin de connaitre à qui il doit s'adresser.
+Le protocole ARP permet la traduction des adresses IP locales en adresses MAC. En effet, pour pouvoir indiquer correctement la machine de destination des trames qu'il émet, notre ordinateur a besoin de savoir à qui il doit s'adresser.
 
-Cette traduction est nécessaire pour passer du niveau 3 (réseau) du modèle OSI au niveau 2 (liaison) qui utilisent respectivement des adresses IP et MAC.
+Cette traduction est nécessaire pour passer du niveau 3 (réseau) du modèle OSI au niveau 2 (liaison) qui utilisent respectivement des adresses IP et MAC. Le résultat d'une requête ARP est ensuite conservée en cache un certain temps pour être réutilisé.
 
-...
+Pour rappel, les éléments du réseau LAN (switches / hubs) ne travaillent en principe que sur la base d'adresse MAC. Seul les ordinateurs et les routeurs disposent d'adresses IP.
 
-Le résultat d'une requête ARP est conservée en cache un certain temps pour être réutilisé tant que la communication est fonctionnelle.
+\subsection{Diagramme en flèches}
+
+\begin{center}
+\begin{tikzpicture}
+\draw[very thick] (0,0) -- (0,5);
+\draw[very thick] (14,0) -- (14,5);
+
+\draw[thick,->] (0.5,3) -- (13.5,3) node[anchor=north east]{};
+\draw[thick,->] (13.5,0.5) -- (0.5,0.5) node[anchor=north east]{};
+
+\node[draw,text width=13cm,align=left] at (7,4) {\centering
+	\textbf{ARP : Who has \texttt{10.192.74.1}? Tell \texttt{10.192.74.118}} \\
+	src: \texttt{00:0C:29:CD:B9:9F} /
+	dest: \texttt{FF:FF:FF:FF:FF:FF}
+};
+
+\node[draw,text width=13cm,align=left] at (7,1.5) {\centering
+	\textbf{ARP : \texttt{10.192.74.118} is at \texttt{00:0B:46:68:0D:80}} \\
+	src: \texttt{00:0B:46:68:0D:80} /
+	dest: \texttt{00:0C:29:CD:B9:9F}
+};
+	
+\node[draw] at (0, 5.5) {PC1};
+\node[draw] at (14, 5.5) {Routeur};
+\end{tikzpicture}
+\end{center}
+
+On observe ici que malgré que le \textit{ping} soit adressé à \texttt{smtp.google.com}, l'adresse interrogée est celle du routeur. En effet, le \textit{masque de sous-réseau} indique à notre machine que le serveur de Google (après \textit{résolution de nom}) ne se trouve pas sur notre réseau local.
 
 \subsection{Pourquoi des adresses MAC sont-elles nécessaires ?}
 
-L'attribution et le routage des adresses IP est complexe. De plus, les machines connectées à un réseau n'ont pas toujours une adresse assignée comme par exemple lors de l'auto-configuration avec le protocole DHCP. Dans cette situation, il est souhaitable de conserver une méthode d'adressage fixe pour faire référence à une machine particulière.
+De façon générale, les adresses d'une couche du réseau sont destinées aux pairs de même niveau. Il est donc nécessaire pour les couches de niveau inférieures de disposer de leurs propres adresses pour communiquer.
 
-Une autre raison est simplement la nécessité d'avoir des adresses différentes pour chaque couche protocolaire puisque IP n'est le seul protocole fonctionnant sur Ethernet.
+Comme observé au point précédent, le véritable destinataire de notre paquet  \textit{ping} n'est pas disponible sur notre réseau local. Le paquet est donc adressé à notre routeur pour être ensuite routé sur Internet. Dans cette situation, il est nécessaire de distinguer le destinataire de la trame Ethernet (notre routeur, sous forme d'adresse MAC) du destinataire du paquet IP (le serveur de Google, sous forme d'adresse IP).
 
 \section{Hub et switch}
 
-Objectifs et critères de succès
+Les objectifs de cette seconde partie sont de savoir décrire les méthodes d'acheminement de trames par un hub et un switch ainsi que d'expliquer comment ce dernier peut acheminer une trame directement au bon destinataire.
 
 \subsection{Différentes méthodes d'acheminement}
 
-Un hub est un équipement réseau de niveau 1 (couche physique). Il n'effectue aucun traitement sur l'information qu'il reçoit et ce contente de réémettre la même trame sur toutes ses interfaces. Un réseau créé à partir de hubs ne contient qu'un seul \textit{domaine de collision}. C'est à dire que dès qu'une des machines le composant communique, aucune autre ne peut utiliser le réseau.
+Un hub est un équipement réseau de niveau 1 (couche physique). Il n'effectue aucun traitement sur l'information qu'il reçoit et ce contente de réémettre la même trame sur toutes ses interfaces. Un réseau créé à partir de hubs ne contient qu'un seul \textit{domaine de collision}. C'est à dire que dès qu'une des machines le composant communique, aucune autre ne peut émettre sur le réseau.
 
-À l'inverse, un switch est un équipement de niveau 2 (couche liaison) qui analyse les trames reçues pour en extraire l'adresse MAC de destination et ne transmettre la trame que sur l'interface correspondant à ce destinataire précis.
+À l'inverse, un switch est un équipement de niveau 2 (couche liaison) qui analyse les trames reçues pour en extraire l'adresse MAC de destination et ne transmettre la trame que sur l'interface correspondant à ce destinataire précis. Par conséquent, les machines ne communiquent plus directement de l'une à l'autre mais passent systématiquement par le switch qui dispose d'une mémoire tampon permettant d'éviter toutes les situations de collisions.
 
 \subsection{Captures effectuées}
 
@@ -88,9 +115,9 @@ Pour observer cette différence, nous avons réitéré la capture de l'objectif 
 
 \subsection{Auto-apprentissage du switch}
 
-Le switch ne nécessite aucune configuration pour fonctionner mais apprend dynamiquement la configuration du réseau en observant les paquets reçus et transmis.
+Le switch ne nécessite aucune configuration particulière pour fonctionner mais apprend dynamiquement la configuration du réseau en observant les paquets reçus et transmis.
 
-Lorsqu'il reçoit une trame adressée à un destinataire qu'il ne connaît pas encore, il la transmet simplement sur toutes ses interfaces. Par la suite, il est probable que la machine venant de recevoir la trame transmette à son tour quelque chose sur le réseau. À ce moment, le switch identifiera l'adresse MAC encore inconnue et l'interface depuis laquelle cette trame a été reçue. Il mettra donc à jour sa table interne pour pouvoir à présent diriger les trames adressées à cette adresse sur la bonne interface.
+Lorsqu'il reçoit une trame adressée à un destinataire qu'il ne connaît pas encore, il la transmet simplement sur toutes ses interfaces à la façon d'un hub. Par la suite, il est probable que la machine venant de recevoir la trame transmette à son tour quelque chose sur le réseau. À ce moment, le switch identifiera l'adresse MAC encore inconnue et l'interface depuis laquelle cette trame a été reçue. Il pourra donc mettre à jour sa table interne pour pouvoir à présent diriger les trames adressées à cette adresse sur la bonne interface.
 
 \section{Performances d'un hub et d'un switch}
 
@@ -117,7 +144,7 @@ Un réseau formé de hubs ne peut fonctionner qu'en mode \textit{half-duplex} pu
 
 À l'inverse, le lien entre un ordinateur et un switch est directe et privé. Aucun autre appareil ne peut directement transmettre dessus. Par conséquent, il est facile de réaliser une communication \textit{full-duplex} en utilisant deux canaux séparés.
 
-La différence est bien sûr particulièrement marquée lorsque la communication est bi-directionnelle. Cependant, il faut signaler que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse selon le protocole TCP. C'est probablement la raison pour laquelle le débit bi-directionnelle sur un switch diminue sans autres raisons apparentes.
+La différence est bien sûr particulièrement marquée lors de la communication bi-directionnelle. Cependant, il faut signaler que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse selon le protocole TCP. C'est probablement la raison pour laquelle le débit bi-directionnelle sur un switch diminue sans autres raisons apparentes.
 
 On remarque aussi qu'avec le hub, la communication bi-directionnelle est désastreuse. Étrangement cependant, le débit n'est pas divisé équitablement mais une direction est considérablement plus rapide que l'autre.
 
