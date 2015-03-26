@@ -90,30 +90,36 @@ Pour observer cette différence, nous avons réitéré la capture de l'objectif 
 
 Le switch ne nécessite aucune configuration pour fonctionner mais apprend dynamiquement la configuration du réseau en observant les paquets reçus et transmis.
 
-Lorsqu'il reçoit une trame adressée à un destinataire qu'il ne connaît pas encore, il la transmet simplement sur toutes ses interfaces. Par la suite, il est probable que la machine venant de recevoir la trame transmette à son tour quelque chose sur le réseau. À ce moment, le switch identifiera l'adresse MAC encore inconnue et l'interface depuis laquelle cette trame a été reçue. Il mettra donc à jour sa table interne pour pouvoir à présent diriger les trames adressées à cette adresse sur la bon interface.
+Lorsqu'il reçoit une trame adressée à un destinataire qu'il ne connaît pas encore, il la transmet simplement sur toutes ses interfaces. Par la suite, il est probable que la machine venant de recevoir la trame transmette à son tour quelque chose sur le réseau. À ce moment, le switch identifiera l'adresse MAC encore inconnue et l'interface depuis laquelle cette trame a été reçue. Il mettra donc à jour sa table interne pour pouvoir à présent diriger les trames adressées à cette adresse sur la bonne interface.
 
 \section{Performances d'un hub et d'un switch}
 
-Objectifs et critères de succès
+L'objectif de cette partie est de comprendre les différences de performances entre un switch et un hub en effectuant des mesures de débit à l'aide de l'utilitaire \texttt{iperf}. Une machine doit être configurée en serveur pour accepter les transferts de la secondes machine configurée en client.
 
 \subsection{Débits mesurés}
 
-\begin{tabular}{r|c|c}
-	& Uni-directionnel & Bi-directionnel \\
+Les mesures sont effectuées sur une période de 1 minute.
+
+\begin{tabular}{|r|c|c|}
 	\hline
-	Switch & 10 Kb/s & 10 Kb/s \\
-	Hub & 10 Kb/s & 10 Kb/s \\
+	& \textbf{Uni-directionnel} & \textbf{Bi-directionnel} \\
+	\hline
+	\textbf{Switch} & 9.75 Mb/s & 9.18 Mb/s - 9.05 Mb/s \\
+	\textbf{Hub} & 5.71 Mb/s & 5.63 Mb/s - 0.191  Mb/s \\
+	\hline
 \end{tabular}
 
 \subsection{Transmission full-duplex et half-duplex}
 
-Ces résultats correspondent aux attentes. Étant donné sont fonctionnement, il est impossible pour un réseau constitué de Hubs de fonctionner en \textit{full-duplex}. Ceci nécessite des liens séparés pour l'émission de la réception ce qu'il n'est pas possible de réaliser.
+Ces résultats correspondent globalement aux attentes.
 
-À l'inverse, les switches se comportent comme une interface réseau d'ordinateur. La connexion entre un ordinateur et un switch est donc directe est privée, aucun autre appareil ne peut directement transmettre dessus. Par conséquent, il est facile de réaliser une communication \textit{full-duplex} avec des switches.
+Un réseau formé de hubs ne peut fonctionner qu'en mode \textit{half-duplex} puisque les canaux d'émission et de réception sont nécessairement confondus.
 
-La différence est particulièrement flagrante lorsque la communication est bi-directionnelle. Cependant, il faut relever que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse.
+À l'inverse, le lien entre un ordinateur et un switch est directe et privé. Aucun autre appareil ne peut directement transmettre dessus. Par conséquent, il est facile de réaliser une communication \textit{full-duplex} en utilisant deux canaux séparés.
 
-C'est probablement la raison pour laquelle le débit bi-directionnelle sur un switch diminue sans autre raisons apparentes. On remarque aussi qu'avec le hub, la communication bi-directionnelle est désastreuse. Étrangement cependant, le débit n'est pas divisé équitablement mais une direction est considérablement plus rapide que l'autre.
+La différence est bien sûr particulièrement marquée lorsque la communication est bi-directionnelle. Cependant, il faut signaler que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse selon le protocole TCP. C'est probablement la raison pour laquelle le débit bi-directionnelle sur un switch diminue sans autres raisons apparentes.
+
+On remarque aussi qu'avec le hub, la communication bi-directionnelle est désastreuse. Étrangement cependant, le débit n'est pas divisé équitablement mais une direction est considérablement plus rapide que l'autre.
 
 \subsection{Auto-évaluation}
 
