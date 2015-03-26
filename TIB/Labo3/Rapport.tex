@@ -58,13 +58,19 @@ Objectif et critère de succès
 
 \subsection{Protocole ARP}
 
-Le protocole ARP permet la traduction des adresses IP locales en adresses MAC. En effet, pour pouvoir indiquer correctement la machine de destination du paquet, notre ordinateur a besoin de connaitre la machine à qui il doit s'adresser.
+Le protocole ARP permet la traduction des adresses IP locales en adresses MAC. En effet, pour pouvoir indiquer correctement la machine de destination des trames qu'il émet, notre ordinateur a besoin de connaitre à qui il doit s'adresser.
+
+Cette traduction est nécessaire pour passer du niveau 3 (réseau) du modèle OSI au niveau 2 (liaison) qui utilisent respectivement des adresses IP et MAC.
 
 ...
 
 Le résultat d'une requête ARP est conservée en cache un certain temps pour être réutilisé tant que la communication est fonctionnelle.
 
 \subsection{Pourquoi des adresses MAC sont-elles nécessaires ?}
+
+L'attribution et le routage des adresses IP est complexe. De plus, les machines connectées à un réseau n'ont pas toujours une adresse assignée comme par exemple lors de l'auto-configuration avec le protocole DHCP. Dans cette situation, il est souhaitable de conserver une méthode d'adressage fixe pour faire référence à une machine particulière.
+
+Une autre raison est simplement la nécessité d'avoir des adresses différentes pour chaque couche protocolaire puisque IP n'est le seul protocole fonctionnant sur Ethernet.
 
 \section{Hub et switch}
 
@@ -92,8 +98,25 @@ Objectifs et critères de succès
 
 \subsection{Débits mesurés}
 
+\begin{tabular}{r|c|c}
+	& Uni-directionnel & Bi-directionnel \\
+	\hline
+	Switch & 10 Kb/s & 10 Kb/s \\
+	Hub & 10 Kb/s & 10 Kb/s \\
+\end{tabular}
+
 \subsection{Transmission full-duplex et half-duplex}
 
+Ces résultats correspondent aux attentes. Étant donné sont fonctionnement, il est impossible pour un réseau constitué de Hubs de fonctionner en \textit{full-duplex}. Ceci nécessite des liens séparés pour l'émission de la réception ce qu'il n'est pas possible de réaliser.
+
+À l'inverse, les switches se comportent comme une interface réseau d'ordinateur. La connexion entre un ordinateur et un switch est donc directe est privée, aucun autre appareil ne peut directement transmettre dessus. Par conséquent, il est facile de réaliser une communication \textit{full-duplex} avec des switches.
+
+La différence est particulièrement flagrante lorsque la communication est bi-directionnelle. Cependant, il faut relever que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse.
+
+C'est probablement la raison pour laquelle le débit bi-directionnelle sur un switch diminue sans autre raisons apparentes. On remarque aussi qu'avec le hub, la communication bi-directionnelle est désastreuse. Étrangement cependant, le débit n'est pas divisé équitablement mais une direction est considérablement plus rapide que l'autre.
+
 \subsection{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
 
 \end{document}
