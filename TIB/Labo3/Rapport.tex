@@ -111,7 +111,11 @@ Un hub est un équipement réseau de niveau 1 (couche physique). Il n'effectue a
 
 \subsection{Captures effectuées}
 
-Pour observer cette différence, nous avons réitéré la capture de l'objectif 1, une première fois avec un hub, puis avec un switch. Dans les deux cas la capture est effectuée depuis un second ordinateur.
+Pour observer cette différence, nous avons réitéré la capture de l'objectif 1, une première fois avec un hub, puis avec un switch en prenant soin de vider à chaque fois le cache ARP. Dans les deux cas la capture est effectuée depuis un second ordinateur.
+
+De façon assez prévisible lors de l'utilisation d'un switch, la seconde machine peut intercepter la requête ARP ainsi que la réponse du routeur puisque le hub transmet les trames sur toutes ses interfaces.
+
+À l'inverse, dans le cas du switch, aucune trame ne parvient jusqu'à la seconde machine puisque le switch ne les transmet qu'entre le routeur et le premier ordinateur. Ceci est confirmé en observant que la trame a bien été émise par l'ordinateur.
 
 \subsection{Auto-apprentissage du switch}
 
@@ -127,29 +131,23 @@ L'objectif de cette partie est de comprendre les différences de performances en
 
 Les mesures sont effectuées sur une période de 1 minute.
 
-\begin{tabular}{|r|c|c|}
+\begin{tabular}{|r|c||c|c|}
 	\hline
-	& \textbf{Uni-directionnel} & \textbf{Bi-directionnel} \\
+	& \textbf{Uni-directionnel} & \textbf{Bi-directionnel}  & \textbf{Débit combiné}\\
 	\hline
-	\textbf{Switch} & 9.75 Mb/s & 9.18 Mb/s - 9.05 Mb/s \\
-	\textbf{Hub} & 5.71 Mb/s & 5.63 Mb/s - 0.191  Mb/s \\
+	\textbf{Switch} & 9.75 Mb/s & 9.18 Mb/s - 9.05 Mb/s & 18.23 Mb/s \\
+	\textbf{Hub} & 5.71 Mb/s & 5.63 Mb/s - 0.191  Mb/s & 5.821 Mb/s \\
 	\hline
 \end{tabular}
 
 \subsection{Transmission full-duplex et half-duplex}
 
-Ces résultats correspondent globalement aux attentes.
-
-Un réseau formé de hubs ne peut fonctionner qu'en mode \textit{half-duplex} puisque les canaux d'émission et de réception sont nécessairement confondus.
+Ces résultats correspondent globalement aux attentes. Un réseau formé de hubs ne peut fonctionner qu'en mode \textit{half-duplex} puisque les canaux d'émission et de réception sont nécessairement confondus. La communication n'est possible que dans un sens à la fois.
 
 À l'inverse, le lien entre un ordinateur et un switch est directe et privé. Aucun autre appareil ne peut directement transmettre dessus. Par conséquent, il est facile de réaliser une communication \textit{full-duplex} en utilisant deux canaux séparés.
 
 La différence est bien sûr particulièrement marquée lors de la communication bi-directionnelle. Cependant, il faut signaler que même la communication uni-directionnelle nécessite en réalité la transition des paquets d'acquittement dans le sens inverse selon le protocole TCP. C'est probablement la raison pour laquelle le débit bi-directionnel sur un switch diminue sans autres raisons apparentes.
 
 On remarque aussi qu'avec le hub, la communication bi-directionnelle est désastreuse. Étrangement cependant, le débit n'est pas divisé équitablement mais une direction est considérablement plus rapide que l'autre.
-
-\subsection{Auto-évaluation}
-
-Nous considérons avoir atteint les objectifs de ce laboratoire.
 
 \end{document}
