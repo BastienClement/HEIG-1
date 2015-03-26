@@ -24,7 +24,7 @@ private:
 	DequeDynamique Deque;
 
 public:
-	bool inserer(Element& e);
+	bool inserer(const Element& e);
 	bool prelever(Element& e);
 	bool estPleine();
 	bool estVide();

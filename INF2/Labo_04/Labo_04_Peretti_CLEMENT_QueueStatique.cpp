@@ -17,7 +17,7 @@
 
 QueueStatique::QueueStatique(size_t taille) : Deque(taille) {}
 
-bool QueueStatique::inserer(Element& e) {
+bool QueueStatique::inserer(const Element& e) {
 	return Deque.push_back(e);
 }
 

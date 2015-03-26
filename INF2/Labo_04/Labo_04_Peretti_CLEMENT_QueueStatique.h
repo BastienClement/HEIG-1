@@ -26,7 +26,7 @@ private:
 public:
 	QueueStatique(size_t taille = 50);
 
-	bool inserer(Element& e);
+	bool inserer(const Element& e);
 	bool prelever(Element& e);
 	bool estPleine();
 	bool estVide();
