@@ -60,7 +60,7 @@ L'objectif de cette première partie est de comprendre et d'expliquer le but et 
 
 Le protocole ARP permet la traduction des adresses IP locales en adresses MAC. En effet, pour pouvoir indiquer correctement la machine de destination des trames Ethernet qu'il émet, notre ordinateur a besoin de savoir à qui il doit s'adresser.
 
-Cette traduction est nécessaire pour passer du niveau 3 (réseau) du modèle OSI au niveau 2 (liaison) qui utilisent respectivement des adresses IP et MAC. Le résultat d'une requête ARP est ensuite conservée en cache un certain temps pour être réutilisé.
+Cette traduction est nécessaire pour passer du niveau 3 (réseau) au niveau 2 (liaison) qui utilisent respectivement des adresses IP et MAC. Le résultat d'une requête ARP est ensuite conservée en cache un certain temps pour être réutilisé.
 
 Pour rappel, les éléments du réseau LAN (switches / hubs) ne travaillent en principe que sur la base d'adresse MAC. Seul les ordinateurs et les routeurs disposent d'adresses IP.
 
@@ -77,13 +77,13 @@ Pour rappel, les éléments du réseau LAN (switches / hubs) ne travaillent en p
 \node[draw,text width=13cm,align=left] at (7,4) {\centering
 	\textbf{ARP : Who has \texttt{10.192.74.1}? Tell \texttt{10.192.74.118}} \\
 	src: \texttt{00:0C:29:CD:B9:9F} /
-	dest: \texttt{FF:FF:FF:FF:FF:FF}
+	dest: \texttt{FF:FF:FF:FF:FF:FF} \\
 };
 
 \node[draw,text width=13cm,align=left] at (7,1.5) {\centering
 	\textbf{ARP : \texttt{10.192.74.118} is at \texttt{00:0B:46:68:0D:80}} \\
 	src: \texttt{00:0B:46:68:0D:80} /
-	dest: \texttt{00:0C:29:CD:B9:9F}
+	dest: \texttt{00:0C:29:CD:B9:9F} \\
 };
 	
 \node[draw] at (0, 5.5) {PC1};
@@ -129,8 +129,6 @@ L'objectif de cette partie est de comprendre les différences de performances en
 
 \subsection{Débits mesurés}
 
-Les mesures sont effectuées sur une période de 1 minute.
-
 \begin{tabular}{|r|c||c|c|}
 	\hline
 	& \textbf{Uni-directionnel} & \textbf{Bi-directionnel}  & \textbf{Débit combiné}\\
@@ -139,6 +137,8 @@ Les mesures sont effectuées sur une période de 1 minute.
 	\textbf{Hub} & 5.71 Mb/s & 5.63 Mb/s - 0.191  Mb/s & 5.821 Mb/s \\
 	\hline
 \end{tabular}
+
+\textit{Les mesures sont effectuées sur une période de 1 minute.}
 
 \subsection{Transmission full-duplex et half-duplex}
 
