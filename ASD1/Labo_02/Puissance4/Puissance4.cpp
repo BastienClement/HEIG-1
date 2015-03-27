@@ -110,7 +110,7 @@ int getWinner() {
 
    int player = grid[x][y];
    if ((countSequence(x, y, 1, 0) + countSequence(x, y, -1, 0) >= 3) ||
-           (countSequence(x, y, 0, 1) + countSequence(x, y, 0, -1) >= 3) ||
+           (countSequence(x, y, 0, -1) >= 3) ||
            (countSequence(x, y, 1, 1) + countSequence(x, y, -1, -1) >= 3) ||
            (countSequence(x, y, 1, -1) + countSequence(x, y, -1, 1) >= 3))
       return player;
@@ -144,8 +144,8 @@ void printBoard() {
 	int win_x = -1, win_y = -1;
 	if (has_winner) findLastMove(win_x, win_y);
 
-	cout << "\n  1   2   3   4   5   6   7\n";
-	cout << "\n+---+---+---+---+---+---+---+\n";
+	cout << "\n  1   2   3   4   5   6   7" << endl;
+	cout << "\n+---+---+---+---+---+---+---+" << endl;
 
 	for (int i = 5; i >= 0; i--) {
 		cout << "|";
@@ -159,7 +159,7 @@ void printBoard() {
 			cout << (has_winner && win_x == j && win_y == i ? ")" : " ");
 			cout << "|";
 		}
-		cout << "\n+---+---+---+---+---+---+---+\n";
+		cout << "\n+---+---+---+---+---+---+---+" << endl;
 	}
 }
 
@@ -234,7 +234,7 @@ int interactive(int player) {
     if(!cin.good() || !isValidMove(n)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(),'\n');
-        cout << "Movement non valide. Essayez encore." << endl;
+        cout << "Mouvement non valide. Essayez encore." << endl;
         return interactive(player);
     } else
         return n;
