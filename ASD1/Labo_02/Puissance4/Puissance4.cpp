@@ -205,7 +205,9 @@ BestMove bestMove(int player, int depth) {
 // comme etant celui qui donne le meilleur score
 
 int ai(int player) {
-   return bestMove(player).col;
+	// Premier mouvement toujours au centre, le plus optimal !
+	if (moves.size() == 0) return 3;
+	return bestMove(player).col;
 }
 
 
