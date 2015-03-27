@@ -163,9 +163,9 @@ void printBoard() {
 	}
 }
 
-BestMove bestMove(int player, int depth = 7, int a = -1000, int b = 1000);
+BestMove bestMove(int player, int depth = 7);
 
-double score(int n, int player, int depth, int a, int b) {
+double score(int n, int player, int depth) {
 	double playerScore = 0;
 
 	applyMove(n, player);
@@ -175,7 +175,7 @@ double score(int n, int player, int depth, int a, int b) {
 	} else if (isFull() || depth <= 0) {
 		playerScore = 0;
 	} else {
-		playerScore = -bestMove(-player, depth - 1, a, b).score;
+		playerScore = -bestMove(-player, depth - 1).score;
 	}
 
    cancelMove();
@@ -184,19 +184,17 @@ double score(int n, int player, int depth, int a, int b) {
    return playerScore + (double(rand()) / RAND_MAX) * (0.5+2*n/3-n*n/9);
 }
 
-BestMove bestMove(int player, int depth, int a, int b) {
+BestMove bestMove(int player, int depth) {
 	int bestCol = 0;
 	double bestScore = -100;
 
 	for (int i = 0; i < 7; i++) {
 		if (isValidMove(i)) {
-			double scr = score(i, player, depth, b, a);
+			double scr = score(i, player, depth);
 			if (scr > bestScore) {
 				bestScore = scr;
 				bestCol = i;
 			}
-			if (scr > a) a = scr;
-			if (b <= a) break;
 		}
 	}
 
