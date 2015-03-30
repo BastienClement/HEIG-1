@@ -5,7 +5,7 @@
  Auteur(s)      : Christophe Peretti et Bastien Clément
  Date           : 25 mars 2015
  
- But            : 
+ But            : Implémenter une Pile statique autour d'un Deque statique
  
  Remarques(s)   :
  

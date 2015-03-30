@@ -5,7 +5,7 @@
  Auteur(s)      : Christophe Peretti et Bastien Clément
  Date           : 25 mars 2015
  
- But            : 
+ But            : Deque dynamique implémenté avec une liste doublement chaînée circulaire
  
  Remarques(s)   :
  

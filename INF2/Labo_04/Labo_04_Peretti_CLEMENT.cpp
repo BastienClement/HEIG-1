@@ -1,3 +1,18 @@
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire    : Labo_04
+ Fichier        : Labo_04_Peretti_CLEMENT.cpp
+ Auteur(s)      : Christophe Peretti et Bastien Clément
+ Date           : 25 mars 2015
+
+ But            : Tester les différentes structures implémentées
+
+ Remarques(s)   : Elles fonctionnent
+
+ Compilateur    : MinGW-g++ 4.8.1
+ -----------------------------------------------------------------------------------
+ */
+
 #include <iostream>
 #include "Labo_04_Peretti_CLEMENT.h"
 #include "Labo_04_Peretti_CLEMENT_QueueDynamique.h"
