@@ -24,11 +24,11 @@
 
 int main() {
 
-	QueueStatique 		q1(5);	// Taille fixée à 5
-	QueueDynamique 	q2;
-	PileStatique 		p1(5);	// Taille fixée à 5
-	PileDynamique 		p2;
-	int 					tmp;
+	QueueStatique  q1(5);	// Taille fixée à 5
+	QueueDynamique q2;
+	PileStatique   p1(5);	// Taille fixée à 5
+	PileDynamique  p2;
+	int            tmp;
 
 	cout << "--------------------------------------" << endl;
 	cout << "Test de la queue statique." << endl;
