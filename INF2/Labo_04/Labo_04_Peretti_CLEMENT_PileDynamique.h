@@ -26,9 +26,9 @@ private:
 public:
 	bool empiler(const Element& e);
 	bool depiler(Element& e);
-	bool estPleine();
-	bool estVide();
-	bool estPresent(const Element& e);
+	bool estPleine() const;
+	bool estVide() const;
+	bool estPresent(const Element& e) const;
 };
 
 #endif /* LABO_04_PERETTI_CLEMENT_PILEDYNAMIQUE_H_ */

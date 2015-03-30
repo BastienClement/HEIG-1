@@ -25,15 +25,15 @@ bool QueueStatique::prelever(Element& e) {
 	return Deque.pop_front(e);
 }
 
-bool QueueStatique::estPleine() {
+bool QueueStatique::estPleine() const {
 	return Deque.estPlein();
 }
 
-bool QueueStatique::estVide() {
+bool QueueStatique::estVide() const {
 	return Deque.estVide();
 }
 
-bool QueueStatique::estPresent(const Element& e) {
+bool QueueStatique::estPresent(const Element& e) const {
 	return Deque.estPresent(e);
 }
 

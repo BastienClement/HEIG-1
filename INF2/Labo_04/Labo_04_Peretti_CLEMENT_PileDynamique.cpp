@@ -23,14 +23,14 @@ bool PileDynamique::depiler(Element& e) {
 	return Deque.pop_back(e);
 }
 
-bool PileDynamique::estPleine() {
+bool PileDynamique::estPleine() const {
 	return Deque.estPlein();
 }
 
-bool PileDynamique::estVide() {
+bool PileDynamique::estVide() const {
 	return Deque.estVide();
 }
 
-bool PileDynamique::estPresent(const Element& e) {
+bool PileDynamique::estPresent(const Element& e) const {
 	return Deque.estPresent(e);
 }

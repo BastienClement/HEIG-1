@@ -25,14 +25,14 @@ bool PileStatique::depiler(Element& e) {
 	return Deque.pop_back(e);
 }
 
-bool PileStatique::estPleine() {
+bool PileStatique::estPleine() const {
 	return Deque.estPlein();
 }
 
-bool PileStatique::estVide() {
+bool PileStatique::estVide() const {
 	return Deque.estVide();
 }
 
-bool PileStatique::estPresent(const Element& e) {
+bool PileStatique::estPresent(const Element& e) const {
 	return Deque.estPresent(e);
 }

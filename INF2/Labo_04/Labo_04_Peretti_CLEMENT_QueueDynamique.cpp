@@ -23,14 +23,14 @@ bool QueueDynamique::prelever(Element& e) {
 	return Deque.pop_front(e);
 }
 
-bool QueueDynamique::estPleine() {
+bool QueueDynamique::estPleine() const {
 	return Deque.estPlein();
 }
 
-bool QueueDynamique::estVide() {
+bool QueueDynamique::estVide() const {
 	return Deque.estVide();
 }
 
-bool QueueDynamique::estPresent(const Element& e) {
+bool QueueDynamique::estPresent(const Element& e) const {
 	return Deque.estPresent(e);
 }

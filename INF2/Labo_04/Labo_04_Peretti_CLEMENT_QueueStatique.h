@@ -28,9 +28,9 @@ public:
 
 	bool inserer(const Element& e);
 	bool prelever(Element& e);
-	bool estPleine();
-	bool estVide();
-	bool estPresent(const Element& e);
+	bool estPleine() const;
+	bool estVide() const;
+	bool estPresent(const Element& e) const;
 };
 
 #endif /* LABO_04_PERETTI_CLEMENT_QUEUESTATIQUE_H_ */
