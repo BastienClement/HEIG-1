@@ -7,3 +7,31 @@
 //
 
 #include "Stack.h"
+
+Stack::Stack() {
+
+}
+
+Stack::~Stack() {
+
+}
+
+void Stack::push(int i) {
+
+}
+
+int Stack::pop() {
+	return 0;
+}
+
+bool Stack::empty() {
+	return false;
+}
+
+size_t Stack::size() {
+	return 0;
+}
+
+void Stack::clear() {
+
+}

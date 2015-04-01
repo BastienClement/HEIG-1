@@ -9,17 +9,22 @@
 #ifndef __Labo_05__Pile__
 #define __Labo_05__Pile__
 
-#include <stack>
-using namespace std;
+#include <stdlib.h>
 
 struct Stack {
 private:
-	stack<int> stack;
+	int* top;
+	size_t items;
 
 public:
 	Stack();
+	~Stack();
+
 	void push(int i);
 	int pop();
+
+	bool empty();
+	size_t size();
 	void clear();
 };
 

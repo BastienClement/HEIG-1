@@ -9,7 +9,10 @@
 #ifndef __Labo_05__Calculatrice__
 #define __Labo_05__Calculatrice__
 
+#include <string>
 #include "Stack.h"
+
+using namespace std;
 
 struct Calculator {
 private:
