@@ -37,7 +37,7 @@ void Calculator::div() {
 	int a = stack.pop();
 
 	if (b == 0) {
-		// Throw
+		throw CalculatorException { 12, "DIV_BY_0", "Attempted to divide by 0" };
 	}
 
 	stack.push(a / b);
@@ -46,6 +46,11 @@ void Calculator::div() {
 void Calculator::mod() {
 	int b = stack.pop();
 	int a = stack.pop();
+
+	if (b == 0) {
+		throw CalculatorException { 13, "MOD_BY_0", "Attempted to compute the reminder of a division by 0" };
+	}
+
 	stack.push(a % b);
 }
 
@@ -112,17 +117,15 @@ void Calculator::execute() {
 
 	while ((t = next())) {
 		if (done) {
-			// Syntax error, something after =
+			throw CalculatorException { 42, "TOKEN_AFTER_EQ", "The = operator was not the last token in the expression" };
 		}
 
 		switch (t.type) {
 			case TokenType::num:
-				cout << "Number: " << t.data.num << endl;
 				stack.push(t.data.num);
 				break;
 
 			case TokenType::op:
-				cout << "Operator: " << t.data.op << endl;
 				switch (t.data.op) {
 					case '+': add(); break;
 					case '-': sub(); break;
@@ -131,13 +134,10 @@ void Calculator::execute() {
 					case '%': mod(); break;
 					case '^': pow(); break;
 
-					case '=':
-						done = false;
-						break;
+					case '=': done = true; break;
 
 					default:
-						// Undefined operator
-						;
+						throw CalculatorException { 43, "UNDEF_OPERATOR", "Operator is undefined" };
 				}
 				break;
 
@@ -145,20 +145,21 @@ void Calculator::execute() {
 		}
 	}
 
-	if (done) return;
-	// Error, unexpected end of input
+	if (!done) throw CalculatorException { 44, "UNEXPECTED_END", "Unexpected end of input" };
 }
 
 number Calculator::eval(const string& e) {
 	// Vider le stack si pas déjà vide
 	stack.clear();
 
-	cout << "Expr: " << e << endl;
-
 	expr = e;
 	len = e.length();
 	pos = 0;
 	execute();
+
+	if (stack.size() != 1) {
+		throw CalculatorException { 5, "BAD_STACK_SIZE", "Computation left the stack with 0 or more than 1 elements" };
+	}
 
 	return stack.pop();
 }

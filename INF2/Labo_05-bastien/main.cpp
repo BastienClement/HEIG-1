@@ -14,12 +14,26 @@
  */
 
 #include "Calculator.h"
+#include "Exception.h"
 #include <iostream>
 #include <string>
 
 int main() {
 	Calculator calc;
-	cout << calc.eval("-2 + 3.14e4+25-.33") << endl;
-	//cout << stod(".e10") << endl;
+
+	while (1) {
+		cout << "[calc] ";
+		string expr;
+		getline(cin, expr);
+
+		if (expr.empty()) break;
+		try {
+			cout << calc.eval(expr) << endl;
+		} catch(CalculatorException e) {
+			cerr << "Error: " << e.error << " (" << e.code << ")" << endl;
+			cerr << "\t" << e.message << endl;
+		}
+	}
+
 	return 0;
 }

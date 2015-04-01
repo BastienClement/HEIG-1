@@ -9,6 +9,10 @@
 #ifndef __Labo_05__Exception__
 #define __Labo_05__Exception__
 
-#include <stdio.h>
+struct CalculatorException {
+	int code;
+	string error;
+	string message;
+};
 
 #endif /* defined(__Labo_05__Exception__) */
