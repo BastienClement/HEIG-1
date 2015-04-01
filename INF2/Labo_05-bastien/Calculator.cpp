@@ -53,6 +53,10 @@ void Calculator::mod() {
 	stack.push(a % b);
 }
 
+static bool isnumeric(char c) {
+	return isdigit(c) || c == '.';
+}
+
 Token* Calculator::next() {
 	// Retire tous les espaces blancs avant le prochain token
 	while (pos < len && isblank(expr[pos])) pos++;
@@ -67,7 +71,7 @@ Token* Calculator::next() {
 	char n = (pos + 1 < len) ? expr[pos + 1] : '\0';
 
 	// Distinction entre nombre et opérateur
-	if ((isdigit(c) || c == '.') || ((c == '+' || c == '-') && (isdigit(n) || n == '.'))) {
+	if (isnumeric(c) || ((c == '+' || c == '-') && isnumeric(n))) {
 		tok.type = TokenType::num;
 	} else {
 		tok.type = TokenType::op;
