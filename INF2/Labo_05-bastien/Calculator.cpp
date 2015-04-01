@@ -17,6 +17,10 @@ Token::operator bool() {
 	return type != TokenType::end;
 }
 
+Calculator::Calculator() {
+	ans = 0;
+}
+
 void Calculator::add() {
 	stack.push(stack.pop() + stack.pop());
 }
@@ -126,6 +130,7 @@ void Calculator::execute() {
 					case '/': div(); break;
 					case '%': mod(); break;
 
+					case 'a': stack.push(ans); break;
 					case '=': done = true; break;
 
 					default:
@@ -155,5 +160,6 @@ number Calculator::eval(const string& e) {
 		throw CalculatorException { 5, "BAD_STACK_SIZE", "Computation left the stack with 0 or more than 1 elements" };
 	}
 
-	return stack.pop();
+	ans = stack.pop();
+	return ans;
 }

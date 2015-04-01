@@ -33,6 +33,8 @@ private:
 	size_t len;
 	size_t pos;
 
+	number ans;
+
 	void add();
 	void sub();
 	void mult();
@@ -43,6 +45,7 @@ private:
 	Token next();
 
 public:
+	Calculator();
 	number eval(const string& expr);
 };
 
