@@ -18,7 +18,11 @@ enum class TokenType { num, op, end };
 
 struct Token {
 	TokenType type;
-	string data;
+	union {
+		char op;
+		number num;
+	} data;
+	operator bool();
 };
 
 struct Calculator {

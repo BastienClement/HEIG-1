@@ -15,9 +15,11 @@
 
 #include "Calculator.h"
 #include <iostream>
+#include <string>
 
 int main() {
 	Calculator calc;
-	cout << calc.eval("-2 3.14 +") << endl;
+	cout << calc.eval("-2 + 3.14e4+25-.33") << endl;
+	//cout << stod(".e10") << endl;
 	return 0;
 }
