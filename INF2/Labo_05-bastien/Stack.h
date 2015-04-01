@@ -13,19 +13,22 @@
 
 typedef double number;
 
+struct StackElement {
+    number value;
+    StackElement* prior;
+};
 
 struct Stack {
-    size_t items;
 private:
-    int* bottom;
-	int* top;
+	StackElement* top;
+    size_t items;
 
 public:
 	Stack();
 	~Stack();
 
-	void push(int i);
-	int pop();
+	void push(number i);
+	number pop();
 
 	bool empty();
 	size_t size();
