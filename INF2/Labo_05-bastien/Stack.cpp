@@ -55,4 +55,5 @@ void Stack::clear() {
         element = this->top->prior;
         delete this->top;
     }
+	this->items = 0;
 }
