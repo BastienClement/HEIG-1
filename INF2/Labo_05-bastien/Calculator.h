@@ -14,8 +14,10 @@
 
 using namespace std;
 
+// Types de token disponibles
 enum class TokenType { num, op };
 
+// Un token de la calculatrice
 struct Token {
 	TokenType type;
 	union {
@@ -26,26 +28,42 @@ struct Token {
 
 struct Calculator {
 private:
+	// La pile d'opérandes
 	Stack stack;
+
+	// Le dernier token lu depuis l'expression
 	Token tok;
 
+	// L'expression à executer
 	string expr;
+
+	// La longueur de cette expression
 	size_t len;
+
+	// La position actuelle dans l'expression
 	size_t pos;
 
+	// Résultat de la dernière expression
 	number ans;
 
+	// Opérations
 	void add();
 	void sub();
 	void mult();
 	void div();
 	void mod();
 
-	void execute();
+	// Retourne le prochain token ou nullptr si la fin de l'expression est atteinte
 	Token* next();
 
+	// Execute une expression
+	void execute();
+
 public:
+	// Constructeur
 	Calculator();
+
+	// Evalue une expression et retourne le résultat
 	number eval(const string& expr);
 };
 
