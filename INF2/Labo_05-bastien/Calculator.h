@@ -9,6 +9,19 @@
 #ifndef __Labo_05__Calculatrice__
 #define __Labo_05__Calculatrice__
 
-#include <stdio.h>
+#include "Stack.h"
+
+struct Calculator {
+private:
+	Stack stack;
+
+	void add();
+	void sub();
+	void mult();
+	void div();
+
+public:
+	int eval(string expr);
+};
 
 #endif /* defined(__Labo_05__Calculatrice__) */
