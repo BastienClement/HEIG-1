@@ -13,10 +13,6 @@
 #include <cctype>
 #include <cstring>
 
-Token::operator bool() {
-	return type != TokenType::end;
-}
-
 Calculator::Calculator() {
 	ans = 0;
 }
@@ -57,16 +53,13 @@ void Calculator::mod() {
 	stack.push(a % b);
 }
 
-Token Calculator::next() {
-	Token t;
-
+Token* Calculator::next() {
 	// Eat white-spaces
 	while (pos < len && isblank(expr[pos])) pos++;
 
 	// End of expr
 	if (pos >= len) {
-		t.type = TokenType::end;
-		return t;
+		return nullptr;
 	}
 
 	// Peek current and next char
@@ -74,12 +67,12 @@ Token Calculator::next() {
 	char n = (pos + 1 < len) ? expr[pos + 1] : '\0';
 
 	if ((isdigit(c) || c == '.') || ((c == '+' || c == '-') && (isdigit(n) || n == '.'))) {
-		t.type = TokenType::num;
+		tok.type = TokenType::num;
 	} else {
-		t.type = TokenType::op;
+		tok.type = TokenType::op;
 	}
 
-	switch (t.type) {
+	switch (tok.type) {
 		case TokenType::num: {
 			size_t begin = pos;
 			size_t length = 1;
@@ -93,23 +86,21 @@ Token Calculator::next() {
 				}
 			}
 
-			t.data.num = stod(expr.substr(begin, length));
+			tok.data.num = stod(expr.substr(begin, length));
 			break;
 		}
 
 		case TokenType::op:
-			t.data.op = c;
+			tok.data.op = c;
 			pos++;
 			break;
-
-		case TokenType::end: ; // Impossible
 	}
 
-	return t;
+	return &tok;
 }
 
 void Calculator::execute() {
-	Token t;
+	Token* t;
 	bool done = false;
 
 	while ((t = next())) {
@@ -117,13 +108,13 @@ void Calculator::execute() {
 			throw CalculatorException { 42, "TOKEN_AFTER_EQ", "The = operator is not the last token in the expression" };
 		}
 
-		switch (t.type) {
+		switch (t->type) {
 			case TokenType::num:
-				stack.push(t.data.num);
+				stack.push(t->data.num);
 				break;
 
 			case TokenType::op:
-				switch (t.data.op) {
+				switch (t->data.op) {
 					case '+': add(); break;
 					case '-': sub(); break;
 					case '*': mult(); break;
@@ -135,12 +126,10 @@ void Calculator::execute() {
 
 					default:
 						char error[50];
-						sprintf(error, "Operator '%c' is undefined", t.data.op);
+						sprintf(error, "Operator '%c' is undefined", t->data.op);
 						throw CalculatorException { 43, "UNDEF_OPERATOR", error };
 				}
 				break;
-
-			case TokenType::end: ; // Impossible
 		}
 	}
 

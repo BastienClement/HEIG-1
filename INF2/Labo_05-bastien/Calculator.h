@@ -14,7 +14,7 @@
 
 using namespace std;
 
-enum class TokenType { num, op, end };
+enum class TokenType { num, op };
 
 struct Token {
 	TokenType type;
@@ -22,12 +22,12 @@ struct Token {
 		char op;
 		number num;
 	} data;
-	operator bool();
 };
 
 struct Calculator {
 private:
 	Stack stack;
+	Token tok;
 
 	string expr;
 	size_t len;
@@ -42,7 +42,7 @@ private:
 	void mod();
 
 	void execute();
-	Token next();
+	Token* next();
 
 public:
 	Calculator();
