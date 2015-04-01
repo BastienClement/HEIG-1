@@ -2,7 +2,7 @@
  -----------------------------------------------------------------------------------
  Laboratoire    : Labo_05
  Fichier        : main.cpp
- Auteur(s)      : Christophe Peretti et Bastien Clément
+ Auteur(s)      : Bastien Clément et Andrea Cotza
  Date           : 25 mars 2015
  
  But            : 
