@@ -11,10 +11,14 @@
 
 #include <stdlib.h>
 
+typedef double number;
+
+
 struct Stack {
+    size_t items;
 private:
+    int* bottom;
 	int* top;
-	size_t items;
 
 public:
 	Stack();
