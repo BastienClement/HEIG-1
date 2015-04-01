@@ -9,11 +9,9 @@
 #include "Calculator.h"
 #include "Exception.h"
 
-#include <sstream>
 #include <iostream>
-#include <cmath>
 #include <cctype>
-#include <string.h>
+#include <cstring>
 
 Token::operator bool() {
 	return type != TokenType::end;
@@ -53,12 +51,6 @@ void Calculator::mod() {
 	}
 
 	stack.push(a % b);
-}
-
-void Calculator::pow() {
-	int b = stack.pop();
-	int a = stack.pop();
-	stack.push(::pow(a, b));
 }
 
 Token Calculator::next() {
@@ -133,7 +125,6 @@ void Calculator::execute() {
 					case '*': mult(); break;
 					case '/': div(); break;
 					case '%': mod(); break;
-					case '^': pow(); break;
 
 					case '=': done = true; break;
 

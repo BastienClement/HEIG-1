@@ -38,7 +38,6 @@ private:
 	void mult();
 	void div();
 	void mod();
-	void pow();
 
 	void execute();
 	Token next();
