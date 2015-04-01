@@ -21,21 +21,23 @@ void Stack::push(number i) {
     StackElement* newElement = new StackElement;
     newElement->value = i;
     newElement->prior = this->top;
-	
+
     this->top = newElement;
     this->items++;
 }
 
 number Stack::pop() {
+	if (this->empty()) {
+		// Throws
+	}
+
     StackElement* element = this->top;
-    number value;
-    
-    if (!this->empty()) {
-        value = element->value;
-        this->top = element->prior;
-        delete element;
-        this->items--;
-    }
+    number value = element->value;
+
+	this->top = element->prior;
+	delete element;
+    this->items--;
+
 	return value;
 }
 
