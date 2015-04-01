@@ -13,6 +13,7 @@
 #include <iostream>
 #include <cmath>
 #include <cctype>
+#include <string.h>
 
 Token::operator bool() {
 	return type != TokenType::end;
@@ -137,7 +138,9 @@ void Calculator::execute() {
 					case '=': done = true; break;
 
 					default:
-						throw CalculatorException { 43, "UNDEF_OPERATOR", "Operator is undefined" };
+						char error[50];
+						sprintf(error, "Operator '%c' is undefined", t.data.op);
+						throw CalculatorException { 43, "UNDEF_OPERATOR", error };
 				}
 				break;
 
