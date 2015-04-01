@@ -21,6 +21,7 @@ private:
 	void div();
 
 public:
+	Calculator();
 	int eval(string expr);
 };
 

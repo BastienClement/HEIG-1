@@ -6,4 +6,6 @@
 //  Copyright (c) 2015 Bastien Clément. All rights reserved.
 //
 
+#include "Calculator.h"
 #include "Exception.h"
+

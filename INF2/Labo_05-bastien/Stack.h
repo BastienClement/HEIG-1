@@ -17,6 +17,7 @@ private:
 	stack<int> stack;
 
 public:
+	Stack();
 	void push(int i);
 	int pop();
 	void clear();
