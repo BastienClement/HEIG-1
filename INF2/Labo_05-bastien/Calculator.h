@@ -14,18 +14,33 @@
 
 using namespace std;
 
+enum class TokenType { num, op, end };
+
+struct Token {
+	TokenType type;
+	string data;
+};
+
 struct Calculator {
 private:
 	Stack stack;
+
+	string expr;
+	size_t len;
+	size_t pos;
 
 	void add();
 	void sub();
 	void mult();
 	void div();
+	void mod();
+	void pow();
+
+	void execute();
+	Token next();
 
 public:
-	Calculator();
-	int eval(string expr);
+	number eval(const string& expr);
 };
 
 #endif /* defined(__Labo_05__Calculatrice__) */

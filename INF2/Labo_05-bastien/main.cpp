@@ -13,6 +13,11 @@
  -----------------------------------------------------------------------------------
  */
 
-int main() {
+#include "Calculator.h"
+#include <iostream>
 
+int main() {
+	Calculator calc;
+	cout << calc.eval("-2 3.14 +") << endl;
+	return 0;
 }
