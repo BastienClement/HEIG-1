@@ -12,6 +12,7 @@
 #include <iostream>
 #include <cctype>
 #include <cstring>
+#include <cmath>
 
 Calculator::Calculator() {
 	ans = 0;
@@ -53,13 +54,57 @@ void Calculator::mod() {
 	stack.push(a % b);
 }
 
+void Calculator::pow() {
+	number b = stack.pop();
+	number a = stack.pop();
+	stack.push(::pow(a, b));
+}
+
+void Calculator::log() {
+	stack.push(::log(stack.pop()));
+}
+
+void Calculator::exp() {
+	stack.push(::exp(stack.pop()));
+}
+
+void Calculator::sin() {
+	stack.push(::sin(stack.pop()));
+}
+
+void Calculator::cos() {
+	stack.push(::cos(stack.pop()));
+}
+
+void Calculator::tan() {
+	stack.push(::tan(stack.pop()));
+}
+
+void Calculator::asin() {
+	stack.push(::asin(stack.pop()));
+}
+
+void Calculator::acos() {
+	stack.push(::acos(stack.pop()));
+}
+
+void Calculator::atan() {
+	stack.push(::atan(stack.pop()));
+}
+
+void Calculator::fac() {
+	double r = 1;
+	for (int i = stack.pop(); i > 0; i--) r *= i;
+	stack.push(r);
+}
+
 static bool isnumeric(char c) {
 	return isdigit(c) || c == '.';
 }
 
 Token* Calculator::next() {
 	// Retire tous les espaces blancs avant le prochain token
-	while (pos < len && isblank(expr[pos])) pos++;
+	while (pos < len && !isgraph(expr[pos])) pos++;
 
 	// Fin de l'expression
 	if (pos >= len) {
@@ -95,7 +140,20 @@ Token* Calculator::next() {
 			}
 
 			// Conversion de chaine en nombre
-			tok.data.num = stod(expr.substr(begin, length));
+			size_t dbl_len = 0;
+			string num = expr.substr(begin, length);
+
+			try {
+				tok.data.num = stod(num, &dbl_len);
+			} catch(invalid_argument) {
+				dbl_len = 0;
+			}
+
+			// On s'assure d'avoir traité le nombre dans son ensemble
+			if (dbl_len != length) {
+				throw CalculatorException { 666, "DIABOLICAL_USER", "'" + num + "' is not a number" };
+			}
+
 			break;
 		}
 
@@ -139,6 +197,20 @@ void Calculator::execute() {
 					case '*': mult(); break;
 					case '/': div(); break;
 					case '%': mod(); break;
+					case 'p': pow(); break;
+					case 'l': log(); break;
+					case 'e': exp(); break;
+					case '!': fac(); break;
+					case 's': sin(); break;
+					case 'c': cos(); break;
+					case 't': tan(); break;
+					case 'S': asin(); break;
+					case 'C': acos(); break;
+					case 'T': atan(); break;
+
+					// Constantes
+					case 'P': stack.push(M_PI); break;
+					case 'E': stack.push(M_E); break;
 
 					// Dernier résultats
 					case 'a': stack.push(ans); break;

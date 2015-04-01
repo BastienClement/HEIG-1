@@ -16,10 +16,13 @@
 #include "Calculator.h"
 #include "Exception.h"
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 int main() {
 	Calculator calc;
+
+	cout << setprecision(20);
 
 	while (1) {
 		cout << "[calc] ";

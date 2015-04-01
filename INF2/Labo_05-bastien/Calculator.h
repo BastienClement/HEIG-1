@@ -52,6 +52,16 @@ private:
 	void mult();
 	void div();
 	void mod();
+	void pow();
+	void log();
+	void exp();
+	void sin();
+	void cos();
+	void tan();
+	void asin();
+	void acos();
+	void atan();
+	void fac();
 
 	// Retourne le prochain token ou nullptr si la fin de l'expression est atteinte
 	Token* next();
