@@ -20,10 +20,8 @@ Stack::~Stack() {
 void Stack::push(number i) {
     StackElement* newElement = new StackElement;
     newElement->value = i;
-    
-    if (!this->empty()) {
-        newElement->prior = this->top;
-    }
+    newElement->prior = this->top;
+	
     this->top = newElement;
     this->items++;
 }
