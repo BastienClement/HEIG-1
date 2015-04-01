@@ -60,6 +60,16 @@ void Calculator::pow() {
 	stack.push(::pow(a, b));
 }
 
+void Calculator::root() {
+	stack.push(sqrt(stack.pop()));
+}
+
+void Calculator::rootx() {
+	number b = stack.pop();
+	number a = stack.pop();
+	stack.push(::pow(a, 1/b));
+}
+
 void Calculator::log() {
 	stack.push(::log(stack.pop()));
 }
@@ -198,6 +208,8 @@ void Calculator::execute() {
 					case '/': div(); break;
 					case '%': mod(); break;
 					case 'p': pow(); break;
+					case 'r': root(); break;
+					case 'R': rootx(); break;
 					case 'l': log(); break;
 					case 'e': exp(); break;
 					case '!': fac(); break;

@@ -53,6 +53,8 @@ private:
 	void div();
 	void mod();
 	void pow();
+	void root();
+	void rootx();
 	void log();
 	void exp();
 	void sin();
