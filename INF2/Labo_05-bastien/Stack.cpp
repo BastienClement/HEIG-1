@@ -55,6 +55,7 @@ void Stack::clear() {
     while (element != nullptr) {
         element = this->top->prior;
         delete this->top;
+        this->top = element;
     }
 	this->items = 0;
 }
