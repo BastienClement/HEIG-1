@@ -117,7 +117,7 @@ void Calculator::execute() {
 
 	while ((t = next())) {
 		if (done) {
-			throw CalculatorException { 42, "TOKEN_AFTER_EQ", "The = operator was not the last token in the expression" };
+			throw CalculatorException { 42, "TOKEN_AFTER_EQ", "The = operator is not the last token in the expression" };
 		}
 
 		switch (t.type) {

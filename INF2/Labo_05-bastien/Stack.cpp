@@ -7,6 +7,7 @@
 //
 
 #include "Stack.h"
+#include "Exception.h"
 
 Stack::Stack() {
     this->top = nullptr;
@@ -28,7 +29,7 @@ void Stack::push(number i) {
 
 number Stack::pop() {
 	if (this->empty()) {
-		// Throws
+		throw CalculatorException { 102, "EMPTY_STACK", "Attempted to pop a number from an empty stack" };
 	}
 
     StackElement* element = this->top;

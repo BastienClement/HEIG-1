@@ -9,6 +9,9 @@
 #ifndef __Labo_05__Exception__
 #define __Labo_05__Exception__
 
+#include <string>
+using namespace std;
+
 struct CalculatorException {
 	int code;
 	string error;
