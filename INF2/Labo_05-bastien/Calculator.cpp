@@ -22,8 +22,8 @@ void Calculator::add() {
 }
 
 void Calculator::sub() {
-	int b = stack.pop();
-	int a = stack.pop();
+	number b = stack.pop();
+	number a = stack.pop();
 	stack.push(a - b);
 }
 
@@ -32,8 +32,8 @@ void Calculator::mult() {
 }
 
 void Calculator::div() {
-	int b = stack.pop();
-	int a = stack.pop();
+	number b = stack.pop();
+	number a = stack.pop();
 
 	if (b == 0) {
 		throw CalculatorException { 12, "DIV_BY_0", "Attempted to divide by 0" };
