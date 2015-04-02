@@ -232,6 +232,8 @@ void Calculator::execute() {
 					case 'S': asin(); break;
 					case 'C': acos(); break;
 					case 'T': atan(); break;
+					case 'x': swap(); break;
+					case '?': dump(); break;
 
 					// Constantes
 					case 'P': stack.push(M_PI); break;
