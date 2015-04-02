@@ -224,7 +224,7 @@ void Calculator::execute() {
 					case 'r': root(); break;
 					case 'R': rootx(); break;
 					case 'l': log(); break;
-					case 'e': exp(); break;
+					case 'L': logx(); break;
 					case '!': fac(); break;
 					case 's': sin(); break;
 					case 'c': cos(); break;
