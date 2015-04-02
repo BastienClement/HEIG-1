@@ -17,7 +17,6 @@
 #include "Exception.h"
 #include <iostream>
 #include <iomanip>
-#include <string>
 
 int main() {
 	Calculator calc;

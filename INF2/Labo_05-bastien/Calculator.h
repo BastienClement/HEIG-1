@@ -56,7 +56,7 @@ private:
 	void root();
 	void rootx();
 	void log();
-	void exp();
+	void logx();
 	void sin();
 	void cos();
 	void tan();
@@ -64,6 +64,8 @@ private:
 	void acos();
 	void atan();
 	void fac();
+	void swap();
+	void dump();
 
 	// Retourne le prochain token ou nullptr si la fin de l'expression est atteinte
 	Token* next();

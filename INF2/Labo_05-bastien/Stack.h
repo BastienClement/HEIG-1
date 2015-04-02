@@ -33,6 +33,7 @@ public:
 	bool empty();
 	size_t size();
 	void clear();
+	void dump();
 };
 
 #endif /* defined(__Labo_05__Pile__) */

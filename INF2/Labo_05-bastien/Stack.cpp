@@ -8,6 +8,8 @@
 
 #include "Stack.h"
 #include "Exception.h"
+#include <iostream>
+using namespace std;
 
 Stack::Stack() {
     this->top = nullptr;
@@ -58,4 +60,12 @@ void Stack::clear() {
         this->top = element;
     }
 	this->items = 0;
+}
+
+void Stack::dump() {
+	StackElement* e = top;
+	for (size_t i = items; e; e = e->prior, i--) {
+		cout << i << ": " << e->value << endl;
+	}
+	cout << endl;
 }

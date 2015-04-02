@@ -44,8 +44,8 @@ void Calculator::div() {
 }
 
 void Calculator::mod() {
-	int b = stack.pop();
-	int a = stack.pop();
+	long b = stack.pop();
+	long a = stack.pop();
 
 	if (b == 0) {
 		throw CalculatorException { 13, "MOD_BY_0", "Attempted to compute the reminder of a division by 0" };
@@ -74,8 +74,10 @@ void Calculator::log() {
 	stack.push(::log(stack.pop()));
 }
 
-void Calculator::exp() {
-	stack.push(::exp(stack.pop()));
+void Calculator::logx() {
+	number b = stack.pop();
+	number a = stack.pop();
+	stack.push(::log(a) / ::log(b));
 }
 
 void Calculator::sin() {
@@ -104,8 +106,19 @@ void Calculator::atan() {
 
 void Calculator::fac() {
 	double r = 1;
-	for (int i = stack.pop(); i > 0; i--) r *= i;
+	for (long i = stack.pop(); i > 0; i--) r *= i;
 	stack.push(r);
+}
+
+void Calculator::swap() {
+	number b = stack.pop();
+	number a = stack.pop();
+	stack.push(b);
+	stack.push(a);
+}
+
+void Calculator::dump() {
+	stack.dump();
 }
 
 static bool isnumeric(char c) {
@@ -155,7 +168,7 @@ Token* Calculator::next() {
 
 			try {
 				tok.data.num = stod(num, &dbl_len);
-			} catch(invalid_argument) {
+			} catch (invalid_argument) {
 				dbl_len = 0;
 			}
 
