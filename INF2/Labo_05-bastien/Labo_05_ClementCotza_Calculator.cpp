@@ -84,7 +84,7 @@ Token *Calculator::next() {
 			// Tant que l'on a des caractères valides pour un nombre
 			while (++pos < len) {
 				c = expr[pos];
-				if (!isdigit(c) && c != 'e' && c != '.') {
+				if (!isdigit(c) && c != 'e' && c != '.' && c != '-') {
 					break;
 				} else {
 					++length;
