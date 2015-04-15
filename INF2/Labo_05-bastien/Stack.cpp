@@ -61,11 +61,3 @@ void Stack::clear() {
     }
 	this->items = 0;
 }
-
-void Stack::dump() {
-	StackElement* e = top;
-	for (size_t i = items; e; e = e->prior, i--) {
-		cout << i << ": " << e->value << endl;
-	}
-	cout << endl;
-}

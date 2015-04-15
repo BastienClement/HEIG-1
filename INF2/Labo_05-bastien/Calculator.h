@@ -51,27 +51,9 @@ private:
 	void sub();
 	void mult();
 	void div();
-	void mod();
-	void pow();
-	void root();
-	void rootx();
-	void log();
-	void logx();
-	void sin();
-	void cos();
-	void tan();
-	void asin();
-	void acos();
-	void atan();
-	void fac();
-	void swap();
-	void dump();
 
 	// Retourne le prochain token ou nullptr si la fin de l'expression est atteinte
 	Token* next();
-
-	// Execute une expression
-	void execute();
 
 public:
 	// Constructeur
