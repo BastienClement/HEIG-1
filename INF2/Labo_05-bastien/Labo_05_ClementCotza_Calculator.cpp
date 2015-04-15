@@ -1,13 +1,20 @@
-//
-//  Exception.cpp
-//  Labo 05
-//
-//  Created by Bastien Clément on 01.04.15.
-//  Copyright (c) 2015 Bastien Clément. All rights reserved.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05 - Calculatrice Polonaise Inverse
+ Fichier     : Labo_05_ClementCotza_Calculator.h
+ Auteur(s)   : Clément Bastien & Cotza Andrea
+ Date        : 01.04.2015
 
-#include "Calculator.h"
-#include "Exception.h"
+ But         : Met à dispostion la calculatrice polonaise
+
+ Remarque(s) : -
+
+ Compilateur : Apple LLVM version 6.1 (clang-602.0.49), MinGW
+ -----------------------------------------------------------------------------------
+ */
+
+#include "Labo_05_ClementCotza_Calculator.h"
+#include "Labo_05_ClementCotza_Exception.h"
 
 #include <iostream>
 #include <cctype>
@@ -58,7 +65,7 @@ Token *Calculator::next() {
 
 	// On récupère le caractère à la position actuelle et la suivante
 	char c = expr[pos];
-	char n = (pos + 1 < len) ? (char) expr[pos + 1] : '\0';
+	char n = (pos + 1 < len) ? expr[pos + 1] : '\0';
 
 	// Distinction entre nombre et opérateur
 	if (isnumeric(c) || ((c == '+' || c == '-') && isnumeric(n))) {
@@ -166,7 +173,7 @@ number Calculator::eval(const string &e) {
 	// On s'assure de n'avoir qu'une seule valeur sur la pile, qui correspond au résultat
 	if (stack.size() != 1) {
 		char error[100];
-		sprintf(error, "Expression ended with %d value%s (instead of 1) on the stack", stack.size(), stack.size() > 0 ? "s" : "");
+		sprintf(error, "Expression ended with %d value%s (instead of 1) on the stack", (int)stack.size(), stack.size() > 0 ? "s" : "");
 		throw CalculatorException {5, "BAD_STACK_SIZE", error};
 	}
 

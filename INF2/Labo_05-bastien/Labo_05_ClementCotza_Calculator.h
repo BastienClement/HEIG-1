@@ -1,16 +1,23 @@
-//
-//  Calculatrice.h
-//  Labo 05
-//
-//  Created by Bastien Clément on 01.04.15.
-//  Copyright (c) 2015 Bastien Clément. All rights reserved.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05 - Calculatrice Polonaise Inverse
+ Fichier     : Labo_05_ClementCotza_Calculator.h
+ Auteur(s)   : Clément Bastien & Cotza Andrea
+ Date        : 01.04.2015
+
+ But         : Met à dispostion la calculatrice polonaise
+
+ Remarque(s) : -
+
+ Compilateur : Apple LLVM version 6.1 (clang-602.0.49), MinGW
+ -----------------------------------------------------------------------------------
+ */
 
 #ifndef __Labo_05__Calculatrice__
 #define __Labo_05__Calculatrice__
 
 #include <string>
-#include "Stack.h"
+#include "Labo_05_ClementCotza_Stack.h"
 
 using namespace std;
 

@@ -1,13 +1,20 @@
-//
-//  Pile.cpp
-//  Labo 05
-//
-//  Created by Bastien Clément on 01.04.15.
-//  Copyright (c) 2015 Bastien Clément. All rights reserved.
-//
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire : 05 - Calculatrice Polonaise Inverse
+ Fichier     : Labo_05_ClementCotza_Stack.cpp
+ Auteur(s)   : Clément Bastien & Cotza Andrea
+ Date        : 01.04.2015
 
-#include "Stack.h"
-#include "Exception.h"
+ But         : Met à disposition une pile dynamique
+
+ Remarque(s) : -
+
+ Compilateur : Apple LLVM version 6.1 (clang-602.0.49), MinGW
+ -----------------------------------------------------------------------------------
+ */
+
+#include "Labo_05_ClementCotza_Stack.h"
+#include "Labo_05_ClementCotza_Exception.h"
 #include <iostream>
 using namespace std;
 
