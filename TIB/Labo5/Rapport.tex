@@ -37,7 +37,7 @@
 \cfoot{\thepage}
 
 \def \doccourse { TIB1-B }
-\def \doctitle {Labo : IP et numéros de port}
+\def \doctitle {Rapport : IP et numéros de port}
 \author{Bastien Clément \and Christophe Peretti}
 
 \renewcommand{\thesection}{Objectif \arabic{section} :}
@@ -71,12 +71,33 @@ L'objectif de cette partie est d'apprendre à identifier les services qui tourne
 
 L'objectif de cette partie est de s'amuser en explorant l'outil \texttt{netcat}. Par la suite, il nous faudra répondre à quelques questions.
 
-\subsection{Pourquoi faut-il exécuter la commande comme administrateur si l'on veut lancer un serveur sur un port $1$ -- $1023$, mais pas sur les ports supérieurs à $1023$}
-\subsection{Est-ce qu'il est possible de lancer deux services qui écoutent le même numéro de port sur la même machine ?}
-\footnote{//stackoverflow.com/a/14388707}
+\subsection{Pourquoi faut-il exécuter la commande comme administrateur si l'on veut lancer un serveur sur un port $1$ -- $1023$, mais pas sur les ports supérieurs à $1023$ ?}
 
-\subsection{Et si un utilise TCP et l'autre UDP}
+Les ports TCP et UDP sont divisés en 3 plages:
+\begin{enumerate}
+	\item \textbf{Ports 1 -- 1023 (\textit{well-known ports})}: ces ports correspondent à des services très utilisés et sont assignés par l'organisation IANA (\textit{Internet Assigned Numbers Authority}). Puisque les logiciels serveurs utilisant ces ports sont généralement des services système, les systèmes d'exploitation requièrent habituellement que le processus demandant à écouter un tel port s'exécute avec les droits d'administrateur (ou \textit{superuser}). Ceci implique qu'il est impossible pour un utilisateur classique de mettre en place un serveur pour un de ces services sans l'accord de l'administrateur.
+	\item \textbf{Ports 1024 -- 49151 (\textit{registered ports})}: tout comme les \textit{well-known ports}, cette plage est gérée par l'IANA qui attribue les ports sur requête d'un organisme. En pratique, il est possible d'ouvrir un tel port sans droits particulier sur le système et même sans enregistrement préalable auprès de l'IANA. Par conséquent, cette plage est utilisée par certains services très répandus qui ne sont pourtant pas enregistrés officiellement et dans certains cas, il existe même des conflits entre plusieurs applications utilisant le même port.
+	\item \textbf{Ports 49152 -- 65535 (\textit{private / dynamic / ephemeral ports})}: les ports de cette plage ne font l'objet d'aucune attribution particulière et devraient être utilisés par les applications qui ne sont pas officiellement enregistrées (\textit{private}). De plus, cette plage est aussi utilisée par le système pour assigner un numéro de port local temporaire lors de l'ouverture d'une connexion sans port source spécifique, par exemple pour la navigation sur le web.
+\end{enumerate}
+
+\subsection{Est-ce qu'il est possible de lancer deux services qui écoutent le même numéro de port sur la même machine ?}
+
+Un connexion réseau est déterminée par l'ensemble de 5 paramètres: \textbf{protocole}, \textbf{adresse locale}, \textbf{port local}, \textbf{adresse distante}, \textbf{port distant}.
+
+Dans le cadre de cette question, nous considérons deux logiciels sur une même machine souhaitant écouter un même port. La réponse évidente est non, puisqu'il serait alors impossible au système de savoir auquel des deux processus une connexion entrante devrait être transmise.
+
+Cependant, en théorie, deux processus sont tout à fait en mesure d'écouter le même port puisque l'adresse et le port d'origine permettent de différencier les connexions. Ce n'est en réalité pas une limitation au niveau des protocoles ou du réseau, mais bien une limitation liée à l'organisation du système d'exploitation.
+
+En réalité, certains systèmes proposent des mécanismes permettant une telle configuration.
+
+% stackoverflow.com/a/14388707
+
+\subsection{Et si un utilise TCP et l'autre UDP ?}
+
+Ce n'est alors plus un problème. Le protocole utilisé fait partie des 5 critères permettant de distinguer la connexion. De son côté, le système d'exploitation n'a aucune difficulté à identifier les processus utilisant l'un ou l'autre des protocoles.
 
 \section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
 
 \end{document}
