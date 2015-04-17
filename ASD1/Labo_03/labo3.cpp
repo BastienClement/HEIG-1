@@ -19,8 +19,7 @@ void countingSort(vector<byte> T);
 void quickSort(vector<byte> T);
 
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char *argv[]) {
 
-
-    return 0;
+	return 0;
 }
