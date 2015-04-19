@@ -22,7 +22,7 @@
 int main() {
 	Calculator calc;
 
-	cout << setprecision(20);
+	cout << setprecision(15);
 
 	// Presentation
 	cout << "######################################################" << endl;
@@ -30,7 +30,8 @@ int main() {
 	cout << "######################################################" << endl;
 
 	cout << endl;
-	cout << "Avaiable operators : < + > < - > < * > < / > and < = >" << endl;
+	cout << "Avaiable operators : [+] [-] [*] [/] and [=]" 			 << endl;
+	cout << "To use last result : [a]"								 << endl;
 	cout << "To quit            : [ENTER] " 					     << endl;
 
 	cout << endl;

@@ -5,7 +5,7 @@
  Auteur(s)   : Clément Bastien & Cotza Andrea
  Date        : 01.04.2015
 
- But         : Met à disposition une pile dynamique
+ But         : Implementer une pile dynamique
 
  Remarque(s) : -
 
@@ -51,20 +51,22 @@ number Stack::pop() {
 	return value;
 }
 
-bool Stack::empty() {
+bool Stack::empty() const{
     return (this->top == nullptr);
 }
 
-size_t Stack::size() {
+size_t Stack::size() const{
 	return this->items;
 }
 
 void Stack::clear() {
-    StackElement* element = this->top;
-    while (element != nullptr) {
-        element = this->top->prior;
-        delete this->top;
-        this->top = element;
+    if (!empty()) {
+        StackElement *element = this->top;
+        while (element != nullptr) {
+            element = this->top->prior;
+            delete this->top;
+            this->top = element;
+        }
+        this->items = 0;
     }
-	this->items = 0;
 }

@@ -5,7 +5,7 @@
  Auteur(s)   : Clément Bastien & Cotza Andrea
  Date        : 01.04.2015
 
- But         : Met à disposition une pile dynamique
+ But         : Implementer une pile dynamique
 
  Remarque(s) : -
 
@@ -34,11 +34,16 @@ public:
 	Stack();
 	~Stack();
 
-	void push(number i);
+    // Ajoute une valeur sur la pile
+	void push(const number i);
+    // Recupere et supprime la dernière valeure empilée
 	number pop();
 
-	bool empty();
-	size_t size();
+    // Indique si la pile est vide
+	bool empty() const;
+    // Retourne le nb d'elements sur la pile
+	size_t size() const;
+    // Vide la pile
 	void clear();
 };
 

@@ -5,7 +5,7 @@
  Auteur(s)   : Clément Bastien & Cotza Andrea
  Date        : 01.04.2015
 
- But         : Met à dispostion la calculatrice polonaise
+ But         : Implementer la calculatrice polonaise inverse
 
  Remarque(s) : -
 
