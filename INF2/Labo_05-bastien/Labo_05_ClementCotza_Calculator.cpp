@@ -5,7 +5,7 @@
  Auteur(s)   : Clément Bastien & Cotza Andrea
  Date        : 01.04.2015
 
- But         : Implementer la calculatrice polonaise inverse
+ But         : Implementer une calculatrice polonaise inverse
 
  Remarque(s) : -
 
@@ -54,7 +54,7 @@ static bool isnumeric(char c) {
 	return isdigit(c) || c == '.';
 }
 
-Token *Calculator::next() {
+Token* Calculator::next() {
 	// Retire tous les espaces blancs avant le prochain token
 	while (pos < len && !isgraph(expr[pos])) pos++;
 
@@ -84,10 +84,10 @@ Token *Calculator::next() {
 			// Tant que l'on a des caractères valides pour un nombre
 			while (++pos < len) {
 				c = expr[pos];
-				if (!isdigit(c) && c != 'e' && c != '.' && c != '-') {
-					break;
-				} else {
+				if (isdigit(c) || c == 'e' || c == '.' || c == '-') {
 					++length;
+				} else {
+					break;
 				}
 			}
 
@@ -120,7 +120,7 @@ Token *Calculator::next() {
 	return &tok;
 }
 
-number Calculator::eval(const string &e) {
+number Calculator::eval(const string& e) {
 	// Vide la pile par précaution
 	stack.clear();
 
@@ -130,12 +130,14 @@ number Calculator::eval(const string &e) {
 	pos = 0;
 
 	// Pointeur vers token traité actuellement
-	Token *t;
+	Token* t;
 
 	// Fin de calcul (après =)
 	bool done = false;
 
 	// On traite chaque élément de l'expression
+	// Utiliser un pointeur permet d'utiliser nullptr pour signaler
+	// la fin de l'expression au lieu d'utiliser un token spécifique
 	while ((t = next())) {
 		if (done) {
 			// On a un token supplémentaire après le =
@@ -151,12 +153,30 @@ number Calculator::eval(const string &e) {
 			case TokenType::op: // Traitement d'un opérateur
 				switch (t->data.op) {
 					// Opérations
-					case '+': add(); break;
-					case '-': sub(); break;
-					case '*': mult(); break;
-					case '/': div(); break;
-					case 'a': stack.push(ans); break;
-					case '=': done = true; break;
+					case '+':
+						add();
+						break;
+
+					case '-':
+						sub();
+						break;
+
+					case '*':
+						mult();
+						break;
+
+					case '/':
+						div();
+						break;
+
+					case 'a':
+						stack.push(ans);
+						break;
+
+					case '=':
+						done = true;
+						break;
+
 					default: { // Opérateur inconnu
 						char error[50];
 						sprintf(error, "Operator '%c' is undefined", t->data.op);
@@ -173,7 +193,8 @@ number Calculator::eval(const string &e) {
 	// On s'assure de n'avoir qu'une seule valeur sur la pile, qui correspond au résultat
 	if (stack.size() != 1) {
 		char error[100];
-		sprintf(error, "Expression ended with %d value%s (instead of 1) on the stack", (int)stack.size(), stack.size() > 0 ? "s" : "");
+		sprintf(error, "Expression ended with %d value%s (instead of 1) on the stack",
+				(int) stack.size(), stack.size() > 0 ? "s" : "");
 		throw CalculatorException {5, "BAD_STACK_SIZE", error};
 	}
 

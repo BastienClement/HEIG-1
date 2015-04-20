@@ -17,6 +17,7 @@
 #define __Labo_05__Exception__
 
 #include <string>
+
 using namespace std;
 
 struct CalculatorException {

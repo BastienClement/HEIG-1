@@ -5,7 +5,7 @@
  Auteur(s)   : Clément Bastien & Cotza Andrea
  Date        : 01.04.2015
 
- But         : Implementer la calculatrice polonaise inverse
+ But         : Implementer une calculatrice polonaise inverse
 
  Remarque(s) : -
 
@@ -22,7 +22,9 @@
 using namespace std;
 
 // Types de token disponibles
-enum class TokenType { num, op };
+enum class TokenType {
+	num, op
+};
 
 // Un token de la calculatrice
 struct Token {

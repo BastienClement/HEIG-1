@@ -21,29 +21,35 @@
 typedef double number;
 
 struct StackElement {
-    number value;
-    StackElement* prior;
+	number value;
+	StackElement* prior;
 };
 
 struct Stack {
 private:
+	// Pointeur sur l'élément au sommet de la pile
 	StackElement* top;
-    size_t items;
+
+	// Nombre d'éléments dans la pile
+	size_t items;
 
 public:
 	Stack();
 	~Stack();
 
-    // Ajoute une valeur sur la pile
+	// Ajoute une valeur sur la pile
 	void push(const number i);
-    // Recupere et supprime la dernière valeure empilée
+
+	// Recupere et supprime la dernière valeure empilée
 	number pop();
 
-    // Indique si la pile est vide
+	// Indique si la pile est vide
 	bool empty() const;
-    // Retourne le nb d'elements sur la pile
+
+	// Retourne le nb d'elements sur la pile
 	size_t size() const;
-    // Vide la pile
+
+	// Vide la pile
 	void clear();
 };
 

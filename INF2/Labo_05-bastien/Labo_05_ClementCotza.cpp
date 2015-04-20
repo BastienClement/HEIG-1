@@ -30,23 +30,26 @@ int main() {
 	cout << "######################################################" << endl;
 
 	cout << endl;
-	cout << "Avaiable operators : [+] [-] [*] [/] and [=]" 			 << endl;
-	cout << "To use last result : [a]"								 << endl;
-	cout << "To quit            : [ENTER] " 					     << endl;
+	cout << "Avaiable operators : [+] [-] [*] [/] and [=]" << endl;
+	cout << "To use last result : [a]" << endl;
+	cout << "To quit            : [ENTER] " << endl;
 
 	cout << endl;
 	cout << "------------------------------------------------------" << endl;
 	cout << endl;
 
-	while (1) {
+	while (cin.good()) {
 		cout << "[calc] ";
+
+		// Lecture de l'expression
 		string expr;
 		getline(cin, expr);
 
 		if (expr.empty()) break;
+
 		try {
 			cout << calc.eval(expr) << endl;
-		} catch(CalculatorException e) {
+		} catch (CalculatorException e) {
 			cerr << "Error: " << e.error << " (" << e.code << ")" << endl;
 			cerr << "\t" << e.message << endl;
 		}
