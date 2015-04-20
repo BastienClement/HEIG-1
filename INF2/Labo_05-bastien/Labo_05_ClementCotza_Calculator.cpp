@@ -178,7 +178,7 @@ number Calculator::eval(const string& e) {
 						break;
 
 					default: { // Opérateur inconnu
-						char error[50];
+						char error[30];
 						sprintf(error, "Operator '%c' is undefined", t->data.op);
 						throw CalculatorException {43, "UNDEF_OPERATOR", error};
 					}
@@ -192,9 +192,9 @@ number Calculator::eval(const string& e) {
 
 	// On s'assure de n'avoir qu'une seule valeur sur la pile, qui correspond au résultat
 	if (stack.size() != 1) {
-		char error[100];
-		sprintf(error, "Expression ended with %d value%s (instead of 1) on the stack",
-				(int) stack.size(), stack.size() > 0 ? "s" : "");
+		char error[120];
+		sprintf(error, "Expression evaluation ended with %lu value%s (instead of 1) on the stack",
+				(unsigned long) stack.size(), stack.size() > 0 ? "s" : "");
 		throw CalculatorException {5, "BAD_STACK_SIZE", error};
 	}
 
