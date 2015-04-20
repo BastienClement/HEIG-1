@@ -61,31 +61,33 @@ L'objectif de cette première partie est d'apprendre le format des paquet IP et 
 Le protocole IP est responsable d'acheminer un paquet entre deux machines sur le réseau Internet. Les informations nécessaires à cette tâche sont encodées dans l'\textit{en-tête IP} qui précède le contenu utile du paquet. Il est composé, entre autres, de:
 
 \begin{enumerate}
-	\item \textbf{Une somme de contrôle}: permettant de détecter des potentiels erreurs de transmission sur les en-têtes du paquet. En pratique, ce champs n'est pas réellement nécessaire puisque le protocole de niveau 2 s'assure de la transmission sans altérations de chaque frame dans son ensemble. Cet en-tête n'existe plus en \textit{IPv6}, ce qui permet de simplifier les routeurs.
-	\item \textbf{L'adresse source et de destination}: permettant d'acheminer le paquet vers le bon destinataire et d'identifier son émetteur.
+	\item \textbf{Le numéro de version}, permettant de distinguer IPv4 et IPv6.
+	\item \textbf{Une somme de contrôle}, permettant de détecter des potentiels erreurs de transmission sur les en-têtes du paquet. En théorie, ce champs n'est pas nécessaire puisque les protocoles de niveau 2 (\textit{Ethernet} / \textit{Wifi}) s'assurent de la transmission des frames sans altérations. Cet en-tête n'existe d'ailleurs plus en \textit{IPv6}.
+	\item \textbf{L'adresse source et de destination}, permettant d'acheminer le paquet vers le bon destinataire et d'identifier son émetteur.
 	\item \textbf{Le protocole de couche supérieure}: permettant à la réception du paquet de le transmettre à la couche supérieur correcte (par exemple TCP ou UDP).
-	\item \textbf{Le \textit{time to live}}: un compteur décrémenté à chaque traversée d'un intermédiaire dans le réseau. Lorsque le compteur arrive à 0, le paquet est simplement détruit.
-	\item \textbf{Des informations de fragmentation}: permettant la recomposition d'un paquet qui a été découpé au cours de son acheminement sur le réseau.
+	\item \textbf{Le \textit{time to live}}, un compteur décrémenté à chaque traversée d'un intermédiaire dans le réseau. Lorsque le compteur arrive à 0, le paquet est simplement détruit.
+	\item \textbf{Des informations de fragmentation}, permettant la recomposition d'un paquet qui a été découpé au cours de son acheminement sur le réseau.
 \end{enumerate}
 
-TCP est quant à lui responsable de fournir une connexion fiable assurant la réception des paquets et leur ordre. L'en-tête contient entre autres:
+TCP est quant à lui responsable de fournir une flux de données fiable assurant la réception (en retransmettant les segments perdus) et l'ordre. L'en-tête contient entre autres:
 
 \begin{enumerate}
-	\item \textbf{Une somme de contrôle}
+	\item \textbf{Une somme de contrôle}, vérifiant l'intégrité des donnés.
 	\item \textbf{Le port d'origine et de destination}
 	\item \textbf{Des numéros de séquence et d'acquittement}: permettant de réordonner correctement des paquets reçus dans le désordre et de détecter les paquets perdus.
-	\item \textbf{La valeur \textit{window size}}: permettant la mise en place des mécanismes de contrôle de flux en communiquant le nombre de bytes que l'émetteur peut encore recevoir.
+	\item \textbf{Des informations de contrôle de flux}: permettant de réguler le débit d'émission en fonction des capacités du récepteur et d'éviter la congestion réseau.
 \end{enumerate}
 
 \subsection{Exemples lors de l'accès à une page web}
 
-\begin{tabular}{|l|p{10cm}|}
+\begin{tabular}{|l|p{10.3cm}|}
 	\hline
 	\textbf{En-tête IP} & \textbf{Valeur} \\
 	\hline
+	Version & 4 \\
 	Adresse d'origine & 10.192.74.32 \\
 	Adresse de destination & 195.176.255.234 \\
-	Protocole niveau 4 & TCP (6) \\
+	Protocole & TCP (6) \\
 	Time to live & 64 \\
 	\hline
 	\hline
@@ -106,27 +108,23 @@ L'objectif de cette partie est d'apprendre à identifier les services qui tourne
 \subsection{Liste des services sur notre machine}
 
 \begin{verbatim}
-labo@ubuntu:~$ sudo nmap -sV 127.0.0.1
-...
 PORT    STATE SERVICE VERSION
 53/tcp  open  domain  dnsmasq 2.59
 631/tcp open  ipp     CUPS 1.5
 \end{verbatim}
 
-Nous pouvons observer que notre machine exécute un serveur \textit{DNS} ainsi qu'un serveur \textit{IPP} (\textit{Internet Printing Protocol}) utilisé pour le partage d'imprimantes sur le réseau. Le nom du logiciel implémentant le service ainsi que sa version sont également visibles.
+Nous pouvons observer que notre machine exécute un serveur DNS ainsi qu'un serveur IPP (\textit{Internet Printing Protocol}) utilisé pour le partage d'imprimantes sur le réseau.
 
 \subsection{Liste des services sur \texttt{10.192.75.14}}
 
 \begin{verbatim}
-labo@ubuntu:~$ sudo nmap -sV -p 1-100 10.192.75.14
-...
 PORT   STATE SERVICE VERSION
 21/tcp open  ftp     Brother/HP printer ftpd 1.10
 23/tcp open  telnet  Brother/HP printer telnetd
 80/tcp open  http    Brother/HP printer webadmin ([...])
 \end{verbatim}
 
-Nous sommes manifestement en train de scanner une imprimante ! Les services \textit{telnet} et \textit{http} servent probablement à la configuration et à l'administration de l'appareil. Nous pouvons en revanche nous interroger sur les raisons pour une imprimante de proposer un service FTP ?
+Nous sommes manifestement en train de scanner une imprimante ! Les services Telnet et HTTP servent probablement à la configuration et à l'administration de l'appareil. Nous pouvons en revanche nous interroger sur les raisons pour une imprimante de proposer un service FTP ?
 
 \subsection{Ports courants}
 
@@ -135,11 +133,11 @@ Nous sommes manifestement en train de scanner une imprimante ! Les services \tex
 	\textbf{Port} & \textbf{Service} & \textbf{Description} \\
 	\hline
 	80    & HTTP & Utilisé par les serveurs Web pour les requêtes HTTP \\
-	20,21 & FTP & Transmission de fichiers (port de données / contrôle) \\
+	20, 21 & FTP & Transmission de fichiers (port de données / contrôle) \\
 	22    & SSH & Terminal distant sécurisé (mais aussi SFTP / SCP / TCP tunneling) \\
-	25    & SMTP & Envoi de courrier e-mail \\
-	53    & DNS & Résolution de nom en adresse IP \\
-	443   & HTTPS & HTTP sécurisé (SSL / TLS) \\
+	25    & SMTP & Envoi et relai d'e-mail \\
+	53    & DNS & Résolution de nom en adresse IP (et autres services basés sur DNS) \\
+	443   & HTTPS & HTTP sécurisé (cryptage SSL / TLS) \\
 	\hline
 \end{tabular}
 
@@ -147,39 +145,24 @@ Nous sommes manifestement en train de scanner une imprimante ! Les services \tex
 
 L'objectif de cette partie est de s'amuser en explorant l'outil \texttt{netcat}. Par la suite, il nous faudra répondre à quelques questions.
 
-\subsection{Pourquoi faut-il exécuter la commande comme administrateur si l'on veut lancer un serveur sur un port $1$ -- $1023$, mais pas sur les ports supérieurs à $1023$ ?}
+\subsection{Pourquoi faut-il les droits d'administrateur si l'on veut lancer un serveur sur un port $1$ -- $1023$, mais pas sur les ports supérieurs à $1023$ ?}
 
-Les ports TCP et UDP sont divisés en 3 plages:
-\begin{enumerate}
-	\item \textbf{Ports 1 -- 1023 (\textit{well-known ports})}: ces ports correspondent à des services très utilisés et sont assignés par l'organisation IANA (\textit{Internet Assigned Numbers Authority}). Il est généralement imposé aux processus souhaitant les utiliser de disposer des droits d'administrateur (ou \textit{superuser}) sur la machine.
-	\item \textbf{Ports 1024 -- 49151 (\textit{registered ports})}: tout comme les \textit{well-known ports}, cette plage est gérée par l'IANA qui attribue les ports sur demande. En pratique, il est possible d'ouvrir un tel port sans droits particulier sur le système et même sans enregistrement préalable. Par conséquent, cette plage est utilisée par certains services très répandus qui ne sont pourtant pas enregistrés officiellement et dans certains cas, il existe même des conflits entre plusieurs applications utilisant le même port.
-	\item \textbf{Ports 49152 -- 65535 (\textit{private / dynamic / ephemeral ports})}: les ports de cette plage ne font l'objet d'aucune attribution particulière et devraient être utilisés par les applications qui ne sont pas officiellement enregistrées. Cette plage est également utilisée par le système pour assigner un numéro de port local temporaire lors de l'ouverture d'une connexion sans port source spécifique, tel que la plupart des connexions sortantes, par exemple lors de la navigation sur le web.
-\end{enumerate}
-
-Puisque les logiciels utilisant les \textit{well-known ports} sont généralement des processus en \textit{background} exécutés par le système, ils disposent déjà des droits adéquats pour ouvrir un tel port. Ceci implique aussi qu'il est impossible pour un utilisateur classique de mettre en place un serveur sur une machine sans l'accord de l'administrateur.
+Puisque les logiciels utilisant les \textit{well-known ports} (1 -- 1023) sont généralement des processus en \textit{background} exécutés par le système, ils disposent déjà des droits administrateur requis pour ouvrir un tel port. Ceci implique également qu'il est impossible pour un utilisateur classique de mettre en place un serveur sur une machine sans l'accord de l'administrateur.
 
 \subsection{Est-ce qu'il est possible de lancer deux services qui écoutent le même numéro de port sur la même machine ?}
 
-Premièrement, une connexion TCP/UDP est identifiée au niveau du système par un ensemble de 5 paramètres: \textbf{protocole}, \textbf{adresse locale}, \textbf{port local}, \textbf{adresse distante}, \textbf{port distant}.
+En principe non. Il serait en effet impossible au système de savoir auquel des deux processus une connexion sur le port en question devrait être transmise.  En pratique, les systèmes d'exploitations offrent des fonctionnalités permettant à plusieurs processus de partager le même port.
 
-Dans le cadre de cette question, nous considérons deux logiciels sur une même machine souhaitant écouter un même port, supposément sur la même interface sans quoi ceci ne serait pas un problème.
-
-La réponse évidente est non, puisqu'il serait alors impossible au système d'exploitation de savoir auquel des deux processus une connexion entrante devrait être transmise. Cependant, une fois la connexion établie, deux processus seraient tout à fait en mesure de partager le même port puisque l'adresse et le port distants permettent encore de différencier les connexions. 
-
-La réponse plus complète est qu'il existe généralement, au niveau du système d'exploitation, des options tel que \texttt{SO\_REUSEADDR} / \texttt{SO\_REUSEPORT} permettant à deux processus de partager la même adresse et le même port. Les connexions entrantes sont alors réparties entre ces processus.
-
-Certaines restrictions peuvent cependant s'appliquer. Par exemple, Linux requiert que les deux processus partageant un port soient exécutés par le même utilisateur, ceci afin d'éviter qu'un utilisateur puisse utiliser ce mécanisme pour intercepter les connexions d'un autre utilisateur. \footnote{Une comparaison détaillée du fonctionnement de ces options sur différents systèmes est disponible en tant que réponse sur le site \textit{StackOverflow} à l'adresse http://stackoverflow.com/a/14388707}
-
-Un exemple d'utilisation de cette fonctionnalité est le partage d'un port par plusieurs instances d'un même programme afin de servir plusieurs clients simultanément (utilisé par ex. par \textit{Node.js}).
+%Une fois la connexion établie, l'adresse et le port distants permettent alors de différencier les connexions sans ambiguïté. 
 
 % stackoverflow.com/a/14388707
 
 \subsection{Et si un utilise TCP et l'autre UDP ?}
 
-Ce n'est alors plus un problème. Le protocole utilisé fait partie des 5 critères permettant de distinguer la connexion. De son côté, le système d'exploitation n'a aucune difficulté à identifier les processus utilisant l'un ou l'autre des protocoles.
+Ce n'est alors plus un problème. Le protocole utilisé fait partie des critères permettant de distinguer les connexions. Le système d'exploitation n'a aucune difficulté à identifier les processus utilisant l'un ou l'autre des protocoles.
 
 \section{Auto-évaluation}
 
-Nous considérons avoir atteint les objectifs de ce laboratoire, nonobstant la limite de pages de ce rapport qui s'est révélé une difficulté insurmontable. Toutes nos excuses !
+Nous considérons avoir atteint les objectifs de ce laboratoire.
 
 \end{document}
