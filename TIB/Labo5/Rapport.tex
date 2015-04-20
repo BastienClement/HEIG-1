@@ -54,28 +54,28 @@
 
 \section{Analyse des protocoles IP et TCP}
 
-L'objectif de cette première partie est d'apprendre le format des paquet IP et TCP. Il est spécifiquement nécessaire de savoir décrire les champs les plus importants des paquets.
+L'objectif de cette première partie est d'apprendre le format des paquet IP et TCP. Il est demandé de savoir décrire les champs les plus importants de ces paquets.
 
 \subsection{Descriptions des champs des paquets IP et TCP}
 
-Le protocole IP est responsable d'acheminer un paquet entre deux machines sur le réseau Internet. Les informations nécessaires à cette tâche sont encodées dans l'\textit{en-tête IP} qui précède le contenu utile du paquet. Il est composé, entre autres, de:
+Le protocole IP est responsable d'acheminer un paquet entre deux machines sur le réseau Internet. L'\textit{en-tête IP}, qui précède le contenu utile du paquet, est composé entre autres de:
 
 \begin{enumerate}
 	\item \textbf{Le numéro de version}, permettant de distinguer IPv4 et IPv6.
-	\item \textbf{Une somme de contrôle}, permettant de détecter des potentiels erreurs de transmission sur les en-têtes du paquet. En théorie, ce champs n'est pas nécessaire puisque les protocoles de niveau 2 (\textit{Ethernet} / \textit{Wifi}) s'assurent de la transmission des frames sans altérations. Cet en-tête n'existe d'ailleurs plus en \textit{IPv6}.
+	\item \textbf{Une somme de contrôle}, permettant de détecter des potentiels erreurs de transmission sur les en-têtes du paquet. En théorie, ce champs n'est pas nécessaire puisque les protocoles de niveau 2 s'assurent de la transmission des frames sans altérations. Cet en-tête n'existe d'ailleurs plus en \textit{IPv6}.
 	\item \textbf{L'adresse source et de destination}, permettant d'acheminer le paquet vers le bon destinataire et d'identifier son émetteur.
-	\item \textbf{Le protocole de couche supérieure}: permettant à la réception du paquet de le transmettre à la couche supérieur correcte (par exemple TCP ou UDP).
-	\item \textbf{Le \textit{time to live}}, un compteur décrémenté à chaque traversée d'un intermédiaire dans le réseau. Lorsque le compteur arrive à 0, le paquet est simplement détruit.
+	\item \textbf{Le protocole de couche supérieure}, permettant à la réception du paquet de le transmettre à la couche supérieure correcte (par exemple TCP ou UDP).
+	\item \textbf{Le \textit{time to live}}, un compteur décrémenté à chaque traversée d'un noeud du réseau. Lorsque le compteur atteint 0, le paquet est détruit. Ceci permet d'éviter une boucles de routage infinie qui surchargerait le réseau.
 	\item \textbf{Des informations de fragmentation}, permettant la recomposition d'un paquet qui a été découpé au cours de son acheminement sur le réseau.
 \end{enumerate}
 
-TCP est quant à lui responsable de fournir une flux de données fiable assurant la réception (en retransmettant les segments perdus) et l'ordre. L'en-tête contient entre autres:
+TCP est quant à lui responsable de fournir une flux de données fiable assurant la réception (en retransmettant les segments perdus) et l'ordre. L'\textit{en-tête TCP} contient entre autres:
 
 \begin{enumerate}
-	\item \textbf{Une somme de contrôle}, vérifiant l'intégrité des donnés.
+	\item \textbf{Une somme de contrôle}, vérifiant l'intégrité des données.
 	\item \textbf{Le port d'origine et de destination}
-	\item \textbf{Des numéros de séquence et d'acquittement}: permettant de réordonner correctement des paquets reçus dans le désordre et de détecter les paquets perdus.
-	\item \textbf{Des informations de contrôle de flux}: permettant de réguler le débit d'émission en fonction des capacités du récepteur et d'éviter la congestion réseau.
+	\item \textbf{Des numéros de séquence et d'acquittement}, permettant de réordonner correctement des paquets reçus dans le désordre et de détecter les paquets perdus.
+	\item \textbf{Des informations de contrôle de flux}, permettant de réguler le débit d'émission en fonction des capacités du récepteur et d'éviter la congestion réseau.
 \end{enumerate}
 
 \subsection{Exemples lors de l'accès à une page web}
