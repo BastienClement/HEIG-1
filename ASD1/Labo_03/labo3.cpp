@@ -11,6 +11,7 @@
 
 #include <ctime>
 #include <algorithm>
+
 using namespace std;
 
 typedef unsigned char byte;
@@ -18,11 +19,80 @@ typedef unsigned char byte;
 // Non-inclus
 const byte VAL_MAX = 100;
 
-void selectionSort(vector<byte>& T);
-void countingSort(vector<byte>& T);
-void quickSort(vector<byte>& T);
+// Randomize le contenu d'un objet vector
+void randomize(vector<byte>& vec, size_t items) {
+	vec.clear();
+	vec.resize(items);
+	for (size_t i = 0; i < items; i++) {
+		vec[i] = rand() % VAL_MAX;
+	}
+}
 
-void randomize(vector<byte>& vec, size_t items);
+// Tri par sélection
+template<typename RandomAccessIterator>
+void selectionSort(RandomAccessIterator begin, RandomAccessIterator end) {
+	for (; begin < end - 1; begin++) {
+		RandomAccessIterator min = begin;
+		for (RandomAccessIterator i = begin + 1; i < end; i++) {
+			if (*i < *min) min = i;
+		}
+		swap(*min, *begin);
+	}
+}
+
+// Tri par comptage
+template<typename RandomAccessIterator>
+void countingSort(RandomAccessIterator begin, RandomAccessIterator end) {
+	// Tableau de comptage
+	unsigned int count[VAL_MAX] = {};
+
+	// Comptage des occurences
+	for_each(begin, end, [&](byte v) { count[v]++; });
+
+	// On le reconstruit dans l'ordre
+	for (size_t i = 0; i < VAL_MAX; i++) {
+		for (size_t n = count[i]; n > 0; n--) {
+			*begin = i;
+			begin++;
+		}
+	}
+}
+
+// Tri rapide
+template<typename RandomAccessIterator>
+void quickSort(RandomAccessIterator begin, RandomAccessIterator end) {
+	if (begin < end) {
+		// Dernier index valide
+		RandomAccessIterator hi = end - 1;
+
+		// Choix du pivot
+		RandomAccessIterator p = begin + (end - begin) / 2;
+		swap(*p, *hi);
+
+		RandomAccessIterator i = begin - 1, j = hi;
+
+		while (true) {
+			do {
+				i++;
+			} while (*i < *hi);
+
+			do {
+				j--;
+			} while (j > begin && *hi < *j);
+
+			if (i >= j) {
+				break;
+			}
+
+			swap(*i, *j);
+		}
+
+		swap(*i, *hi);
+
+		quickSort(begin, p);
+		quickSort(p + 1, end);
+	}
+}
 
 int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
@@ -37,53 +107,8 @@ int main(int argc, const char* argv[]) {
 	T.push_back(6);
 	T.push_back(8);
 
-	cout << "tri par sélection" << endl;
-	selectionSort(T);
+	quickSort(T.begin(), T.end());
+	for_each(T.begin(), T.end(), [](byte i) { cout << (int) i << endl; });
 	return 0;
 }
 
-
-
-void randomize(vector<byte>& vec, size_t items) {
-	vec.clear();
-	for (size_t i = 0; i < items; i++) {
-		vec.push_back(rand() % VAL_MAX);
-	}
-}
-
-void selectionSort(vector<byte>& T){
-	size_t n = T.size();
-	size_t imin;
-
-	for (size_t i = 0; i < n-1; i++){
-		// On enregistre le premier indice de la boucle courante
-		imin = i;
-		for (size_t j = i + 1; j < n; j++){
-			//
-			if (T[j] < T[imin]) imin = j;
-		}
-		swap(T[i],T[imin]);
-	}
-
-	for(size_t i = 0; i < n; i++){
-		cout << (int)T[i] << endl;
-	}
-}
-
-void countingSort(vector<byte>& T) {
-	// Tableau de comptage
-	unsigned int count[VAL_MAX] = {};
-
-	// Comptage des occurences
-	for_each(T.begin(), T.end(), [&](byte v) { count[v]++; });
-
-	// On vide le tableau original
-	T.clear();
-
-	// On le reconstruit dans l'ordre
-	for (size_t i = 0; i < 100; i++) {
-		for (size_t n = count[i]; n > 0; n--) {
-			T.push_back(i);
-		}
-	}
-};
