@@ -64,8 +64,8 @@ Token* Calculator::next() {
 	}
 
 	// On récupère le caractère à la position actuelle et la suivante
-	char c = expr[pos];
-	char n = (pos + 1 < len) ? expr[pos + 1] : '\0';
+	char c = expr[pos++];
+	char n = (pos < len) ? expr[pos] : '\0';
 
 	// Distinction entre nombre et opérateur
 	if (isnumeric(c) || ((c == '+' || c == '-') && isnumeric(n))) {
@@ -78,14 +78,15 @@ Token* Calculator::next() {
 		// Lecture d'un nombre
 		case TokenType::num: {
 			// Début et longueur du nombre
-			size_t begin = pos;
+			size_t begin = pos - 1;
 			size_t length = 1;
 
 			// Tant que l'on a des caractères valides pour un nombre
-			while (++pos < len) {
+			while (pos < len) {
 				c = expr[pos];
 				if (isdigit(c) || c == 'e' || c == '.' || c == '-') {
 					++length;
+					++pos;
 				} else {
 					break;
 				}
@@ -112,7 +113,6 @@ Token* Calculator::next() {
 		// Lecture d'un opérateur
 		case TokenType::op:
 			tok.data.op = c;
-			pos++;
 			break;
 	}
 
