@@ -98,16 +98,17 @@ int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
 	srand(time(NULL));
 
-	vector<byte> T;
-	T.push_back(3);
-	T.push_back(6);
-	T.push_back(4);
-	T.push_back(2);
-	T.push_back(9);
-	T.push_back(6);
-	T.push_back(8);
+	vector<byte> R;
+	randomize(R, 10);
 
-	quickSort(T.begin(), T.end());
+	vector<byte> U = R;
+	vector<byte> T = R;
+	vector<byte> Q = R;
+
+	selectionSort(U.begin(), U.end());
+	countingSort(T.begin(), T.end());
+	quickSort(Q.begin(), Q.end());
+
 	for_each(T.begin(), T.end(), [](byte i) { cout << (int) i << endl; });
 	return 0;
 }
