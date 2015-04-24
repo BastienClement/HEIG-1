@@ -54,7 +54,7 @@
 
 \section{Analyse des protocoles IP et TCP}
 
-L'objectif de cette première partie est d'apprendre le format des paquet IP et TCP. Il est demandé de savoir décrire les champs les plus importants de ces paquets.
+L'objectif de cette première partie est d'apprendre le format des paquets IP et TCP. Il est demandé de savoir décrire les champs les plus importants de ces paquets.
 
 \subsection{Descriptions des champs des paquets IP et TCP}
 
@@ -62,7 +62,7 @@ Le protocole IP est responsable d'acheminer un paquet entre deux machines sur le
 
 \begin{enumerate}
 	\item \textbf{Le numéro de version}, permettant de distinguer IPv4 et IPv6.
-	\item \textbf{Une somme de contrôle}, permettant de détecter des potentiels erreurs de transmission sur les en-têtes du paquet. En théorie, ce champs n'est pas nécessaire puisque les protocoles de niveau 2 s'assurent de la transmission des frames sans altérations. Cet en-tête n'existe d'ailleurs plus en \textit{IPv6}.
+	\item \textbf{Une somme de contrôle}, permettant de détecter des potentielles erreurs de transmission sur les en-têtes du paquet. En théorie, ce champ n'est pas nécessaire puisque les protocoles de niveau 2 s'assurent de la transmission des trames sans altérations. Cet en-tête n'existe d'ailleurs plus en \textit{IPv6}.
 	\item \textbf{L'adresse source et de destination}, permettant d'acheminer le paquet vers le bon destinataire et d'identifier son émetteur.
 	\item \textbf{Le protocole de couche supérieure}, permettant à la réception du paquet de le transmettre à la couche supérieure correcte (par exemple TCP ou UDP).
 	\item \textbf{Le \textit{time to live}}, un compteur décrémenté à chaque traversée d'un noeud du réseau. Lorsque le compteur atteint 0, le paquet est détruit. Ceci permet d'éviter une boucles de routage infinie qui surchargerait le réseau.
