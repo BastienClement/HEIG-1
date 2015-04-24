@@ -18,7 +18,7 @@ const char SPACE = ' ';
 const size_t TAB_WIDTH = 100;
 const size_t TAB_HEIGHT = 100;
 
-enum Symbol {CHECK, MAN, CROSS};
+enum class Symbol {CHECK, MAN, CROSS};
 static string symbolName[] {"check", "man", "cross"};
 
 typedef std::vector<std::vector<Symbol>> Matrice;

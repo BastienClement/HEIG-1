@@ -20,7 +20,7 @@
 using namespace std;
 
 Matrice genererMatrice(size_t tailleX, size_t tailleY) {
-	vector<Symbol > ligne(tailleX, (Symbol)0);
+	vector<Symbol > ligne(tailleX, Symbol::MAN);
     Matrice tableau(tailleY, ligne);
 	return tableau;
 }
@@ -59,7 +59,7 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 		cout << "/!\\ Impossible de creer le fichier " << fileName << endl;
 	}
 	else {
-		// Ecrit le de bebut du tableau
+		// Ecrit le de debut du tableau
 		fs << "<html>" << endl;
 		fs << indent(1) << "<p><b><h2>fichier ecrit en C++</h2></b></p>" << endl;
 		fs << indent(1) << "<table border=1>" << endl;
@@ -85,6 +85,6 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 }
 
 ostream& operator << (ostream& os, const Symbol symbol) {
-	os << symbolName[symbol];
+	os << symbolName[(int)symbol];
 	return os;
 }
