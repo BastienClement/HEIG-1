@@ -19,7 +19,7 @@ const size_t TAB_WIDTH = 100;
 const size_t TAB_HEIGHT = 100;
 
 enum Symbol {CHECK, MAN, CROSS};
-string symbolName[] {"check", "man", "cross"};
+static string symbolName[] {"check", "man", "cross"};
 
 typedef std::vector<std::vector<Symbol>> Matrice;
 
@@ -28,7 +28,7 @@ struct Coordonnee{
 	unsigned int y;
 };
 
-ostream indent(const size_t nbIndent);
+string indent(const size_t nbIndent);
 
 Matrice genererMatrice(size_t tailleX, size_t tailleY);
 

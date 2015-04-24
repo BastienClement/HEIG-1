@@ -19,23 +19,17 @@
 
 using namespace std;
 
-Matrice genererMatrice(size_t tailleX, size_t tailleY){
-	vector<unsigned int> ligne(tailleX, 0);
+Matrice genererMatrice(size_t tailleX, size_t tailleY) {
+	vector<Symbol > ligne(tailleX, (Symbol)0);
     Matrice tableau(tailleY, ligne);
 	return tableau;
 }
 
-ostream indent(const size_t nbIndent) {
-	ostream os;
-	for (size_t i = 0; i < nbIndent; i++){
-		for (size_t j = 0; j < INDENT_SIZE; i++){
-			os << SPACE;
-		}
-	}
-	return os;
+string indent(const size_t nbIndent) {
+	return string (nbIndent*INDENT_SIZE, SPACE);
 }
 
-void remplirMatrice(Matrice& matrice, unsigned int nbrCellules){
+void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 	size_t tailleX = matrice[0].size();
 	size_t tailleY = matrice.size();
 	
@@ -62,7 +56,7 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 	ofstream fs(fileName, ios::out);
 
 	if (!fs) {
-		cout << "/!\\ Impossible de creer le fichier " << filename << endl;
+		cout << "/!\\ Impossible de creer le fichier " << fileName << endl;
 	}
 	else {
 		// Ecrit le de bebut du tableau
@@ -77,7 +71,7 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 			// Ecrit les colonnes de la ligne du tableau
 			for (size_t j = 0; j < matrice.at(0).size(); j++) {
 				fs << indent(3) << "<td align=center width=" << TAB_WIDTH << " height=" << TAB_HEIGHT << ">";
-				fs << "<img src=\"" << matrice.at(i).at(j) << "\".png/>";
+				fs << "<img src=\"" << matrice.at(i).at(j) << ".png\"/>";
 				fs << "</td>" << endl;
 			}
 			fs << indent(2) << "</tr>" << endl;
