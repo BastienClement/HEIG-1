@@ -4,10 +4,13 @@
  Fichier        : Labo_06_CotzaPeretti_matrice.cpp
  Auteur(s)      : Christophe Peretti et Andrea Cotza
  Date           : 27 avril 2015
- 
+
+ But            : Met a disposition les fonctions necessaire pour la création du
+ 				  tableau aléatoire ainsi qu'a son ecriture dans un fichier.
+
  Remarques(s)   :
- 
- Compilateur    : MinGW-g++ 4.8.1
+
+ Compilateur    : MinGW-g++ 4.8.1, Apple LLVM version 6.1.0 (clang-602.0.49)
  -----------------------------------------------------------------------------------
  */
 
@@ -33,26 +36,26 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 	size_t tailleX = matrice[0].size();
 	size_t tailleY = matrice.size();
 	
-	srand (time(NULL));
+	srand ((unsigned int) time(NULL));
 	
 	// Tableau qui contient toutes les coordonnees possibles de la matrice
 	vector<Coordonnee> tab(tailleX*tailleY);
 	for (size_t i = 0; i < tailleY; i++){
 		for (size_t j = 0; j < tailleX; j++){
-			tab[i*tailleX+j].x = j;
-			tab[i*tailleX+j].y = i;	
+			tab[i*tailleX+j].x = (unsigned int) j;
+			tab[i*tailleX+j].y = (unsigned int) i;
 		}
 	}
 	
 	
 	for (unsigned int k = 0; k < nbrCellules; k++){
-		unsigned int indiceAleat = rand() % tab.size();
+		unsigned int indiceAleat = (unsigned int) (rand() % tab.size());
 		
 		// On va piocher dans le tableau une coordonnée aléatoire de la matrice
 		Coordonnee coord = {tab[indiceAleat].x,tab[indiceAleat].y};
 		
 		// Le symbole change de MAN (1) à CHECK (0) ou CROSS (2)
-		unsigned int choixSymbol = 2*(rand() % 2);
+		unsigned int choixSymbol = (unsigned int) (2*(rand() % 2));
 		matrice[coord.y][coord.x] = (Symbol)choixSymbol; 
 		
 		// On supprime la ligne de coordonnee pour ne pas avoir deux fois la même
@@ -79,7 +82,7 @@ void arrayToHtml (const string fileName, const Matrice& matrice) {
 
 			// Ecrit les colonnes de la ligne du tableau
 			for (size_t j = 0; j < matrice.at(0).size(); j++) {
-				fs << indent(3) << "<td align=center width=" << TAB_WIDTH << " height=" << TAB_HEIGHT << ">";
+				fs << indent(3) << "<td align=center width=" << CEL_WIDTH << " height=" << CEL_HEIGHT << ">";
 				fs << "<img src=\"" << matrice.at(i).at(j) << "\"/>";
 				fs << "</td>" << endl;
 			}
@@ -89,7 +92,7 @@ void arrayToHtml (const string fileName, const Matrice& matrice) {
 		fs << "<html>" << endl;
 
 		fs.close();
-		cout << "Le fichier " << fileName << " a bien ete genere" << endl;
+		cout << "Le fichier " << fileName << ".html a bien ete genere" << endl;
 	}
 }
 

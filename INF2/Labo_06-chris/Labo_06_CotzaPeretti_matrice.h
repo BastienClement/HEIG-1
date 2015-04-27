@@ -1,8 +1,18 @@
-/* 
- * Fichier      : Labo_06_CotzaPeretti_matrice.h
- * Auteur(s)    : Christophe Peretti et Andrea Cotza
- *
- * Date         : 27 avril 2015
+/*
+ -----------------------------------------------------------------------------------
+ Laboratoire    : Labo_06
+ Fichier        : Labo_06_CotzaPeretti_matrice.h
+ Auteur(s)      : Christophe Peretti et Andrea Cotza
+ Date           : 27 avril 2015
+
+ But            : Met a disposition les prototypes des fonctions et les objects
+ 				  necessaire pour la création du tableau aléatoire ainsi qu'a son
+ 				  ecriture dans un fichier.
+
+ Remarques(s)   :
+
+ Compilateur    : MinGW-g++ 4.8.1, Apple LLVM version 6.1.0 (clang-602.0.49)
+ -----------------------------------------------------------------------------------
  */
 
 #ifndef LABO_06_COTZAPERETTI_MATRICE_H
@@ -16,8 +26,10 @@ using namespace std;
 const size_t INDENT_SIZE = 4;
 const char SPACE = ' ';
 const string FILE_EXT = ".html";
-const size_t TAB_WIDTH = 100;
-const size_t TAB_HEIGHT = 100;
+const unsigned int WIDTH_MAX = 100;
+const unsigned int HEIGHT_MAX = 100;
+const unsigned int CEL_WIDTH = 100;
+const unsigned int CEL_HEIGHT = 100;
 
 enum class Symbol {CHECK, MAN, CROSS};
 static string symbolName[] {"check.png", "man.png", "cross.png"};
