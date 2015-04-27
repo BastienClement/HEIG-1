@@ -45,7 +45,7 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 	}
 	
 	
-	for (unsigned int j = 0; j < nbrCellules; j++){
+	for (unsigned int k = 0; k < nbrCellules; k++){
 		unsigned int indiceAleat = rand() % tab.size();
 		
 		// On va piocher dans le tableau une coordonnée aléatoire de la matrice
@@ -53,17 +53,10 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 		
 		// Le symbole change de MAN (1) à CHECK (0) ou CROSS (2)
 		unsigned int choixSymbol = 2*(rand() % 2);
-		matrice[coord.x][coord.y] = (Symbol)choixSymbol; 
+		matrice[coord.y][coord.x] = (Symbol)choixSymbol; 
 		
 		// On supprime la ligne de coordonnee pour ne pas avoir deux fois la même
 		tab.erase(tab.begin() + indiceAleat);
-	}
-	
-	for(int i = 0; i < tailleY; i++){
-		for(int j = 0; j < tailleX; j++){
-			cout << matrice[i][j] << " ";
-		}
-		cout << endl;
 	}
 }
 
