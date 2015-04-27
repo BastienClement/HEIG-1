@@ -46,8 +46,18 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 	for (unsigned int j = 0; j < nbrCellules; j++){
 		unsigned int indiceAleat = rand() % tab.size();
 		Coordonnee coord = {tab[indiceAleat].x,tab[indiceAleat].y};
-		cout << "[" << coord.x << "," << coord.y << "]" << endl;
+		unsigned int choixSymbol = rand() % 2;
+		
+		matrice[coord.x][coord.y] += (1 + choixSymbol); 
 		tab.erase(tab.begin() + indiceAleat);
+		
+		for(int i = 0; i < tailleY; i++){
+			for(int j = 0; j < tailleX; j++){
+				cout << matrice[i][j] << " ";
+			}
+			cout << endl;
+		}
+		
 	}
 }
 
@@ -87,4 +97,8 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 ostream& operator << (ostream& os, const Symbol symbol) {
 	os << symbolName[(int)symbol];
 	return os;
+}
+
+void operator += (Symbol& s1, unsigned int s2) {
+	s1 = (Symbol)((unsigned int)s1 + s2);
 }

@@ -38,5 +38,7 @@ void arrayToHtml (const char* fileName, const Matrice& matrice);
 
 ostream& operator << (ostream& os, const Symbol symbol);
 
+void operator += (Symbol& s1, unsigned int s2);
+
 #endif	/* LABO_06_COTZAPERETTI_MATRICE_H */
 
