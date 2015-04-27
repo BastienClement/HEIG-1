@@ -1,0 +1,99 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{siunitx}
+%\usepackage{showframe} % layout debug
+
+\usepackage{float}
+\restylefloat{figure}
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { TIB1-B }
+\def \doctitle {Rapport : Adressage IP}
+\author{Bastien Clément \and Christophe Peretti}
+
+\renewcommand{\thesection}{Objectif \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+\section{Structure des adresses IP}
+
+L'objectif de cette partie est d'apprendre la structure des adresses IP et de savoir calculer les adresses d'un réseau IP. Il est atteint si nous savons calculer, pour adresse IP en notation CIDR, le préfixe du réseau et la plage d'adresse de ce réseau.
+
+\subsection{Tableau}
+
+\begin{tabular}{|l|l|l|l|l|}
+	\hline	
+	\textbf{Propriétaire} & \textbf{Réseau} & \textbf{Première adr.} & \textbf{Dernière adr.} & \textbf{Nombre d'adr.} \\
+	\hline
+	EINEV2 & 193.134.216.0/21 & 192.134.216.0 & 192.134.223.255 & 2048 \\
+	KSSG & 193.134.32.0/22 & 193.134.32.0 & 193.134.35.255 & 1024 \\
+	UBS & 193.134.104.0/21 & 193.134.104.0 & 193.134.111.255 & 2048 \\
+	SWISSRE & 193.134.160.0/20 & 193.134.160.0 & 193.134.178.255 & 4096 \\
+	SOLO-NET & 193.134.64.0/19 & 193.134.64.0 & 193.134.95.255 & 8192 \\
+	\hline
+\end{tabular}
+
+\subsection{À partir de $a.b.c.d/x$ calculer le préfixe réseau}
+\subsection{À partir de $a.b.c.d/x$ calculer la plage d'adresses de ce réseau}
+
+Si $x$ bits sont utilisés pour le préfixe réseau, il en reste $(32-x)$ pour l'adresse des machines de ce réseau. Par conséquent, il y a $2^{32-x}$ adresses possibles.
+
+\subsection{Exemple}
+
+Calcul du préfixe et de la plage d'adresses à partir l'adresse \textbf{193.34.232.12/18}:
+
+\begin{enumerate}
+	\item \textbf{Préfixe réseau}: 
+	\item \textbf{Plage d'adresse}: $2^{32-18} = 2^{14} = 16384$
+\end{enumerate}
+
+\section{Remise directe et remise indirecte}
+
+L'objectif de cette partie est de comprendre la différence entre remise directe et remise indirecte de paquets IP. L'objectif est atteint si nous savons expliquer comment un paquet est transmis à un destinataire dans le même réseau (remise directe) ou à un destinataire dans un autre réseau (remise indirecte).
+
+\subsection{Différences}
+
+Il est possible de communiquer directement avec une machine sur le même réseau que nous, mais nous ne pouvons communiquer avec une machine sur une autre réseau que par l'intermédiaire d'une passerelle (routeur).
+
+\section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
+
+\end{document}
