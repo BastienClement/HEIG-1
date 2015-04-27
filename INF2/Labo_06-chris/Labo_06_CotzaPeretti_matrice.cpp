@@ -2,8 +2,8 @@
  -----------------------------------------------------------------------------------
  Laboratoire    : Labo_06
  Fichier        : Labo_06_CotzaPeretti_matrice.cpp
- Auteur(s)      : Christophe Peretti et Bastien Clément
- Date           : 02 mars 2015
+ Auteur(s)      : Christophe Peretti et Andrea Cotza
+ Date           : 27 avril 2015
  
  Remarques(s)   :
  
@@ -43,21 +43,27 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 			tab[i*tailleX+j].y = i;	
 		}
 	}
+	
+	
 	for (unsigned int j = 0; j < nbrCellules; j++){
 		unsigned int indiceAleat = rand() % tab.size();
+		
+		// On va piocher dans le tableau une coordonnée aléatoire de la matrice
 		Coordonnee coord = {tab[indiceAleat].x,tab[indiceAleat].y};
-		unsigned int choixSymbol = rand() % 2;
 		
-		matrice[coord.x][coord.y] += (1 + choixSymbol); 
+		// Le symbole change de MAN (1) à CHECK (0) ou CROSS (2)
+		unsigned int choixSymbol = 2*(rand() % 2);
+		matrice[coord.x][coord.y] = (Symbol)choixSymbol; 
+		
+		// On supprime la ligne de coordonnee pour ne pas avoir deux fois la même
 		tab.erase(tab.begin() + indiceAleat);
-		
-		for(int i = 0; i < tailleY; i++){
-			for(int j = 0; j < tailleX; j++){
-				cout << matrice[i][j] << " ";
-			}
-			cout << endl;
+	}
+	
+	for(int i = 0; i < tailleY; i++){
+		for(int j = 0; j < tailleX; j++){
+			cout << matrice[i][j] << " ";
 		}
-		
+		cout << endl;
 	}
 }
 
@@ -97,8 +103,4 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 ostream& operator << (ostream& os, const Symbol symbol) {
 	os << symbolName[(int)symbol];
 	return os;
-}
-
-void operator += (Symbol& s1, unsigned int s2) {
-	s1 = (Symbol)((unsigned int)s1 + s2);
 }

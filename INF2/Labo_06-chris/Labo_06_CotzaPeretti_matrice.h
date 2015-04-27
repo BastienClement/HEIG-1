@@ -1,8 +1,8 @@
 /* 
  * Fichier      : Labo_06_CotzaPeretti_matrice.h
- * Auteur(s)    : Christophe Peretti
+ * Auteur(s)    : Christophe Peretti et Andrea Cotza
  *
- * Date         : 22. avril 2015, 11:10
+ * Date         : 27 avril 2015
  */
 
 #ifndef LABO_06_COTZAPERETTI_MATRICE_H
@@ -37,8 +37,6 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules);
 void arrayToHtml (const char* fileName, const Matrice& matrice);
 
 ostream& operator << (ostream& os, const Symbol symbol);
-
-void operator += (Symbol& s1, unsigned int s2);
 
 #endif	/* LABO_06_COTZAPERETTI_MATRICE_H */
 
