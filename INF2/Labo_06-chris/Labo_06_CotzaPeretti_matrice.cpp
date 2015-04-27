@@ -67,9 +67,9 @@ void remplirMatrice(Matrice& matrice, unsigned int nbrCellules) {
 	}
 }
 
-void arrayToHtml (const char* fileName, const Matrice& matrice) {
+void arrayToHtml (const string fileName, const Matrice& matrice) {
 
-	ofstream fs(fileName, ios::out);
+	ofstream fs(fileName+FILE_EXT, ios::out);
 
 	if (!fs) {
 		cout << "/!\\ Impossible de creer le fichier " << fileName << endl;
@@ -87,7 +87,7 @@ void arrayToHtml (const char* fileName, const Matrice& matrice) {
 			// Ecrit les colonnes de la ligne du tableau
 			for (size_t j = 0; j < matrice.at(0).size(); j++) {
 				fs << indent(3) << "<td align=center width=" << TAB_WIDTH << " height=" << TAB_HEIGHT << ">";
-				fs << "<img src=\"" << matrice.at(i).at(j) << ".png\"/>";
+				fs << "<img src=\"" << matrice.at(i).at(j) << "\"/>";
 				fs << "</td>" << endl;
 			}
 			fs << indent(2) << "</tr>" << endl;

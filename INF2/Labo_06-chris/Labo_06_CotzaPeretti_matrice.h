@@ -15,11 +15,12 @@ using namespace std;
 
 const size_t INDENT_SIZE = 4;
 const char SPACE = ' ';
+const string FILE_EXT = ".html";
 const size_t TAB_WIDTH = 100;
 const size_t TAB_HEIGHT = 100;
 
 enum class Symbol {CHECK, MAN, CROSS};
-static string symbolName[] {"check", "man", "cross"};
+static string symbolName[] {"check.png", "man.png", "cross.png"};
 
 typedef std::vector<std::vector<Symbol>> Matrice;
 
@@ -34,7 +35,7 @@ Matrice genererMatrice(size_t tailleX, size_t tailleY);
 
 void remplirMatrice(Matrice& matrice, unsigned int nbrCellules);
 
-void arrayToHtml (const char* fileName, const Matrice& matrice);
+void arrayToHtml (const string fileName, const Matrice& matrice);
 
 ostream& operator << (ostream& os, const Symbol symbol);
 
