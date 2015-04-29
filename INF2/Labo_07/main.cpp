@@ -58,12 +58,16 @@ istream& operator>>(istream& is, Personne& p) {
 	unsigned short age;
 	do {
 		cout << "Age: ";
-	} while (!(cin >> age));
+	} while (!(cin >> age) && cout << "Erreur de saisie." << endl);
+	p.setAge(age);
+
+	return is;
 }
 
 using namespace std;
 int main() {
-	Personne p;
-	cout << p << endl;
+	Personne p1("Breguet", "Guy-Michel", 50);
+	Personne p2("Breguet", "Guy-Michel", 50);
+	cout << (p1 == p2) << endl;
 	return 0;
 }
