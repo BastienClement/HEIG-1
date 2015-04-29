@@ -128,12 +128,22 @@ double benchmark(function<void(void)> fn) {
 	return double(end - start) / CLOCKS_PER_SEC;
 }
 
+template<typename Iterable>
+bool check_sorted(Iterable collection) {
+	auto it = collection.begin(), end = collection.end();
+	auto next = it;
+	for (; ++next < end; it++) {
+		if (*next < *it) return false;
+	}
+	return true;
+}
+
 int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
 	srand(time(NULL));
 
-	for (int i = 2; i < 6; i++) {
-		const int iter = 5;
+	for (int i = 2; i < 8; i++) {
+		const int iter = 30;
 		double counting_time = 0, quick_time = 0, select_time = 0;
 
 		for (int j = 0; j < iter; j++) {
@@ -141,19 +151,22 @@ int main(int argc, const char* argv[]) {
 			vector<byte> R;
 			randomize(R, pow(10, i));
 
-			vector<byte> C = R;
-			counting_time += benchmark([&]() { countingSort(C.begin(), C.end()); });
+			{
+				vector<byte> C = R;
+				counting_time += benchmark([&]() { countingSort(C.begin(), C.end()); });
+				assert(check_sorted(C));
+			}
 
-			if (i < 9) {
+			{
 				vector<byte> Q = R;
 				quick_time += benchmark([&]() { quickSort(Q.begin(), Q.end()); });
-				cout << (Q == C);
+				assert(check_sorted(Q));
 			}
 
 			if (i < 5) {
 				vector<byte> S = R;
 				select_time += benchmark([&]() { selectionSort(S.begin(), S.end()); });
-				assert(S == C);
+				assert(check_sorted(S));
 			}
 		}
 
