@@ -143,7 +143,7 @@ int main(int argc, const char* argv[]) {
 	srand(time(NULL));
 
 	for (int i = 2; i < 8; i++) {
-		const int iter = 30;
+		const int iter = 15;
 		double counting_time = 0, quick_time = 0, select_time = 0;
 
 		for (int j = 0; j < iter; j++) {
