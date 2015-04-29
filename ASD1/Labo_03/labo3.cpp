@@ -42,22 +42,21 @@ void selectionSort(RandomAccessIterator begin, RandomAccessIterator end) {
 // Tri par comptage
 template<typename RandomAccessIterator>
 void countingSort(RandomAccessIterator begin, RandomAccessIterator end) {
-	// Type de la valeur pointée par l'itérateur
-	typedef typename iterator_traits<RandomAccessIterator>::value_type val;
-
 	// Recherche de l'élément le plus petit et le plus grand
-	val min = numeric_limits<val>::max(), max = numeric_limits<val>::min();
-	for_each(begin, end, [&](val v) {
-		if (v < min) min = v;
-		if (v > max) max = v;
-	});
+	auto min = *begin, max = *end;
+	for (auto i = begin; i < end; i++) {
+		if (*i < min) min = *i;
+		if (*i > max) max = *i;
+	}
 
 	// Tableau de comptage
 	const size_t range = max - min + 1;
 	vector<unsigned> count(range, 0);
 
 	// Comptage des occurences
-	for_each(begin, end, [&](val v) { count[v - min]++; });
+	for (auto i = begin; i < end; i++) {
+		count[*i - min]++;
+	}
 
 	// On le reconstruit dans l'ordre
 	for (size_t i = 0; i < range; i++) {
