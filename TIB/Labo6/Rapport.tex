@@ -104,21 +104,33 @@ $2^{32-18} = 2^{14} = 16384$
 
 \section{Remise directe et remise indirecte}
 
-L'objectif de cette partie est de comprendre la différence entre remise directe et remise indirecte de paquets IP. L'objectif est atteint si nous savons expliquer comment un paquet est transmis à un destinataire dans le même réseau (remise directe) ou à un destinataire dans un autre réseau (remise indirecte).
+L'objectif de cette partie est de comprendre la différence entre remise directe et remise indirecte de paquets IP. L'objectif est atteint si nous savons expliquer comment un paquet est transmis à un destinataire dans le même réseau ou à un destinataire dans un autre réseau.
 
 \subsection{Différences}
 
-En théorie, toutes les machines d'un réseau \textit{Ethernet} partagent un médium de transmission commun sur lequel une seule d'entre-elles peut transmettre des informations à un instant donné. En divisant un réseau de taille importante en sous-réseaux, il est possible de créer plusieurs domaines de collision et ainsi permettre aux machines de communiquer simultanément dans leurs sous-réseaux respectifs.
+En théorie, toutes les machines d'un réseau Ethernet partagent un médium de transmission commun sur lequel une seule d'entre-elles peut transmettre des informations à un instant donné. En divisant un réseau de taille importante en sous-réseaux, il est possible de créer plusieurs domaines de collision et ainsi permettre aux machines de communiquer simultanément dans leurs sous-réseaux respectifs.
 
-Pour permettre à une machine d'un sous-réseau de communiquer avec une machine d'un autre sous-réseau, il est alors nécessaire de disposer d'une machine \textit{passerelle}, connectée simultanément aux deux sous-réseaux et faisant office de pont. Une machine ne peut alors communiquer directement qu'avec les machines du même sous-réseau et doit utiliser la \textit{passerelle} pour communiquer indirectement avec une machine d'un autre sous-réseau.
+Pour permettre à une machine d'un sous-réseau de communiquer avec une machine d'un autre sous-réseau, il est alors nécessaire de disposer d'une machine \textit{passerelle}, connectée simultanément aux deux sous-réseaux et faisant office de pont. Une machine ne peut alors communiquer directement qu'avec les machines du même sous-réseau et doit utiliser cette passerelle pour communiquer indirectement avec une machine d'un autre sous-réseau.
 
-\subsection{Remise directe}
+Dans le cas d'une remise directe, le protocole ARP est utilisé pour obtenir l'adresse MAC de la machine destinataire puis le paquet IP est transmis directement à cette machine.
 
-À l'intérieur d'un même sous-réseau le protocole ARP est utilisé pour obtenir l'adresse MAC de la machine destinataire Le paquet IP et la trame Ethernet sont alors tout deux adressés à cette machine.
+Dans le cas d'une remise indirecte, le protocole ARP est utilisé pour obtenir l'adresse MAC de la passerelle. Le paquet IP est toujours adressé à la machine destinataire mais le trame Ethernet l'encapsulant est adressées à la passerelle. À la réception d'un paquet IP qui ne lui est pas directement adressé, la passerelle se chargera de le relayer pour atteindre la bonne destination.
 
-\subsection{Remise indirecte}
+\subsection{Exemple de remise directe}
 
-Entre deux sous-réseaux, ARP est utilisé pour obtenir l'adresse MAC de la passerelle permettant d'atteindre le sous-réseau cible.
+\begin{center}
+\includegraphics[width=8.5cm]{img_direct}
+\end{center}
+
+Ceci est le processus de remise habituel que nous avons observé dans les laboratoires précédents.
+
+\subsection{Exemple de remise indirecte}
+
+\begin{center}
+\includegraphics[width=8.5cm]{img_indirect}
+\end{center}
+
+On observe clairement la différence entre l'adresse MAC de destination de la trame (correspondant à la passerelle) et l'adresse IP qui est celle de la machine de destination finale. La passerelle répète alors le processus pour effectuer une remise directe ou indirecte selon que la machine soit ou non située dans un réseau auquel elle est connectée.
 
 \section{Auto-évaluation}
 
