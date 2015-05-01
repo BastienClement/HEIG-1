@@ -74,7 +74,7 @@ L'objectif de cette partie est d'apprendre la structure des adresses IP et de sa
 
 Le préfixe réseau est composé des $x$ premiers bits de l'adresse. L'algorithme basique consiste à convertir l'adresse complète en binaire, de construire un masque de $x$ bits puis d'appliquer l'opération ET entre les deux. Il est possible de se simplifier la tâche en identifiant quel octet est partagé entre le préfixe et l'adresse.
 
-Pour cela, nous effectuons la division euclidienne de $x$ par 8. Le \textit{quotient} est le nombre d'octet à conserver tel quel dans le préfixe. Le \textit{reste} est le nombre de bits de l'octet suivant faisant partie du préfixe réseau. L'opération de masquage peut alors être effectuée sur 8 bits au lieu de 32. Les octets suivants sont finalement changés en 0. 
+Pour cela, nous effectuons la division euclidienne de $x$ par 8. Le \textit{quotient} est le nombre d'octets à conserver tel quel dans le préfixe. Le \textit{reste} est le nombre de bits de l'octet suivant faisant partie du préfixe réseau. L'opération de masquage peut alors être effectuée sur 8 bits au lieu de 32. Les octets suivants sont finalement changés en 0. 
 Dans le cas où $x$ est un multiple de 8, aucune opération de masquage est nécessaire et le problème est trivial.
 
 \subsection{À partir de $a.b.c.d/x$ calculer la plage d'adresses de ce réseau}
@@ -110,11 +110,11 @@ L'objectif de cette partie est de comprendre la différence entre remise directe
 
 En théorie, toutes les machines d'un réseau Ethernet partagent un médium de transmission commun sur lequel une seule d'entre-elles peut transmettre des informations à un instant donné. En divisant un réseau de taille importante en sous-réseaux, il est possible de créer plusieurs domaines de collision et ainsi permettre aux machines de communiquer simultanément dans leurs sous-réseaux respectifs.
 
-Pour permettre à une machine d'un sous-réseau de communiquer avec une machine d'un autre sous-réseau, il est alors nécessaire de disposer d'une machine \textit{passerelle}, connectée simultanément aux deux sous-réseaux et faisant office de pont. Une machine ne peut alors communiquer directement qu'avec les machines du même sous-réseau et doit utiliser cette passerelle pour communiquer indirectement avec une machine d'un autre sous-réseau.
+Pour permettre à une machine d'un sous-réseau de communiquer avec une machine d'un autre sous-réseau, il est alors nécessaire de disposer d'un \textit{routeur}, connecté simultanément aux deux sous-réseaux et faisant office de pont. Une machine ne peut alors communiquer directement qu'avec les machines du même sous-réseau et doit utiliser ce routeur pour communiquer indirectement avec une machine d'un autre sous-réseau.
 
 Dans le cas d'une remise directe, le protocole ARP est utilisé pour obtenir l'adresse MAC de la machine destinataire puis le paquet IP est transmis directement à cette machine.
 
-Dans le cas d'une remise indirecte, le protocole ARP est utilisé pour obtenir l'adresse MAC de la passerelle. Le paquet IP est toujours adressé à la machine destinataire mais le trame Ethernet l'encapsulant est adressées à la passerelle. À la réception d'un paquet IP qui ne lui est pas directement adressé, la passerelle se chargera de le relayer pour atteindre la bonne destination.
+Dans le cas d'une remise indirecte, le protocole ARP est utilisé pour obtenir l'adresse MAC du routeur. Le paquet IP est toujours adressé à la machine destinataire mais la trame Ethernet l'encapsulant est adressée au routeur. À la réception d'un paquet IP qui ne lui est pas directement adressé, il se chargera de le relayer pour atteindre la bonne destination.
 
 \subsection{Exemple de remise directe}
 
@@ -130,7 +130,9 @@ Ceci est le processus de remise habituel que nous avons observé dans les labora
 \includegraphics[width=8.5cm]{img_indirect}
 \end{center}
 
-On observe clairement la différence entre l'adresse MAC de destination de la trame (correspondant à la passerelle) et l'adresse IP qui est celle de la machine de destination finale. La passerelle répète alors le processus pour effectuer une remise directe ou indirecte selon que la machine soit ou non située dans un réseau auquel elle est connectée.
+On observe clairement la différence entre l'adresse MAC de destination de la trame (correspondant au routeur) et l'adresse IP qui est celle de la machine de destination finale.
+
+Le routeur répète alors le processus pour effectuer une remise directe ou indirecte selon que la machine soit ou non située dans un réseau auquel il est connecté.
 
 \section{Auto-évaluation}
 
