@@ -163,7 +163,7 @@ int main(int argc, const char* argv[]) {
 				assert(check_sorted(Q));
 			}
 
-			if (i < 5) {
+			if (i < 6) {
 				vector<byte> S = R;
 				select_time += benchmark([&]() { selectionSort(S.begin(), S.end()); });
 				assert(check_sorted(S));
