@@ -1,8 +1,8 @@
-/*
+﻿/*
  -----------------------------------------------------------------------------------
  Laboratoire    : ASD_Labo_3
  Fichier        : labo3.cpp
- Auteur(s)      : Christophe Peretti et Bastien Clément
+ Auteur(s)      : Christophe Peretti et Bastien Clément et Verdon Arthur
  -----------------------------------------------------------------------------------
  */
 #include <cstdlib>
@@ -13,6 +13,7 @@
 #include <cmath>
 #include <cassert>
 #include <cstdio>
+#include <functional>
 
 using namespace std;
 
@@ -142,8 +143,8 @@ int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
 	srand(time(NULL));
 
-	for (int i = 2; i < 8; i++) {
-		const int iter = 15;
+	for (int i = 1; i < 8; i++) {
+		const int iter = 30;
 		double counting_time = 0, quick_time = 0, select_time = 0;
 
 		for (int j = 0; j < iter; j++) {
@@ -168,13 +169,17 @@ int main(int argc, const char* argv[]) {
 				select_time += benchmark([&]() { selectionSort(S.begin(), S.end()); });
 				assert(check_sorted(S));
 			}
+
+			printf("%d ",j);
 		}
+
+        printf("\n\nResultats : ");
 
 		select_time /= iter;
 		counting_time /= iter;
 		quick_time /= iter;
 
-		printf("%d\t%f\t%f\t%f\n", i, counting_time, quick_time, select_time);
+		printf("%d\t%.5E\t%.5E\t%.5E\n\n", i, counting_time, quick_time, select_time);
 		fflush(stdout);
 	}
 
