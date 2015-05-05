@@ -11,14 +11,17 @@
 
 using namespace std;
 
-struct CarnetAdresse{
+struct CarnetAdresse {
 private:
-	vector<Personne> carnet;
+	vector<Personne> data;
 
 
 public:
-	bool sauver();
-	bool charger();
+	Personne& operator[](const size_t i);
+	const Personne& operator[](const size_t i) const;
+
+	void sauver(const string& nom) const;
+	void charger(const string& nom);
 };
 
 #endif //LABO_07_CARNET_H
