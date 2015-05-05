@@ -15,6 +15,8 @@ struct CarnetAdresse {
 private:
 	vector<Personne> data;
 
+	void write_string(ostream & os, const string& str) const;
+	string read_string(istream & is) const;
 
 public:
 	Personne& operator[](const size_t i);

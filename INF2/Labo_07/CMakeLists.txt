@@ -3,5 +3,5 @@ project(Labo_07)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp)
-add_executable(Labo_07 ${SOURCE_FILES} carnet.h carnet.cpp carnet.h carnet.cpp personne.h personne.cpp)
+set(SOURCE_FILES main.cpp carnet.cpp personne.cpp)
+add_executable(Labo_07 ${SOURCE_FILES})
