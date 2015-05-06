@@ -5,11 +5,21 @@
 using namespace std;
 
 int main() {
-	Personne p1("Breguet", "Guy-Michel", 50);
-	Personne p2;
-	p2 = p1;
-	p1.setAge(88);
-	cout << (p1 == p2) << endl;
-	return 0;
+	CarnetAdresse ca;
+
+	for (int i = 0; i < 3; i++) {
+		Personne p;
+		cin >> p;
+		ca.ajouter(p);
+	}
+
+	ca.afficher();
+	ca.sauver("test");
+
+	cout << "---" << endl;
+
+	CarnetAdresse ca2;
+	ca2.charger("test");
+	ca2.afficher();
 }
 

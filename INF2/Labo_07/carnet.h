@@ -27,6 +27,11 @@ public:
 	 */
 	void afficher();
 
+	/**
+	 * Ajoute une personne au carnet d'adresse
+	 */
+	void ajouter(const Personne& p);
+
 private:
 	/**
 	 * Les données du carnet d'adresse

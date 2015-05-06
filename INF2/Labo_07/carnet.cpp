@@ -96,3 +96,7 @@ void CarnetAdresse::afficher() {
 		cout << data[i] << endl;
 	}
 }
+
+void CarnetAdresse::ajouter(const Personne& p) {
+	data.push_back(p);
+}
