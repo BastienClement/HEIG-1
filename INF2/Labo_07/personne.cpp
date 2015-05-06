@@ -19,6 +19,13 @@ void Personne::setNom(const string& n) { nom = n; }
 void Personne::setPrenom(const string& p) { prenom = p; }
 void Personne::setAge(unsigned short a) { age = a; }
 
+Personne& Personne::operator=(const Personne& p) {
+	nom = p.nom;
+	prenom = p.prenom;
+	age = p.age;
+	return *this;
+}
+
 bool Personne::operator==(const Personne& p) const {
 	return nom == p.nom && prenom == p.prenom && age == p.age;
 }
