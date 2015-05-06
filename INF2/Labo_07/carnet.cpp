@@ -78,9 +78,11 @@ string CarnetAdresse::read_string(istream& is) const {
 
 	char* data = new char[longueur];
 	is.read(data, longueur);
+
+	string str(data, longueur);
 	delete data;
 
-	return string(data, longueur);
+	return str;
 }
 
 void CarnetAdresse::write_string(ostream& os, const string& str) const {

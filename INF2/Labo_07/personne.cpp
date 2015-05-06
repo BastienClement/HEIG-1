@@ -51,6 +51,7 @@ istream& operator>>(istream& is, Personne& p) {
 	getline(cin, str);
 	p.setPrenom(str);
 
+	// Lecture age
 	unsigned short age;
 	do {
 		fflush(stdin);
