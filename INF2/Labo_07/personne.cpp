@@ -2,6 +2,7 @@
 // Created by Christophe on 04.05.2015.
 //
 #include <iostream>
+#include <stdio.h>
 #include "personne.h"
 
 using namespace std;
@@ -36,22 +37,30 @@ ostream& operator<<(ostream& os, const Personne& p) {
 }
 
 istream& operator>>(istream& is, Personne& p) {
+	// Vider buffer
+	fflush(stdin);
+
+	// Lecture nom
 	string str;
 	cout << "Nom: ";
 	getline(cin, str);
 	p.setNom(str);
 
+	// Lecture prénom
 	cout << "Prenom: ";
 	getline(cin, str);
 	p.setPrenom(str);
 
 	unsigned short age;
 	do {
+		fflush(stdin);
+		cin.clear();
 		cout << "Age: ";
 	} while (!(cin >> age) && cout << "Erreur de saisie." << endl);
 	p.setAge(age);
 
-	while (cin.get() != '\n');
+	// Vider buffer
+	fflush(stdin);
 
 	return is;
 }
