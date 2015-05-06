@@ -19,6 +19,11 @@ using namespace std;
 
 typedef unsigned char byte;
 
+const double max_time = 30;
+const size_t max_iter = 100;
+
+#define CHECK_SORTED 0
+
 // Randomize le contenu d'un objet vector
 void randomize(vector<byte>& vec, size_t items, byte max = 100) {
 	vec.clear();
@@ -121,14 +126,7 @@ void quickSort(RandomAccessIterator begin, RandomAccessIterator end) {
 	}
 }
 
-double benchmark(function<void(void)> fn) {
-	clock_t start, end;
-	start = clock();
-	fn();
-	end = clock();
-	return double(end - start) / CLOCKS_PER_SEC;
-}
-
+// Vérifie qu'une collection est triée
 template<typename Iterable>
 bool check_sorted(Iterable collection) {
 	auto it = collection.begin(), end = collection.end();
@@ -139,47 +137,56 @@ bool check_sorted(Iterable collection) {
 	return true;
 }
 
+// Effectue la mesure d'un algorithme, au maximum 100 itérations ou 30 secondes
+double benchmark(vector<byte>& V, function<void(vector<byte>&)> fn) {
+	double total = 0;
+	size_t iterations = 0;
+
+	do {
+		// Copie de travail pour l'alorithme
+		vector<byte> W = V;
+
+		// Tri
+		clock_t start, end;
+		start = clock();
+		fn(W);
+		end = clock();
+
+
+#if CHECK_SORTED
+		// On s'assure que le résultat est trié
+		assert(check_sorted(W));
+#endif
+
+		// Calcul du temps d'execution
+		total += double(end - start) / CLOCKS_PER_SEC;
+		iterations++;
+	}
+	while (total < max_time && iterations < max_iter);
+
+	return total / iterations;
+}
+
 int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
 	srand(time(NULL));
 
 	for (int i = 1; i < 8; i++) {
-		const int iter = 30;
-		double counting_time = 0, quick_time = 0, select_time = 0;
+		// Temps d'executions
+		double counting = 0, quick = 0, select = 0;
 
-		for (int j = 0; j < iter; j++) {
-			// Tableau de référence
-			vector<byte> R;
-			randomize(R, pow(10, i));
+		// Vecteur de référence
+		vector<byte> V;
+		randomize(V, pow(10, i));
 
-			{
-				vector<byte> C = R;
-				counting_time += benchmark([&]() { countingSort(C.begin(), C.end()); });
-				assert(check_sorted(C));
-			}
+		counting = benchmark(V, [](vector<byte>& v) { countingSort(v.begin(), v.end()); });
+		quick = benchmark(V, [](vector<byte>& v) { quickSort(v.begin(), v.end()); });
 
-			{
-				vector<byte> Q = R;
-				quick_time += benchmark([&]() { quickSort(Q.begin(), Q.end()); });
-				assert(check_sorted(Q));
-			}
-
-			if (i < 6) {
-				vector<byte> S = R;
-				select_time += benchmark([&]() { selectionSort(S.begin(), S.end()); });
-				assert(check_sorted(S));
-			}
-
-			printf("%d ",j);
+		if (i < 6) {
+			select = benchmark(V, [](vector<byte>& v) { selectionSort(v.begin(), v.end()); });
 		}
 
-        printf("\n\nResultats : ");
-
-		select_time /= iter;
-		counting_time /= iter;
-		quick_time /= iter;
-
-		printf("%d\t%.5E\t%.5E\t%.5E\n\n", i, counting_time, quick_time, select_time);
+		printf("%d\t%.5E\t%.5E\t%.5E\n\n", i, counting, quick, select);
 		fflush(stdout);
 	}
 
