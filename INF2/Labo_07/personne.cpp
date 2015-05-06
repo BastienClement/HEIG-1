@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include "personne.h"
 
-using namespace std;
 Personne::Personne(const string& n, const string& p, const unsigned short a) {
 	nom = n;
 	prenom = p;

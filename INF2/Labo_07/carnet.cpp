@@ -8,10 +8,6 @@
 
 typedef unsigned short ushort;
 
-struct ExceptionCarnet {
-	string message;
-};
-
 void CarnetAdresse::sauver(const string& nom) const {
 	// Ouverture du fichier en troncation
 	ofstream fichier(nom, ios::binary | ios::out | ios::trunc);

@@ -10,6 +10,16 @@
 
 using namespace std;
 
+/**
+ * Exception lors des entrées-sorties du carnet
+ */
+struct ExceptionCarnet {
+	string message;
+};
+
+/**
+ * Carnet d'adresse
+ */
 struct CarnetAdresse {
 public:
 	/**
