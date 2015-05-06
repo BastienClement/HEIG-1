@@ -10,7 +10,7 @@
 using namespace std;
 
 /**
- * Représente une personne du carnet d'adresse
+ * ReprÃ©sente une personne du carnet d'adresse
  */
 struct Personne {
 private:
@@ -24,7 +24,7 @@ private:
 public:
 	/**
 	 * Constructeur
-	 * Les paramètres par défaut sont utilisés pour créer une personne sans information particulière
+	 * Les paramÃ¨tres par dÃ©faut sont utilisÃ©s pour crÃ©er une personne sans information particuliÃ¨re
 	 * puis saisir ces informations par la suite
 	 */
 	Personne(const string& nom = "", const string& prenom = "", const unsigned short age = 0);
@@ -44,18 +44,18 @@ public:
 	void setAge(unsigned short age);
 
 	/**
-	 * Opérateur d'assignation en profondeur
+	 * OpÃ©rateur d'assignation en profondeur
 	 */
 	Personne& operator=(const Personne& p);
 
 	/**
-	 * Opérateur de comparaison entre deux personnes
+	 * OpÃ©rateur de comparaison entre deux personnes
 	 */
 	bool operator==(const Personne& p) const;
 };
 
 /**
- * Opérateur de flux pour les Personnes
+ * OpÃ©rateur de flux pour les Personnes
  */
 ostream& operator<<(ostream& os, const Personne& p);
 istream& operator>>(istream& is, Personne& p);

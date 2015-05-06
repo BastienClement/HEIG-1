@@ -18,7 +18,7 @@ public:
 	void sauver(const string& nom) const;
 
 	/**
-	 * Recharge le carnet d'adresse depuis un fichier créé avec sauver()
+	 * Recharge le carnet d'adresse depuis un fichier crÃ©Ã© avec sauver()
 	 */
 	void charger(const string& nom);
 
@@ -34,17 +34,17 @@ public:
 
 private:
 	/**
-	 * Les données du carnet d'adresse
+	 * Les donnÃ©es du carnet d'adresse
 	 */
 	vector<Personne> data;
 
 	/**
-	 * Ecrit une chaine préfixée de sa longueur dans un flux de sortie
+	 * Ecrit une chaine prÃ©fixÃ©e de sa longueur dans un flux de sortie
 	 */
 	void write_string(ostream& os, const string& str) const;
 
 	/**
-	 * Lit une chaine préfixée de sa longueur depuis un flux d'entrée
+	 * Lit une chaine prÃ©fixÃ©e de sa longueur depuis un flux d'entrÃ©e
 	 */
 	string read_string(istream& is) const;
 };

@@ -51,5 +51,7 @@ istream& operator>>(istream& is, Personne& p) {
 	} while (!(cin >> age) && cout << "Erreur de saisie." << endl);
 	p.setAge(age);
 
+	while (cin.get() != '\n');
+
 	return is;
 }
