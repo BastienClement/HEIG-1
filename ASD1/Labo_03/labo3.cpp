@@ -14,6 +14,7 @@
 #include <cassert>
 #include <cstdio>
 #include <functional>
+#include <iomanip>
 
 using namespace std;
 
@@ -171,6 +172,9 @@ int main(int argc, const char* argv[]) {
 	// Initialisation de l'aléatoire
 	srand(time(NULL));
 
+	cout << fixed;
+	cout << setprecision(8);
+
 	for (int i = 1; i < 8; i++) {
 		// Temps d'executions
 		double counting = 0, quick = 0, select = 0;
@@ -190,8 +194,7 @@ int main(int argc, const char* argv[]) {
 			select = benchmark(V, [](vector<byte>& v) { selectionSort(v.begin(), v.end()); });
 		}
 
-		printf("%d\t%.5E\t%.5E\t%.5E\n\n", i, counting, quick, select);
-		fflush(stdout);
+		cout << i << "\t" << counting << "\t" << quick << "\t" << select << endl;
 	}
 
 	return 0;
