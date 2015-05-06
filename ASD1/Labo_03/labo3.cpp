@@ -179,9 +179,13 @@ int main(int argc, const char* argv[]) {
 		vector<byte> V;
 		randomize(V, pow(10, i));
 
+		// Tri comptage
 		counting = benchmark(V, [](vector<byte>& v) { countingSort(v.begin(), v.end()); });
+
+		// Tri rapide
 		quick = benchmark(V, [](vector<byte>& v) { quickSort(v.begin(), v.end()); });
 
+		// Tri par sélection
 		if (i < 6) {
 			select = benchmark(V, [](vector<byte>& v) { selectionSort(v.begin(), v.end()); });
 		}
