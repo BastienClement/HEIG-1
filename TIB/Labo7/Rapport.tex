@@ -1,0 +1,71 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{siunitx}
+%\usepackage{showframe} % layout debug
+
+\usepackage{float}
+\restylefloat{figure}
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { TIB1-B }
+\def \doctitle {Rapport : NAT}
+\author{Bastien Clément \and Christophe Peretti}
+
+\renewcommand{\thesection}{Objectif \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+\section{Configuration du réseau}
+
+L'objectif de cette partie est de configurer les adresses IP des PCs et du routeur dans le simulateur. Il est atteint si il est possible d'envoyer des pings entre les différents PCs.
+
+\subsection{Configuration du routeur Cisco}
+
+\section{Analyse du NAT/PT}
+
+L'objectif de cette partie est de configurer le NAT/PT sur le routeur. Il est atteint si il est possible d'envoyer des pings entre les différents PCs.
+
+\subsection{Fonctionnement du NAT/PT}
+
+\section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
+
+\end{document}
