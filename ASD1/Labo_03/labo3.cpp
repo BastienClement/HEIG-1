@@ -20,8 +20,8 @@ using namespace std;
 
 typedef unsigned char byte;
 
-const double max_time = 30;
-const size_t max_iter = 100;
+const double max_time = 60;
+const size_t max_iter = 10000;
 
 #define CHECK_SORTED 0
 
