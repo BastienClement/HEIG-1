@@ -45,9 +45,16 @@ public:
 	// aux données.
 	//
 	void selectionSort() {
+		for (ElementPtr* target = &head; *target; target = &(*target)->next) {
+			ElementPtr* min = target;
+			for (ElementPtr* e = &(*target)->next; *e; e = &(*e)->next) {
+				if ((*e)->data < (*min)->data) min = e;
+			}
 
-		// A COMPLETER
-
+			swap(*min, *target);
+			swap((*min)->next, (*target)->next);
+			cout << *this << endl;
+		}
 	}
 
 	// operator<< permettant d'afficher le contenu de la liste
