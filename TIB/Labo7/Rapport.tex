@@ -88,13 +88,13 @@ L'objectif de cette partie est de comprendre le fonctionnement de NAT/PT. Il est
 
 \subsection{Fonctionnement du NAT/PT}
 
-Le mécanisme NAT/PT permet le partage d'une unique adresse IP publique par plusieurs machines dans un sous-réseau. Cela permet d'augmenter le nombre de machine malgré le nombre limité d'adresse IPv4 disponibles.
+Le mécanisme NAT/PT permet le partage d'une unique adresse IP publique par plusieurs machines dans un sous-réseau. Cela permet d'augmenter le nombre de machine malgré le nombre limité d'adresses IPv4 disponibles.
 Les machines locales reçoivent alors des adresses IP privées qui ne sont en principe pas routable sur Internet. Le routeur NAT règle ensuite ce problème en substituant l'adresse IP privée par sa propre adresse avant de transmettre le paquet sur le réseau. 
 
 Puisque les adresses source sont modifiées, le problème est maintenant d'identifier le bon destinataire lorsque le routeur reçoit un paquet entrant.
 Dans le cas de NAT/PT, le routeur ne modifie pas uniquement l'adresse mais également le numéro de port d'origine. Celui-ci n'est généralement pas utile et ne sert qu'à l'identification des flux lorsque plusieurs connexions sont ouvertes avec le même serveur.
 
-Lorsque le routeur transmet pour la première fois un paquet d'une connexion spécifique, il enregistre dans une table l'adresse et le port d'origine et la correspondance après traduction NAT. Cette table lui permet par la suite d'effectuer l'opération inverse et de modifier le paquet pour la machine locale. Cette dernière reçoit alors un paquet identique à ce qu'elle aurait reçu en l'absence de NAT, rendant l'opération totalement transparente dans la plupart des cas. 
+Lorsque le routeur transmet pour la première fois un paquet d'une connexion spécifique, il enregistre dans une table l'adresse et le port d'origine et la correspondance après traduction NAT. Cette table lui permet par la suite d'effectuer l'opération inverse et de modifier le paquet pour la machine locale. Cette dernière reçoit alors un paquet identique à ce qu'elle aurait reçu en l'absence de NAT, rendant l'opération totalement transparente dans la plupart des cas. Même si deux machines utilisent le même port source, le NAT choisira pour chacune un numéro de port différent en sortie et n'aura donc pas de problème à distinguer les paquets entrants.
 
 Au final, puisque toutes les machines partagent maintenant une même adresse, cette dernière ne permet plus de les distinguer. Le routeur détourne alors le principe des ports TCP et UDP, initialement destinés à différencier les connexions d'une machine spécifique, pour s'en servir comme identificateur pour les machines locales.
 
