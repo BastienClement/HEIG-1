@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -49,19 +50,22 @@ string decoder(const string& s){
 	string strDecode;
 
 	for (size_t i = 0; i < s.size(); i++) {
-		if (s.at(i) == ' '){
+		if (s.at(i) == ' ' && strTmp != ""){
 			strDecode.push_back(tradMorse(strTmp));
 			strTmp = "";
-		} else if (s.at(i) == '/'){
+		}
+		else if (s.at(i) == '/'){
 			strTmp = "";
 			strDecode.push_back(' ');
-		} else {
+			i++;
+		}
+		else {
 			strTmp.push_back(s.at(i));
 		}
 	}
 
 	strDecode.push_back(tradMorse(strTmp));
-	
+
 	return strDecode;
 }
 
@@ -85,6 +89,8 @@ unsigned short demandeChoix(const string& msg, const unsigned short& nbChoix) {
 
 int main() {
 	unsigned short menuOption;
+	string nomDuFichier;
+	string strEntree;
 
 	cout << "#########################################" << endl;
 	cout << "#                MORSE                  #" << endl;
@@ -94,20 +100,64 @@ int main() {
 		cout << endl;
 		cout << "1) Lire Clavier" << endl;
 		cout << "2) Lire Fichier" << endl;
-		cout << "3) Sauver Fichier" << endl;
-		cout << "4) Quitter" << endl;
+		cout << "3) Quitter" << endl;
 		cout << "-----------------------------------------" << endl;
 		menuOption = demandeChoix("Veuillez saisir votre choix", 3);
 
 		switch (menuOption) {
 		case 1:
+			cout << endl;
+			cout << "1) Decoder du morse" << endl;
+			cout << "2) Encoder du morse" << endl;
+			cout << "-----------------------------------------" << endl;
+			menuOption = demandeChoix("veuillez saisir votre choix", 2);
+
+			switch (menuOption)	{
+			case 1:
+				getline(cin, strEntree);
+				strEntree = decoder(strEntree);
+				cout << strEntree << endl;
+				break;
+			case 2:
+				getline(cin, strEntree);
+				strEntree = encoder(strEntree);
+				cout << strEntree << endl;
+				break;
+			}
+
+			cout << "1) Sauver dans un Fichier" << endl;
+			cout << "2) Retour au menu" << endl;
+			cout << "-----------------------------------------" << endl;
+
+			menuOption = demandeChoix("Veuillez saisir votre choix", 2);
+
+			if (menuOption == 1){
+				cout << "Nom du fichier :";
+				getline(cin, nomDuFichier);
+				ofstream fichier(nomDuFichier, ios::out | ios::trunc);
+				if (fichier.is_open()){
+					fichier << strEntree;
+				}
+			}
 
 			break;
+
 		case 2:
-			break;
+		{
+			cout << "Nom du fichier :";
+			getline(cin, nomDuFichier);
+			ifstream fichier(nomDuFichier, ios::in);
+
+			if (fichier.is_open()) {
+				while (getline(fichier, strEntree))
+				{
+					cout << strEntree << '\n';
+				}
+			}
+		}
+		break;
+
 		case 3:
-			break;
-		case 4:
 			return EXIT_SUCCESS;
 			break;
 		}
