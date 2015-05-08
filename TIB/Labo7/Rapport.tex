@@ -57,6 +57,26 @@
 L'objectif de cette partie est de configurer les adresse IP des PCs et du routeur dans le simulateur. Il est atteint si nous pouvons envoyer des pings entre les différents PCs.
 
 \subsection{Configuration du routeur Cisco}
+\begin{tabular}{|r|l|}
+	\hline	
+	\textbf{Commande} & \textbf{Explication}  \\
+	\hline
+	\texttt{enable} & Passage en mode privilégié\\
+	\texttt{configure terminal} & Passage en mode configuration globale\\
+	\hline
+	\texttt{interface FastEthernet0/0} & Accès à la configuration de l'interface interne\\
+	\texttt{ip address 10.0.0.1 255.0.0.0} & Configuration de l'adresse ip de cette interface\\
+	\texttt{no shutdown} & Activation de l'interface \\
+	\texttt{exit} & Retour à la configuration globale \\
+	\hline
+	\texttt{interface FastEthernet0/1} & Accès à la configuration de l'interface externe \\
+	\texttt{ip address 123.0.0.1 255.0.0.0} & Configuration de l'adresse ip de cette interface \\
+	\texttt{no shutdown} & Activation de l'interface \\
+	\texttt{exit} & Retour à la configuration globale \\
+	\hline
+	\texttt{exit} & Sortie du mode configuration \\
+	\hline
+\end{tabular}
 
 
 \stepcounter{section}
