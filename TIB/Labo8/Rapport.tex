@@ -1,0 +1,146 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{fancyhdr} % headers
+\usepackage[usenames,dvipsnames]{color} % colors
+\usepackage{graphicx} % images
+\usepackage{listings} % source code
+\usepackage{titling} % meta-infos
+\usepackage{courier} % courier font
+\usepackage{fullpage} % full page layout
+\usepackage{titlesec} % title customization
+\usepackage{parskip} % paragraphs spacing
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{siunitx}
+%\usepackage{showframe} % layout debug
+
+\usepackage{float}
+\restylefloat{figure}
+
+\topmargin -10mm
+\headsep 5mm
+\headheight 10mm
+
+\linespread{1.1}
+\renewcommand{\arraystretch}{1.3}
+
+\setlength\parindent{0pt}
+\setlength{\unitlength}{1cm}
+\setlength{\droptitle}{-1.6cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+
+\def \doccourse { TIB1-B }
+\def \doctitle {Rapport : Routage statique}
+\author{Bastien Clément \and Christophe Peretti}
+
+\renewcommand{\thesection}{Objectif \arabic{section} :}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+
+\rhead{\theauthor \\ \today}
+\lhead{\doccourse \\ \doctitle }
+\title{{\normalsize \doccourse} \\ \doctitle }
+
+\begin{document}
+
+\maketitle
+\vspace{1em}
+
+\section{Configurer les routes statiques du réseau}
+
+L'objectif de ce laboratoire est de configurer les routes statiques sur tous les routeurs. L'objectif est atteint si nous arrivons à envoyer des pings entre toutes les machines du réseau.
+
+\subsection{Question 1: Effectuez des pings depuis les machines Linux. Quelles adresses pouvez-vous pinguer ? Pourquoi ces adresses et pas les autres ?}
+
+Il est possible de pinguer la machine locale et le routeur sur son réseau (par exemple \texttt{10.0.0.2} et \texttt{10.0.0.1}). Ces machines sont directement connectées et peuvent communiquer sans aucune opération de routage.
+
+Le reste des machines sont derrière notre routeur qui n'est pas encore configuré et ne sont donc pas accessibles malgré une configuration parfaitement correcte de la machine.
+
+\subsection{Question 2: Pour chacun des routeurs, remplissez un tableau pour résumer les routes configurées}
+
+Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à configurer puisqu'il ne sont reliés qu'à un seul autre routeur. Par conséquent il n'est pas nécessaire de configurer de table de routage, mais simplement d'utiliser ces autres routeurs comme route par défaut.
+
+\vspace{0.5cm}
+
+\begin{tabular}{|ll|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Routeur \textit{HEIG\_R1Nat}}} \\
+	Destination & Prochain routeur \\
+	\hline
+	\texttt{10.0.0.0/8} & \textit{Directement connecté} \\
+	\texttt{193.134.1.0/24} & \textit{Directement connecté} \\
+	\textit{Route par défaut} & \texttt{193.134.1.1} \\
+	\hline
+\end{tabular}
+\hspace{0.5mm}
+\begin{tabular}{|ll|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Routeur \textit{Google\_R1}}} \\
+	Destination & Prochain routeur \\
+	\hline
+	\texttt{74.0.0.0/8} & \textit{Directement connecté} \\
+	\texttt{213.3.1.0/24} & \textit{Directement connecté} \\
+	\textit{Route par défaut} & \texttt{213.3.1.1} \\
+	\hline
+\end{tabular}
+
+\vspace{0.5cm}
+
+À l'inverse, les routeurs \textit{Swisscom\_R1}, \textit{Switch\_R1} et \textit{Level3\_R1}.
+
+\begin{tabular}{|ll|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Routeur \textit{Swisscom\_R1}}} \\
+	Destination & Prochain routeur \\
+	\hline
+	\texttt{130.1.0.0/16} & \textit{Directement connecté} \\
+	\texttt{193.222.1.0/24} & \textit{Directement connecté} \\
+	\texttt{213.2.1.0/24} & \textit{Directement connecté} \\
+	\texttt{74.0.0.0/8} & \texttt{213.2.1.1} \\
+	\texttt{193.134.1.0/24} & \texttt{130.1.1.1} \\
+	\texttt{213.1.1.0/24} & \texttt{130.1.1.1} \\
+	\texttt{213.3.1.0/24} & \texttt{213.2.1.1} \\
+	\hline
+\end{tabular}
+\quad
+\begin{tabular}{|ll|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Routeur \textit{Switch\_R1}}} \\
+	Destination & Prochain routeur \\
+	\hline
+	\texttt{130.1.0.0/16} & \textit{Directement connecté} \\
+	\texttt{193.134.1.0/24} & \textit{Directement connecté} \\
+	\texttt{213.1.1.0/24} & \textit{Directement connecté} \\
+	\texttt{74.0.0.0/8} & \texttt{213.1.1.1} \\
+	\texttt{193.222.1.0/24} & \texttt{130.1.1.2} \\
+	\texttt{213.2.1.0/24} & \texttt{130.1.1.2} \\
+	\texttt{213.3.1.0/24} & \texttt{213.1.1.1} \\
+	\hline
+\end{tabular}
+
+\begin{tabular}{|ll|}
+	\hline
+	\multicolumn{2}{|c|}{\textbf{Routeur \textit{Level3\_R1}}} \\
+	Destination & Prochain routeur \\
+	\hline
+	\texttt{213.1.1.0/24} & \textit{Directement connecté} \\
+	\texttt{213.2.1.0/24} & \textit{Directement connecté} \\
+	\texttt{213.3.1.0/24} & \textit{Directement connecté} \\
+	\texttt{74.0.0.0/8} & \texttt{213.3.1.2} \\
+	\texttt{130.1.0.0/16} & \texttt{213.1.1.2} \\
+	\texttt{193.134.1.0/24} & \texttt{213.1.1.2} \\
+	\texttt{193.222.1.0/24} & \texttt{213.2.1.2} \\
+	\hline
+\end{tabular}
+
+\section{Auto-évaluation}
+
+Nous considérons avoir atteint les objectifs de ce laboratoire.
+
+\end{document}
