@@ -1,3 +1,18 @@
+/*
+-----------------------------------------------------------------------------------
+Laboratoire : 08 - Code morse
+Fichier     : Labo_08_VerdonPeretti.cpp
+Auteur(s)   : Verdon & Peretti
+Date        : 12.05.2015
+
+But         :
+
+Remarque(s) : -
+
+Compilateur : MinGW
+-----------------------------------------------------------------------------------
+*/
+
 #include <iostream>
 #include <cstdlib>
 #include <string>
@@ -50,15 +65,22 @@ int main() {
 			cout << "-----------------------------------------" << endl;
 			menuOption = demandeChoix("veuillez saisir votre choix", 2);
 			switch (menuOption)	{
+
+			//Decodage
 			case 1:
-				getline(cin, strEntree);
-				strEntree = decoder(strEntree);
+				strEntree = decoder(lireClavier());
+				try{
+					if (strEntree.find(CARACTERE_ERREUR_DECODAGE) != std::string::npos) throw ERREUR_DECODAGE_CHAINE;
+				}
+				catch (Exception e){
+					e.afficherErreur();
+				}
 				cout << strEntree << endl;
 				break;
 
+			// Encodage
 			case 2:
-				getline(cin, strEntree);				
-				strEntree = encoder(strToLower(strEntree));
+				strEntree = encoder(strToLower(lireClavier()));
 				cout << strEntree << endl;
 				cout << "1) Sauver dans un Fichier" << endl;
 				cout << "2) Convertir en WAV" << endl;
@@ -68,43 +90,48 @@ int main() {
 				menuOption = demandeChoix("Veuillez saisir votre choix", 3);
 
 				switch (menuOption){
+				//Sauvegarde dans un fichier
 				case 1:
 				{
 					cout << "Nom du fichier :";
-					getline(cin, nomDuFichier);
-
-					ofstream fichier(nomDuFichier, ios::out | ios::trunc);
-					if (fichier.is_open()){
-						fichier << strEntree;
+					ofstream fichier(lireClavier(), ios::out | ios::trunc);
+					
+					try{
+						if (fichier.is_open()){
+							fichier << strEntree << endl;
+						}
+						else throw ERREUR_OUVERTURE_FICHIER;
+					}
+					catch (Exception e){
+						e.afficherErreur();
 					}
 				}
 				break;
 
+				//Morse en audio
 				case 2:
 				{
 					cout << "Nom du fichier :";
-					getline(cin, nomDuFichier);
-					morseToWave(nomDuFichier.c_str(), strEntree);
+					morseToWave(lireClavier().c_str(), strEntree);
 				}
 				break;
-				}
+				}// END SWITCH 3
 
 				break;
-			}
+			} // END SWITCH 2
 			break;
 
+		//Lecture du fichier
 		case 2:
 		{
 			cout << "Nom du fichier :";
-			getline(cin, nomDuFichier);
-
-			ifstream fichier(nomDuFichier, ios::in);
-			if (fichier.is_open()) {
-				while (getline(fichier, strEntree)) {
-					cout << strEntree << '\n';
-				}
+			try{
+				strEntree = lireFichier(lireClavier());
+				if (decoder(strEntree).find(CARACTERE_ERREUR_DECODAGE) != std::string::npos) throw ERREUR_DECODAGE_FICHIER;
 			}
-
+			catch (Exception e){
+				e.afficherErreur();
+			}
 		}
 		break;
 
@@ -112,8 +139,7 @@ int main() {
 			return EXIT_SUCCESS;
 			break;
 		}
-
-	}
+	}// END SWITCH 1
 
 
 
