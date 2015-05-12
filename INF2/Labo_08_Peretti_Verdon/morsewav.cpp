@@ -1,5 +1,5 @@
 #include "morsewav.h"
-
+#include <fstream>
 #include <cstdlib>
 #include <math.h>
 #include <string>

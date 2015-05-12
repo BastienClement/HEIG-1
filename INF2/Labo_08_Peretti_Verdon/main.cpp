@@ -2,73 +2,10 @@
 #include <cstdlib>
 #include <string>
 #include <fstream>
+#include "morsewav.h"
+#include "morse.h"
 
 using namespace std;
-
-struct morseTrad{
-	int c;
-	string s;
-};
-
-const size_t NBR_CARACTERE = 41;
-
-const morseTrad TAB_TRAD_MORSE[NBR_CARACTERE] = { { ' ', "/" }, { 'a', ".-" }, { 'b', "-..." }, { 'c', "-.-." }, { 'd', "-.." }, { 'e', "." }, { 'f', "..-." },
-{ 'g', "--." }, { 'h', "...." }, { 'i', ".." }, { 'j', ".---" }, { 'k', "-.-" }, { 'l', ".-.." }, { 'm', "--" },
-{ 'n', "-." }, { 'o', "---" }, { 'p', ".--." }, { 'q', "--.-" }, { 'r', ".-." }, { 's', "..." }, { 't', "-" },
-{ 'u', "..-" }, { 'v', "...-" }, { 'w', ".--" }, { 'x', "-..-" }, { 'y', "-.--" }, { 'z', "--.." }, { '.', ".-.-.-" },
-{ ',', "--..--" }, { '?', "..--.." }, { '!', "-.-.--" }, { '(', "-.--." }, { ')', "-.--.-" }, { '&', ".-..." },
-{ ':', "---..." }, { ';', "-.-.-." }, { '=', "-...-" }, { '+', ".-.-." }, { '-', "-....-" }, { '$', "...-..-" },
-{ '@', ".--.-." } };
-
-char tradMorse(const string& s){
-	for (size_t i = 0; i < NBR_CARACTERE; i++)	{
-		if (TAB_TRAD_MORSE[i].s == s)
-			return TAB_TRAD_MORSE[i].c;
-	}
-
-	return '~';
-}
-
-string encoder(const string& chaine){
-	string chaineMorse = "";
-	string chaineActuelle;
-	size_t taille = chaine.size();
-
-	for (size_t i = 0; i < taille; i++){
-		for (size_t j = 0; j < NBR_CARACTERE; j++){
-
-			if (TAB_TRAD_MORSE[j].c == chaine[i]) {
-				chaineMorse += TAB_TRAD_MORSE[j].s + ' ';
-				break;
-			}
-		}
-	}
-	return chaineMorse;
-}
-
-string decoder(const string& s){
-	string strTmp;
-	string strDecode;
-
-	for (size_t i = 0; i < s.size(); i++) {
-		if (s.at(i) == ' ' && strTmp != ""){
-			strDecode.push_back(tradMorse(strTmp));
-			strTmp = "";
-		}
-		else if (s.at(i) == '/'){
-			strTmp = "";
-			strDecode.push_back(' ');
-			i++;
-		}
-		else {
-			strTmp.push_back(s.at(i));
-		}
-	}
-
-	strDecode.push_back(tradMorse(strTmp));
-
-	return strDecode;
-}
 
 unsigned short demandeChoix(const string& msg, const unsigned short& nbChoix) {
 	int saisie;
@@ -123,23 +60,29 @@ int main() {
 				getline(cin, strEntree);
 				strEntree = encoder(strEntree);
 				cout << strEntree << endl;
+				cout << "1) Sauver dans un Fichier" << endl;
+				cout << "2) Convertir en WAV" << endl;
+				cout << "3) Retour au menu" << endl;
+				cout << "-----------------------------------------" << endl;
+
+				menuOption = demandeChoix("Veuillez saisir votre choix", 3);
+
+				if (menuOption == 1){
+					cout << "Nom du fichier :";
+					getline(cin, nomDuFichier);
+					ofstream fichier(nomDuFichier, ios::out | ios::trunc);
+					if (fichier.is_open()){
+						fichier << strEntree;
+					}
+				} else if (menuOption == 2){
+					cout << "Nom du fichier :";
+					getline(cin, nomDuFichier);
+					morseToWave(nomDuFichier.c_str(),strEntree);
+				}
 				break;
 			}
 
-			cout << "1) Sauver dans un Fichier" << endl;
-			cout << "2) Retour au menu" << endl;
-			cout << "-----------------------------------------" << endl;
 
-			menuOption = demandeChoix("Veuillez saisir votre choix", 2);
-
-			if (menuOption == 1){
-				cout << "Nom du fichier :";
-				getline(cin, nomDuFichier);
-				ofstream fichier(nomDuFichier, ios::out | ios::trunc);
-				if (fichier.is_open()){
-					fichier << strEntree;
-				}
-			}
 
 			break;
 
@@ -150,8 +93,7 @@ int main() {
 			ifstream fichier(nomDuFichier, ios::in);
 
 			if (fichier.is_open()) {
-				while (getline(fichier, strEntree))
-				{
+				while (getline(fichier, strEntree)) {
 					cout << strEntree << '\n';
 				}
 			}
