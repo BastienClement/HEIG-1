@@ -33,7 +33,7 @@ public:
 	void afficherErreur();
 };
 
-const Exception ERREUR_DECODAGE_FICHIER = { 1, "Problème lors du decodage du fichier" };
+const Exception ERREUR_DECODAGE_FICHIER = { 1, "Probleme lors du decodage du fichier" };
 const Exception ERREUR_OUVERTURE_FICHIER = { 2, "Erreur lors de l'ouverture du fichier" };
 const Exception ERREUR_DECODAGE_CHAINE = { 3, "Erreur lors de du decodage de la chaine" };
 

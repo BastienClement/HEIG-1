@@ -75,8 +75,8 @@ string decoder(const string& s){
 			strTmp.push_back(s.at(i));
 		}
 	}
-
-	strDecode.push_back(tradMorse(strTmp));
+	if (strTmp != "")
+		strDecode.push_back(tradMorse(strTmp));
 
 	return strDecode;
 }

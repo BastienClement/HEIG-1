@@ -75,7 +75,7 @@ int main() {
 				catch (Exception e){
 					e.afficherErreur();
 				}
-				cout << strEntree << endl;
+				cout << strEntree;
 				break;
 
 			// Encodage
@@ -132,6 +132,8 @@ int main() {
 			catch (Exception e){
 				e.afficherErreur();
 			}
+
+			cout << "Fichier non-decoder : " << endl << strEntree << endl << "Fichier decoder : " << endl << decoder(strEntree) << endl;
 		}
 		break;
 
