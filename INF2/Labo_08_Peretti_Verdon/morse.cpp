@@ -19,12 +19,10 @@ Compilateur : MinGW
 
 using namespace std;
 
-
 void Exception::afficherErreur(){	 
 	cerr << to_string(code) + " " + message << endl;
 }
 
-// Convertit tous les caractere d une string en minuscule
 string strToLower(string str){
 	for (size_t i = 0; i < str.size(); i++) {
 		str.at(i) = tolower(str.at(i));
@@ -33,7 +31,6 @@ string strToLower(string str){
 	return str;
 }
 
-//Traduit une string en morse
 char tradMorse(const string& s){
 	for (size_t i = 0; i < NBR_CARACTERE; i++)	{
 		if (TAB_TRAD_MORSE[i].s == s)
@@ -43,7 +40,6 @@ char tradMorse(const string& s){
 	return CARACTERE_ERREUR_DECODAGE;
 }
 
-//encode une string en morse
 string encoder(const string& chaine){
 	string chaineMorse = "";
 	string chaineActuelle;
@@ -61,7 +57,6 @@ string encoder(const string& chaine){
 	return chaineMorse;
 }
 
-//decode du morse une string
 string decoder(const string& s){
 	string strTmp;
 	string strDecode;
@@ -86,14 +81,12 @@ string decoder(const string& s){
 	return strDecode;
 }
 
-// lit une entree clavier
 string lireClavier(){
 	string strEntree;
 	getline(cin, strEntree);
 	return strEntree;
 }
 
-// lit un fichier
 string lireFichier(const string& nomFichier){
 	string ligneFichier;
 	string strARetourner;

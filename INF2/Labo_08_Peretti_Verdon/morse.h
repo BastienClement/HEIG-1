@@ -50,11 +50,17 @@ const morseTrad TAB_TRAD_MORSE[NBR_CARACTERE] =
 		  { '3', "...--" },{ '4', "....-" },{ '5', "....." }, { '6', "-...." }, { '7', "--..." },{ '8', "---.." },
 		  { '9', "----." } };
 
+// Convertit tous les caractere d une string en minuscule
 string strToLower(string str);
+//Traduit une string en morse
 char tradMorse(const string& s);
+//encode une string en morse
 string encoder(const string& chaine);
+//decode du morse une string
 string decoder(const string& s);
+// lit une entree clavier
 string lireClavier();
+// lit un fichier
 string lireFichier(const string& nomFichier);
 
 
