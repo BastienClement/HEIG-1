@@ -49,16 +49,16 @@ int main() {
 			cout << "2) Encoder du morse" << endl;
 			cout << "-----------------------------------------" << endl;
 			menuOption = demandeChoix("veuillez saisir votre choix", 2);
-
 			switch (menuOption)	{
 			case 1:
 				getline(cin, strEntree);
 				strEntree = decoder(strEntree);
 				cout << strEntree << endl;
 				break;
+
 			case 2:
-				getline(cin, strEntree);
-				strEntree = encoder(strEntree);
+				getline(cin, strEntree);				
+				strEntree = encoder(strToLower(strEntree));
 				cout << strEntree << endl;
 				cout << "1) Sauver dans un Fichier" << endl;
 				cout << "2) Convertir en WAV" << endl;
@@ -67,36 +67,44 @@ int main() {
 
 				menuOption = demandeChoix("Veuillez saisir votre choix", 3);
 
-				if (menuOption == 1){
+				switch (menuOption){
+				case 1:
+				{
 					cout << "Nom du fichier :";
 					getline(cin, nomDuFichier);
+
 					ofstream fichier(nomDuFichier, ios::out | ios::trunc);
 					if (fichier.is_open()){
 						fichier << strEntree;
 					}
-				} else if (menuOption == 2){
-					cout << "Nom du fichier :";
-					getline(cin, nomDuFichier);
-					morseToWave(nomDuFichier.c_str(),strEntree);
 				}
 				break;
+
+				case 2:
+				{
+					cout << "Nom du fichier :";
+					getline(cin, nomDuFichier);
+					morseToWave(nomDuFichier.c_str(), strEntree);
+				}
+				break;
+				}
+
+				break;
 			}
-
-
-
 			break;
 
 		case 2:
 		{
 			cout << "Nom du fichier :";
 			getline(cin, nomDuFichier);
-			ifstream fichier(nomDuFichier, ios::in);
 
+			ifstream fichier(nomDuFichier, ios::in);
 			if (fichier.is_open()) {
 				while (getline(fichier, strEntree)) {
 					cout << strEntree << '\n';
 				}
 			}
+
 		}
 		break;
 

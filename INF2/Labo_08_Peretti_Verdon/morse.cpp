@@ -8,6 +8,14 @@
 
 using namespace std;
 
+string strToLower(string str){
+	for (size_t i = 0; i < str.size(); i++) {
+		str.at(i) = tolower(str.at(i));
+	}
+
+	return str;
+}
+
 char tradMorse(const string& s){
 	for (size_t i = 0; i < NBR_CARACTERE; i++)	{
 		if (TAB_TRAD_MORSE[i].s == s)

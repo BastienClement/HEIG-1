@@ -27,6 +27,7 @@ const morseTrad TAB_TRAD_MORSE[NBR_CARACTERE] =
 		  { '3', "...--" },{ '4', "....-" },{ '5', "....." }, { '6', "-...." }, { '7', "--..." },{ '8', "---.." },
 		  { '9', "----." } };
 
+string strToLower(string str);
 char tradMorse(const string& s);
 string encoder(const string& chaine);
 string decoder(const string& s);
