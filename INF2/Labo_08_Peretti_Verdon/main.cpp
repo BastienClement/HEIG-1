@@ -95,7 +95,7 @@ int main() {
 				{
 					cout << "Nom du fichier :";
 					ofstream fichier(lireClavier(), ios::out | ios::trunc);
-					
+
 					try{
 						if (fichier.is_open()){
 							fichier << strEntree << endl;
@@ -124,6 +124,7 @@ int main() {
 		//Lecture du fichier
 		case 2:
 		{
+			strEntree = "";
 			cout << "Nom du fichier :";
 			try{
 				strEntree = lireFichier(lireClavier());
