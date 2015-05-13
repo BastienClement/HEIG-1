@@ -5,7 +5,7 @@ Fichier     : Labo_08_VerdonPeretti.cpp
 Auteur(s)   : Verdon & Peretti
 Date        : 12.05.2015
 
-But         :
+But         : fichier main permettant d utiliser la libraire de morse
 
 Remarque(s) : -
 

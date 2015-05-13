@@ -5,7 +5,7 @@ Fichier     : Labo_08_VerdonPeretti_morse.cpp
 Auteur(s)   : Verdon & Peretti
 Date        : 12.05.2015
 
-But         :
+But         : librairie permettant de decoder et encoder du morse
 
 Remarque(s) : -
 
