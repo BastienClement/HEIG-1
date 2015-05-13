@@ -5,7 +5,7 @@ Fichier     : Labo_08_VerdonPeretti_morse.h
 Auteur(s)   : Verdon & Peretti
 Date        : 12.05.2015
 
-But         : 
+But         :
 
 Remarque(s) : -
 
@@ -20,7 +20,7 @@ Compilateur : MinGW
 using namespace std;
 
 void Exception::afficherErreur(){	 
-	cerr << to_string(code) + " " + message << endl;
+	cerr << code << " " + message << endl;
 }
 
 string strToLower(string str){
