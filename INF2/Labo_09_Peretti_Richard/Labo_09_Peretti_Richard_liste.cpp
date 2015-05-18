@@ -40,7 +40,7 @@ public:
 
 	bool supprimer(unsigned int position);
 
-	bool parcourir();
+	bool parcourir(void (*fonction)(T));
 
 
 
