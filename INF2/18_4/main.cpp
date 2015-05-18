@@ -44,7 +44,7 @@ int main() {
 
 	for (int i = 0; i < 8; i++){
 		p1 = p1.rotation((angle));
-		
+
 		cout << "(" << p1.abcisse() << "," << p1.ordonnee() << ")" << endl;
 		cout << "rho : " << p1.rho() << endl;
 		cout << "theta : " << p1.theta() << endl << endl;
