@@ -8,7 +8,8 @@ using namespace std;
 
 typedef string Donnee;
 
-typedef bool (*Comparateur)(const Donnee& d1, const Donnee& d2);
+template <typename T>
+using comparateur = bool (*)(const T& t1, const T& t2);
 
 struct Element{
 	Donnee Info;
@@ -17,6 +18,7 @@ struct Element{
 
 };
 
+template <typename T>
 class Liste{
 public:
 
@@ -26,25 +28,18 @@ public:
 
 	unsigned int longueur() const;
 
-	template <typename T>
 	bool existe(T element);
 
-	template <typename T>
 	bool inserer(T element, unsigned int position);
 
-	template <typename T>
-	bool inserer(T element, Comparateur comp);
+	bool inserer(T element, comparateur<T>);
 
-	template <typename T>
-	bool supprimer(Comparateur comp);
+	bool supprimer(comparateur<T>);
 
-	template <typename T>
 	bool vider();
 
-	template <typename T>
 	bool supprimer(unsigned int position);
 
-	template <typename T>
 	bool parcourir();
 
 
