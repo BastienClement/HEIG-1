@@ -13,14 +13,28 @@ bool sauver (Liste liste, string nomFichier)
     if (!fichier.is_open())
         return false;
 
-    Liste.parcourir(ecriture, &fichier);
+    liste.parcourir(ecriture, &fichier);
 
     fichier.close();
 }
 
 bool charger (Liste liste, string nomFichier)
 {
+    ifstream fichier (nomFichier, ios::in);
+    string mot;
 
+    if(!fichier.is_open())
+        return false;
+
+    fichier.seekg(0, ios::end);
+    size_t tailleFichier = (size_t)fichier.tellg();
+    fichier.seekg(0, ios::beg);
+
+    fichier.read((char*)&mot[0], tailleFichier);
+
+    liste.inserer(fichier.read(mot))
+
+    fichier.close();
 }
 
 bool chargerTrier (Liste liste, string nomFichier)
