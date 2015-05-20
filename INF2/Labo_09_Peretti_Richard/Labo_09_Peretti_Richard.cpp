@@ -7,6 +7,9 @@
 using namespace std;
 
 int main() {
-	cout << "Hello, World!" << endl;
+
+    Liste<string> liste;
+
+	charger(liste, "test.txt");
 	return 0;
 }
