@@ -4,9 +4,17 @@
 
 #include <iostream>
 #include <cstdlib>
+#include "Labo_09_Verdon_Clement_Dictionnaire.h"
 
 using namespace std;
 
 int main() {
+    Dictionnaire d;
+    d.charger("dico-RTF8.txt",true);
+    d.afficher();
+    d.sauver("dico2.txt");
+
+    cin.get();
+
 	return EXIT_SUCCESS;
 }

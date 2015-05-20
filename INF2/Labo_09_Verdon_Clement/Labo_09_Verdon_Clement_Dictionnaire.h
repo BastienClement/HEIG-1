@@ -16,7 +16,7 @@ private:
 
 public:
 	void sauver(const string& nom) const;
-	void charger(const string& nom, bool trier = false);
+	void charger(const string& nom, bool trier);
 	void afficher() const;
 	void corriger(const string& nom) const;
 };
