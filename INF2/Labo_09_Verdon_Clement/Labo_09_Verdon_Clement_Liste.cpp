@@ -116,7 +116,7 @@ void Liste<T>::parcourir(Parcoureur<T> par) const {
 
 template <typename T>
 Element<T>* Liste<T>::msort(Element<T>* element, Comparateur<T> comp) {
-	if (element == nullptr || element->suivant == nullptr) {
+	if (element == fin || element->suivant == fin) {
 		return element;
 	}
 
