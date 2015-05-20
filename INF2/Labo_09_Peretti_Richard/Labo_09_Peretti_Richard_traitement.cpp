@@ -6,7 +6,7 @@ void ecriture (ofstream fichier, string mot)
     fichier.write((char*)&mot[0], contenu.size());
 }
 
-bool sauver (Liste liste, string nomFichier)
+bool sauver (Liste<string> liste, string nomFichier)
 {
     ofstream fichier(nomFichier, ios::out);
 
@@ -18,7 +18,7 @@ bool sauver (Liste liste, string nomFichier)
     fichier.close();
 }
 
-bool charger (Liste liste, string nomFichier)
+bool charger (Liste<string> liste, string nomFichier)
 {
     ifstream fichier (nomFichier, ios::in);
     string mot;
@@ -37,15 +37,15 @@ bool charger (Liste liste, string nomFichier)
     fichier.close();
 }
 
-bool chargerTrier (Liste liste, string nomFichier)
+bool chargerTrier (Liste<string> liste, string nomFichier)
+
+void afficher (Liste<string> liste)
 {
 
 }
-void afficher (Liste liste)
+
+void corriger (Liste<string> liste, string nomFichier)
 {
 
 }
-void corriger (Liste liste, string nomFichier)
-{
 
-}

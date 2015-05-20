@@ -5,10 +5,11 @@
 #include <string>
 #include "Labo_09_Peretti_Richard_liste.h"
 
-bool sauver (Liste liste, std::string nomFichier);
-bool charger (Liste liste, std::string nomFichier);
-bool chargerTrier (Liste liste, std::string nomFichier);
-void afficher (Liste liste);
-void corriger (Liste liste, std::string nomFichier);
+void ecriture (ofstream fichier, string mot)
+bool sauver (Liste<std::string> liste, std::string nomFichier);
+bool charger (Liste<std::string> liste, std::string nomFichier);
+bool chargerTrier (Liste<std::string> liste, std::string nomFichier);
+void afficher (Liste<std::string> liste);
+void corriger (Liste<std::string> liste, std::string nomFichier);
 
 #endif // LABO_09_PERETTI_RICHARD_TRAITEMENT_H_INCLUDED
