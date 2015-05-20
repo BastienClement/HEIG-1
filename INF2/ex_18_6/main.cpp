@@ -5,7 +5,6 @@ using namespace std;
 class Chaine {
 private:
 	size_t longueur;
-	size_t taille_buffer;
 	char* buffer;
 
 	void ajuster_buffer();
@@ -22,7 +21,6 @@ public:
 };
 
 void Chaine::copier(const char* chaine, size_t taille) {
-	taille_buffer = 0;
 	longueur = taille;
 	ajuster_buffer();
 
@@ -47,14 +45,12 @@ Chaine::~Chaine() {
 }
 
 void Chaine::ajuster_buffer() {
-	if (taille_buffer < longueur) {
-		char* new_buffer = new char[longueur];
-		if (buffer != nullptr) {
-			memcpy(new_buffer, buffer, longueur);
-			delete[] buffer;
-		}
-		buffer = new_buffer;
+	char* new_buffer = new char[longueur];
+	if (buffer != nullptr) {
+		memcpy(new_buffer, buffer, longueur);
+		delete[] buffer;
 	}
+	buffer = new_buffer;
 }
 
 Chaine& Chaine::operator=(const Chaine& chaine) {
