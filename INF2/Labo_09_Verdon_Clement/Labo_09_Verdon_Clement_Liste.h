@@ -29,9 +29,13 @@ private:
 	Element<T>* debut;
 	Element<T>* fin;
 
-	bool inserer(T valeur, Element<T>* apres = nullptr);
+	void inserer(T valeur, Element<T>* apres);
 	void supprimer(Element<T>* element);
 	void swap(Element<T>* a, Element<T>* b);
+
+	Element<T>* msort(Element<T>* liste, Comparateur<T> comp);
+	Element<T>* msort_milieu(Element<T>* liste);
+	Element<T>* msort_fusion(Element<T>* a, Element<T>* b, Comparateur<T> comp);
 
 public:
 	Liste();
@@ -53,4 +57,5 @@ public:
 	void trier(Comparateur<T> comp);
 };
 
+#include "Labo_09_Verdon_Clement_Liste.cpp"
 #endif

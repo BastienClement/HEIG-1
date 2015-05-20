@@ -45,7 +45,7 @@ void Liste<T>::inserer(T valeur) {
 }
 
 template <typename T>
-bool Liste<T>::inserer(T valeur, Element<T>* apres) {
+void Liste<T>::inserer(T valeur, Element<T>* apres) {
 	Element<T>* element = new Element<T>;
 	*element = { apres, apres->suivant, valeur };
 	apres->suivant->precedent = element;
@@ -115,8 +115,63 @@ void Liste<T>::parcourir(Parcoureur<T> par) const {
 }
 
 template <typename T>
+Element<T>* Liste<T>::msort(Element<T>* element, Comparateur<T> comp) {
+	if (element == nullptr || element->suivant == nullptr) {
+		return element;
+	}
+
+	Element<T>* milieu = msort_milieu(element);
+	Element<T>* moitie = milieu->suivant;
+	milieu->suivant = fin;
+
+	return msort_fusion(msort(element, comp), msort(moitie, comp), comp);
+}
+
+template <typename T>
+Element<T>* Liste<T>::msort_milieu(Element<T>* element) {
+	if (element == fin) {
+		return element;
+	}
+
+	Element<T> *lent, *rapide;
+	lent = rapide = element;
+
+	while (rapide->suivant != fin && rapide->suivant->suivant != fin) {
+		lent = lent->suivant;
+		rapide = rapide->suivant->suivant;
+	}
+
+	return lent;
+}
+
+template <typename T>
+Element<T>* Liste<T>::msort_fusion(Element<T>* a, Element<T>* b, Comparateur<T> comp) {
+	Element<T>* cur = debut;
+
+	while (a != fin && b != fin) {
+		if (comp(a->donnee, b->donnee)) {
+			cur->suivant = a;
+			a = a->suivant;
+		} else {
+			cur->suivant = b;
+			b = b->suivant;
+		}
+		cur = cur->suivant;
+	}
+
+	cur->suivant = (a == fin) ? b : a;
+
+	while (cur->suivant != fin) {
+		cur = cur->suivant;
+	};
+
+	fin->precedent = cur;
+	return debut->suivant;
+}
+
+template <typename T>
 void Liste<T>::trier(Comparateur<T> comp) {
-	// TODO
+	msort(debut->suivant, comp);
 }
 
 template <typename T>
