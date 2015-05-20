@@ -15,13 +15,13 @@ struct ErreurListe {
 };
 
 template <typename T>
-using Comparateur = bool (*)(const T&, const T&);
+using Comparateur = std::function<bool(const T&, const T&)>;
 
 template <typename T>
-using Identifieur = bool (*)(const T&);
+using Identifieur = std::function<bool(const T&)>;
 
 template <typename T>
-using Parcoureur = std::function<void(T)>;
+using Parcoureur = std::function<void(const T&)>;
 
 template <typename T>
 class Liste {
