@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
+
 using namespace std;
 
 class Chaine {
@@ -7,7 +9,6 @@ private:
 	size_t longueur;
 	char* buffer;
 
-	void ajuster_buffer();
 	void copier(const char* chaine, size_t taille);
 
 public:
@@ -21,8 +22,10 @@ public:
 };
 
 void Chaine::copier(const char* chaine, size_t taille) {
+	char* new_buffer = new char[taille];
+	delete[] buffer;
+	buffer = new_buffer;
 	longueur = taille;
-	ajuster_buffer();
 
 	if (longueur > 0)
 		memcpy(buffer, chaine, longueur);
@@ -42,15 +45,6 @@ Chaine::Chaine(const Chaine& chaine) {
 
 Chaine::~Chaine() {
 	delete buffer;
-}
-
-void Chaine::ajuster_buffer() {
-	char* new_buffer = new char[longueur];
-	if (buffer != nullptr) {
-		memcpy(new_buffer, buffer, longueur);
-		delete[] buffer;
-	}
-	buffer = new_buffer;
 }
 
 Chaine& Chaine::operator=(const Chaine& chaine) {

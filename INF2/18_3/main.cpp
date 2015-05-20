@@ -8,7 +8,7 @@ public:
 	void deplacer(float dx, float dy);
 	float abcisse() const;
 	float ordonnee()const;
-	Point operator + (const Point& p);
+	Point operator + (const Point& p) const;
 private:
 	float x;
 	float y;
@@ -36,6 +36,6 @@ int main() {
 	cout << "(" << p3.abcisse() << "," << p3.ordonnee() << ")";
 	return 0;
 }
-Point Point::operator+(const Point& p) {
+Point Point::operator+(const Point& p) const{
 	return Point(x + p.x, y + p.y);
 }
