@@ -58,13 +58,13 @@ L'objectif de ce laboratoire est de configurer les routes statiques sur tous les
 
 \subsection{Question 1: Effectuez des pings depuis les machines Linux. Quelles adresses pouvez-vous pinguer ? Pourquoi ces adresses et pas les autres ?}
 
-Il est possible de pinguer la machine locale et le routeur sur son réseau (par exemple \texttt{10.0.0.2} et \texttt{10.0.0.1}). Ces machines sont directement connectées et peuvent communiquer sans aucune opération de routage.
+Il est possible de pinguer la machine locale et le routeur sur son réseau (par exemple \texttt{10.0.0.2} et \texttt{10.0.0.1}). Ces machines sont directement connectées et peuvent communiquer sans aucune opération de routage en utilisant une remise directe.
 
-Le reste des machines sont derrière notre routeur qui n'est pas encore configuré et ne sont donc pas accessibles malgré une configuration parfaitement correcte de la machine.
+Le reste des machines ne sont pas sur le même réseau que notre machine et nécessitent donc une remise indirecte et l'intervention des routeurs qui ne sont pas encore configurés.
 
 \subsection{Question 2: Pour chacun des routeurs, remplissez un tableau pour résumer les routes configurées}
 
-Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à configurer puisqu'il ne sont reliés qu'à un seul autre routeur. Par conséquent il n'est pas nécessaire de configurer de table de routage, mais simplement d'utiliser ces autres routeurs comme route par défaut.
+Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à configurer puisqu'il ne sont reliés qu'à un seul autre routeur. Par conséquent il n'est pas nécessaire de configurer chaque destinations dans la table de routage, mais simplement d'utiliser ces routeurs comme route par défaut.
 
 \vspace{0.5cm}
 
@@ -92,7 +92,7 @@ Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à
 
 \vspace{0.5cm}
 
-À l'inverse, les routeurs \textit{Swisscom\_R1}, \textit{Switch\_R1} et \textit{Level3\_R1}.
+À l'inverse, les routeurs \textit{Swisscom\_R1}, \textit{Switch\_R1} et \textit{Level3\_R1} sont connectés à de multiples réseaux. Il est donc nécessaire de distinguer les destinations et d'indiquer clairement dans la table de routage quel routeur voisin utiliser pour chacune d'elles.
 
 \begin{tabular}{|ll|}
 	\hline
@@ -124,6 +124,8 @@ Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à
 	\hline
 \end{tabular}
 
+\vspace{0.3cm}
+
 \begin{tabular}{|ll|}
 	\hline
 	\multicolumn{2}{|c|}{\textbf{Routeur \textit{Level3\_R1}}} \\
@@ -138,6 +140,10 @@ Les routeurs \textit{HEIG\_R1Nat} et \textit{Google\_R1} sont les plus simple à
 	\texttt{193.222.1.0/24} & \texttt{213.2.1.2} \\
 	\hline
 \end{tabular}
+
+\vspace{0.3cm}
+
+Nous pouvons noter que le réseau \texttt{10.0.0.0/8} n'est jamais indiqué dans les tables de routage. En effet le routeur \textit{HEIG\_R1Nat} effectue une traduction d'adresse NAT. Vu de l'extérieur, les machines de se réseau partagent alors l'adresse publique du routeur: \texttt{193.134.1.2} qui est elle configurée dans les tables de routage.
 
 \section{Auto-évaluation}
 
