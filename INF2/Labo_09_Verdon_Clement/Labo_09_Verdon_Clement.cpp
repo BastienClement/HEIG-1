@@ -10,9 +10,9 @@ using namespace std;
 
 int main() {
     Dictionnaire d;
-    d.charger("dico-RTF8.txt",true);
-    d.afficher();
-    d.sauver("dico2.txt");
+    d.charger("dico-RTF8.txt",false);
+    d.corriger("test.txt");
+
 
     cin.get();
 

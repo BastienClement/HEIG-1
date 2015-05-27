@@ -184,3 +184,10 @@ void Liste<T>::swap(Element<T>* a, Element<T>* b) {
 	std::swap(a->precedent->suivant, b->precedent->suivant);
 	std::swap(a->suivant->precedent, b->suivant->precedent);
 }
+
+template <typename T>
+size_t Liste<T>::longueur() const{
+	size_t longueur = 0;
+	parcourir([&](T ele){longueur++;});
+	return longueur;
+}

@@ -55,6 +55,8 @@ public:
 	void vider();
 	void parcourir(Parcoureur<T> par) const;
 	void trier(Comparateur<T> comp);
+
+	size_t longueur() const;
 };
 
 #include "Labo_09_Verdon_Clement_Liste.cpp"
