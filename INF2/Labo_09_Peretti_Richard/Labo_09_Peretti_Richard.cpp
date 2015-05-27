@@ -10,6 +10,6 @@ int main() {
 
     Liste<string> liste;
 
-	charger(liste, "test.txt");
+	chargerTrier(liste, "test.txt");
 	return 0;
 }

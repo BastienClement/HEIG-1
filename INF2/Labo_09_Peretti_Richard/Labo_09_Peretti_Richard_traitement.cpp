@@ -49,16 +49,34 @@ bool chargerTrier (Liste<string> liste, string nomFichier)
         //liste.inserer(mot, i);
         cout << mot << endl;
 
+    //liste.trier("<");
+
     fichier.close();
 }
 
 void afficher (Liste<string> liste)
 {
-
+//\    liste.parcourir(afficherMot);
 }
 
-void corriger (Liste<string> liste, string nomFichier)
+void afficherMot (string mot)
+{
+    cout << mot << endl;
+}
+
+int corriger (Liste<string> liste, string nomFichier)
+{
+    fstream fichier(nomFichier);
+
+     if(!fichier.is_open())
+        return false;
+
+//    liste.parcourir(corrigerMot, motFichier)
+
+    fichier.close();
+}
+
+void corrigerMot (string motListe, string motFichier)
 {
 
 }
-
