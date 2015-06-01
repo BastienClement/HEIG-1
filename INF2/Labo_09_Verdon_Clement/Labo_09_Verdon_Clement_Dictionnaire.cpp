@@ -1,5 +1,5 @@
 //
-// Created by Bastien ClÃ©ment on 18.05.15.
+// Created by Bastien Clément on 18.05.15.
 //
 
 #include "Labo_09_Verdon_Clement_Dictionnaire.h"
@@ -29,7 +29,7 @@ vector<string> Dictionnaire::chercherCorrection(const string& mot){
                         tabMot.push_back(motListe);
                        });
 
-    tabMot.push_back(mot);
+    tabMot.push_back(mot + " [MOT ORIGINAL]");
 
     motApres.parcourir([&](string motListe){
                         tabMot.push_back(motListe);
@@ -59,7 +59,9 @@ void Dictionnaire::charger(const string& nom, bool trier) {
 		}
 
 		if(trier){
-            this->mots.trier([](const string& mot,const string& mot2){return mot.size() < mot2.size();});
+            this->mots.trier([](const string& mot1,const string& mot2){
+                        return (mot1.compare(mot2) < 0);
+                     });
 		}
 	}
 
@@ -78,7 +80,6 @@ void Dictionnaire::corriger(const string& nom) {
     this->mots.trier([](const string& mot1,const string& mot2){
                         return (mot1.compare(mot2) < 0);
                      });
-
 
 	if (fichier.is_open()) {
 		while (fichier >> mot) {
