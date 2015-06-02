@@ -28,7 +28,7 @@
 \linespread{1.1}
 \renewcommand{\arraystretch}{1.3}
 
-\setlength\parindent{0pt}
+%\setlength\parindent{0pt}
 \setlength{\unitlength}{1cm}
 \setlength{\droptitle}{-1.6cm}
 
@@ -36,8 +36,8 @@
 \fancyhf{}
 \cfoot{\thepage}
 
-\def \doccourse { INF2-B }
-\def \doctitle {Git / GitHub}
+\def \doccourse { INF2-B -- Présentation }
+\def \doctitle {Gestion de versions avec Git}
 \author{Bastien Clément \and Christophe Peretti}
 
 %\renewcommand{\thesection}{Objectif \arabic{section} :}
@@ -50,7 +50,40 @@
 \begin{document}
 
 \maketitle
-\vspace{1em}
+\vspace{3em}
 
+\tableofcontents
+
+\section{Introduction}
+
+Avant de s'attaquer à \textit{Git} en lui-même, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version. De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
+
+Dans son modèle le plus simple, un logiciel de gestion de version est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps. Par la suite, il est possible de naviguer dans cet historique pour consulter ou récpérer d'anciennes versions d'un fichier particulier.
+
+Dans notre cas, nous l'utiliserons typiquement pour conserver une historique du code source de nos programmes.
+
+\subsection{Gestion de version locale}
+
+Une façon très simple de mettre en place un tel système de façon locale est d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie. Il est alors possible de retourner dans une copie particulière pour avoir accès à une verson antérieur d'un fichier.
+
+En pratique, des systèmes plus ou moins similaires sont directement disponibles au niveau des système d'exploitation avec par exemple \textit{Time Machine} sur \textit{OS X} et \textit{File History} sur \textit{Windows}.
+
+Ce genre de logiciels est prévu pour mitiger les risques de pertes ou d'endomagement involontaire des fichiers. Les sauvegardes sont effectuées automatiquement à intervalle régulière et ne correspondent pas aux étapes de développement du logiciel. Ils fournissent généralement un premier niveau de sécurité, mais ne propose aucune fonctionnalité spécifique au développement logiciel.
+
+\subsection{Gestion de version centralisée}
+
+
+
+\subsection{Gestion de version distribuée}
+
+
+
+Puisqu'un tel logiciel enregistre également des informations sur la date, l'heure ainsi que l'auteur des changements,il est facilement possible de suivre l'évolution d'un projet au cours du temps et de retrouver l'origine de bug introduit dans le logiciel.
+
+\section{Git}
+
+\section{Branches}
+
+\section{GitHub}
 
 \end{document}
