@@ -47,22 +47,30 @@
 \lhead{\doccourse \\ \doctitle }
 \title{{\normalsize \doccourse} \\ \doctitle }
 
+\setlength{\droptitle}{3cm}
+
 \begin{document}
 
 \maketitle
-\vspace{3em}
+
+\vspace{4cm}
+\begin{center}
+\includegraphics[width=5cm]{git_logo}
+\end{center}
+
+\pagebreak
 
 \tableofcontents
+
+\pagebreak
 
 \section{Introduction à la gestion de versions}
 
 \textit{Git} est un logiciel de gestion de versions libre et open-source.
 
-Avant de s'attaquer à Git en lui-même, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version. De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
+Avant de s'y attaquer directement, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version. De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
-Dans son modèle le plus simple, un logiciel de gestion de version est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps. Par la suite, il est possible de naviguer dans cet historique pour consulter ou récpérer d'anciennes versions d'un fichier particulier.
-
-Dans notre cas, nous l'utiliserons typiquement pour conserver un historique du code source de nos programmes.
+Dans son modèle le plus simple, un logiciel de gestion de version est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps. Par la suite, il est possible de naviguer dans cet historique pour consulter ou récpérer d'anciennes versions d'un fichier spécifique. Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
 \subsection{Gestion de version locale}
 
@@ -100,16 +108,48 @@ Ainsi, il suffit d'utiliser un simple clône sur un serveur pour reproduire le m
 
 \subsection{Histoire}
 
-Les origines de Git sont étroitement liées à l'histoire de l'organistaion du développement du noyau Linux, tout deux initialement développés par Linus Torvalds.
+Les origines de Git sont étroitement liées à l'organisation du développement du noyau Linux, développés tout deux par Linus Torvalds.
 
 Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
 
 Face aux difficultés engendrées par la croissance du projet, le choix d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est fait. L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser avec quelques limitations le programme gratuitement pour le développement de logiciels libre.
 
-En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résilitation de la licence particlière pour les logiciels libres. Bien que BitMover souhaite continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
+En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résilitation de la licence spécifique pour les logiciels libres.
 
-Le projet Git est alors lancé, avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
+Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL. L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
+
+\subsection{Caractéristiques}
+
+\subsection{Installation}
+
+\subsection{Création d'un dépôt}
+
+\subsection{Trois états d'un fichier}
+
+\subsection{Dépôts distant}
+
+\section{Organisation du développement avec branches}
+
+\subsection{Structure d'un \textit{commit}}
+
+\subsection{Branches}
+
+\subsection{Fusion}
+
+\subsection{Conflits}
 
 \section{GitHub}
+
+\subsection{Introduction}
+
+\subsection{Hébergement de dépôt}
+
+\subsection{Collaboration et Pull Requests}
+
+\subsection{Services annexes}
+
+\subsection{Offre étudiants}
+
+\section{Conclusion}
 
 \end{document}
