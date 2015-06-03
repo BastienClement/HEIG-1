@@ -8,7 +8,7 @@
 typedef std::string Donnee;
 
 template <typename T>
-using comparateur = bool (*)(const T& t1, const T& t2);
+using comparateur = bool (*)(const T&, const T&);
 
 struct Element{
 	Donnee Info;
@@ -25,29 +25,30 @@ public:
 
 	bool estVide() const;
 
-	unsigned int longueur() const;
+	size_t longueur() const;
 
-	bool existe(T element);
+	bool existe(const T& element);
 
-	bool inserer(T element, unsigned int position);
+	void inserer(const T& element, const unsigned int position);
 
-	bool inserer(T element, comparateur<T>);
+	void inserer(const T& element, comparateur<T>);
 
-	bool supprimer(comparateur<T>);
+	void supprimer(const T& element, comparateur<T>);
 
-	bool vider();
+	void vider();
 
-	bool supprimer(unsigned int position);
+	void supprimer(size_t position);
 
-	bool parcourir(void (*fonction)(T));
+	void parcourir(void (*fonction)(T));
 
+	template <typename U>
+	void parcourir(void (*fonction)(T, U), U);
 
-
-
+	void trier(comparateur<T>);
 
 private:
-	Element* tete;
-
+	Element* tete = new (std::nothrow) Element;
+	Element* queue = new (std::nothrow) Element;
 };
 
 #endif //LABO_09_PERETTI_RICHARD_LABO_09_PERETTI_RICHARD_LISTE_H
