@@ -19,6 +19,7 @@
 %\usepackage{showframe} % layout debug
 
 \usepackage{float}
+%\floatstyle{boxed}
 \restylefloat{figure}
 
 \topmargin -10mm
@@ -70,19 +71,18 @@
 
 \textit{Git} est un logiciel de gestion de versions libre et open-source.
 Avant de s'y attaquer directement, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version.
-De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
+De quoi s'agit-il et pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
-Dans son modèle le plus simple, un logiciel de gestion de version est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
+Dans son modèle le plus simple, un logiciel de gestion de versions est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
 Par la suite, il est possible de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier spécifique.
 Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
 \subsection{Gestion de version locale}
 
-Une façon très simple de mettre en place un tel système de façon locale est d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie.
+Une façon de mettre en place un système de gestion de versions très simpliste serait d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie.
 Il est alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
-
-En pratique, des systèmes plus ou moins similaires sont directement disponibles au niveau des système d'exploitation avec par exemple \textit{Time Machine} sur \textit{OS X} et \textit{File History} sur \textit{Windows}.
-Les sauvegardes sont cependant effectuées automatiquement à intervalle régulière mais ne correspondent pas aux étapes de développement du logiciel.
+Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur \textit{OS X} et \textit{File History} sur \textit{Windows}.
+Les sauvegardes sont cependant effectuées automatiquement à intervalles régulières et ne correspondent pas aux étapes du développement du logiciel.
 
 Les logiciels spécialisés (tel que \textit{rcs}, développé depuis 1982) permettent à l'inverse d'effectuer des sauvegardes à des moments particuliers, typiquement lorsqu'une fonctionnalité du programme est terminée et prête à être sauvegardée.
 Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{historique}, constituant les premières facettes de la gestion de versions.
@@ -98,6 +98,13 @@ Comment garder une copie cohérente du projet lorsqu'un fichier est modifiés pa
 
 Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregistrés.
 C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \textit{svn}).
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=7cm]{img_cvcs} \\
+\caption{\small \textit{Workflow} typique d'un système de gestion de versions centralisé}
+\end{center}
+\end{figure}
 
 Lorsqu'un développeur souhaite modifier le logiciel, il commence par en effectuer une copie sur sa machine (opération \textit{checkout}), modifie et enregistre son travail localement (opération \textit{commit}), puis il termine en envoyant ses modifications sur le dépôt central (opération \textit{update}) pour qu'elles soient intégrées définitivement au logiciel.
 Il récupère au passage les modifications des autres développeurs et est informés des situations de conflits, c'est à dire deux modifications différentes sur la même partie de code, qu'il doit résoudre avant de pouvoir continuer.
@@ -119,6 +126,22 @@ Il n'y a ainsi plus de dépôt central à proprement parler et chaque développe
 Bien entendu, l'utilisation d'un dépôt centralisé simplifie grandement la collaboration et permet d'avoir une version de référence accessible à tous en permanence.
 Git supporte la notion de dépôt distant (\textit{remote}) depuis lesquels il peut récupérer ou envoyer des modifications.
 
+\begin{figure}[H]
+\begin{center}
+\vspace{1em}
+\includegraphics[width=7.5cm]{img_dvcs} \\
+\caption{\small Exemple d'organisation à plusieurs niveaux}
+\end{center}
+\end{figure}
+
+Dans l'exemple ci-dessus, les développeurs clônent le dépôt de référence et effectue leurs modifications.
+Ils transmettent ensuite ces modifications au responsable du projet qui se chargera de les valider et de les intégrer au code de référence.
+Par la suite, lorsque une nouvelle version du projet est prête à être distribuée, le dépôt est copié dans un dépôt particulier sur un serveur de déploiement.
+Cette opération déclenchera par exemple la compilation et distribution automatique du logiciel mis à jour.
+On peut noter que dans cette configuration, un simple développeur ne peut jamais modifier la version de référence sans passer par le responsable du projet.
+
+Puisqu'il n'y a plus nécessairement de dépôt central unique, il est possible d'organiser le développement de façon très flexible en fonction de ce qui est le plus adapté à chaque situation.
+
 %Ainsi, il suffit d'utiliser un simple clône sur un serveur pour reproduire le modèle de collaboration des logiciels centralisés sans les problèmes de disponibilités puisqu'il est toujours possible de transmettre ses changements par d'autres canaux.
 %En pratique, c'est le modèle d'utilisation de \textit{Git} le plus courant aujourd'hui.
 
@@ -129,12 +152,10 @@ Git supporte la notion de dépôt distant (\textit{remote}) depuis lesquels il p
 Les origines de Git sont étroitement liées à l'organisation du développement du noyau Linux, développés tout deux par Linus Torvalds.
 
 Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
-
-Face aux difficultés engendrées par la croissance du projet, le choix d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est fait.
+Face aux difficultés engendrées par la croissance du projet, la décision d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est prise.
 L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser avec quelques limitations le programme gratuitement pour le développement de logiciels libre.
 
 En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résiliation de la licence spécifique pour les logiciels libres.
-
 Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
 L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
 
@@ -168,14 +189,14 @@ La plateforme est aujourd'hui un site incontournable dans le monde du logiciel o
 
 \subsection{Modèle \textit{Fork / Pull Requests}}
 
-Principalement destinée aux développeurs, elle favorise un développement collaboratif et spontané sur la base du modèle {\it Fork / Pull Request}.
 
 \subsection{Offre pour les étudiants}
 
-L'hébergement de dépôt sur GitHub est entièrement gratuit pour les projets open-source.
-En revanche, pour pouvoir créer des dépôts privés dont l'accès est limité aux personnes autorisées, il est nécessaire souscrire à un abonnement dont le prix dépend du nombre maximal de dépôts privés souhaité.
+L'hébergement de dépôt sur GitHub est entièrement gratuit pour les projets open-source. En revanche, il est nécessaire souscrire à un abonnement pour pouvoir réer des dépôts privés dont l'accès est limité aux personnes autorisées.
 
-Cependant, GitHub propose aux personnes possédant une adresse e-mail d'une université reconnue (dont la HEIG-VD fait partie!) un plan \textit{Micro} gratuit pendant toute la durée des études. Soit 5 dépôts privés avec un nombre illimités de collaborateur par dépôt.
+Heusement, GitHub propose aux personnes possédant une adresse e-mail provenant d'une université reconnue (tel que la HEIG-VD!) un plan \textit{Micro} gratuit pendant toute la durée des études, soit 5 dépôts privés avec un nombre illimités de collaborateurs par dépôt.
+
+L'inscription se fait à l'adresse {\tt https://education.github.com/} et est accompagnée d'autres offres pour former le {\it Student Developer Pack}.
 
 \subsection{Services annexes}
 
