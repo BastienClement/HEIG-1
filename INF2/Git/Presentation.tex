@@ -56,7 +56,9 @@
 
 \section{Introduction à la gestion de versions}
 
-Avant de s'attaquer à \textit{Git} en lui-même, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version. De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
+\textit{Git} est un logiciel de gestion de versions libre et open-source.
+
+Avant de s'attaquer à Git en lui-même, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version. De quoi s'agit-il est pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
 Dans son modèle le plus simple, un logiciel de gestion de version est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps. Par la suite, il est possible de naviguer dans cet historique pour consulter ou récpérer d'anciennes versions d'un fichier particulier.
 
@@ -76,7 +78,7 @@ Une autre facette de la gestion de versions est la \textit{collaboration}.
 
 Le développement de logiciels, pour tout projet un minimum sérieux, implique généralement la collaboration de plusieurs développeurs. Même dans le cadre de nos laboratoires encore relativement simples, nous avons pu constater les difficultés liées au développement à plusieurs. Comment rester à jour sur le travail effectué par notre binôme ? Comment garder une copie cohérente du projet lorsqu'un fichier est modifiés par plus d'une personne au même moment ?
 
-Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregsitrés. C'est le cas par exemple du logiciel \textit{Subversion} (souvant abrégé \textit{SVN}).
+Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregsitrés. C'est le cas par exemple du logiciel \textit{Subversion} (souvant abrégé \textit{svn}).
 
 Lorsqu'un développeur souhaite modifier le logiciel, il commence par en effectuer une copie sur sa machine (opération \textit{checkout}), modifie et enregsitre son travail localement (opération \textit{commit}), puis il termine en envoyant ses modifications sur le dépôt central (opération \textit{update}) pour qu'elles soient intégrées définitivement au logiciel. Il récupère au passage les modifications des autres développeurs et est informés des situations de conflits, c'est à dire deux modifictions différentes sur la même partie de code, qu'il doit résoudre avant de pouvoir continuer.
 
@@ -84,21 +86,29 @@ En revanche, dans cette configuration, le dépôt central constitue un \textit{s
 
 \subsection{Gestion de version distribuée}
 
-À l'inverse, dans un système décentralisé tel que \textit{Git} (mais aussi \textit{Mercurial} ou \textit{Bazaar}), lorsqu'une copie locale du projet est effectuée, ce n'est pas uniquement les dernières versions des fichiers qui sont récupérés, mais l'ensemble de l'historique du dépôt. On parle alors de \textit{clônage}.
+À l'inverse, dans un système décentralisé tel que Git (mais aussi \textit{Mercurial} ou \textit{Bazaar}), lorsqu'une copie locale du projet est effectuée, ce n'est pas uniquement les dernières versions des fichiers qui sont récupérés, mais l'ensemble de l'historique du dépôt. On parle alors de \textit{clônage}.
 
 Il n'y a ainsi plus de dépôt central à proprement parler et chaque développeur possède naturellement un copie de sauvegarde de l'historique du projet.
 
 En l'absence de dépôt central, l'utilisateur est libre de choisir la méthode d'échange des modifications avec ses collaborateurs qui se résume à transmettre un fichier contenant l'ensembles des modifications apportées entre deux versions du projet. Les autres développeurs pourront alors fusionner ces changements dans leur copie locale.
 
-Bien entendu, l'utilisation d'un dépôt centralisé simplifie grandement la collaboration et permet d'avoir une version de référence accessible à tous en permanance. \textit{Git} supporte la notion de dépôt distant (\textit{remote}) depuis lesquels il peut récupérer ou envoyer des modifictions.
+Bien entendu, l'utilisation d'un dépôt centralisé simplifie grandement la collaboration et permet d'avoir une version de référence accessible à tous en permanance. Git supporte la notion de dépôt distant (\textit{remote}) depuis lesquels il peut récupérer ou envoyer des modifictions.
 
 Ainsi, il suffit d'utiliser un simple clône sur un serveur pour reproduire le modèle de collaboration des logiciels centralisés sans les problèmes de disponibilités puisqu'il est toujours possible de transmettre ses changements par d'autres cannaux. En pratique, c'est le modèle d'utilisation de \textit{Git} le plus courant aujourd'hui.
 
 \section{Git}
 
-\subsection{Origine}
+\subsection{Histoire}
 
-\section{Branches}
+Les origines de Git sont étroitement liées à l'histoire de l'organistaion du développement du noyau Linux, tout deux initialement développés par Linus Torvalds.
+
+Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
+
+Face aux difficultés engendrées par la croissance du projet, le choix d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est fait. L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser avec quelques limitations le programme gratuitement pour le développement de logiciels libre.
+
+En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résilitation de la licence particlière pour les logiciels libres. Bien que BitMover souhaite continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
+
+Le projet Git est alors lancé, avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
 
 \section{GitHub}
 
