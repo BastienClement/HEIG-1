@@ -48,7 +48,7 @@ bool Liste<T>::existe(const T& element) {
 
 	Element* ptrCourant = tete->suivant;
 	while (ptrCourant != queue){
-		if (ptrCourant->Info == element)
+		if (ptrCourant->info == element)
 			return true;
 		ptrCourant = ptrCourant->suivant;
 	}
@@ -72,6 +72,8 @@ void Liste<T>::inserer(const T& element, const size_t position) {
 
 template <typename T>
 void Liste<T>::inserer(const T& element, comparateur<T> comparateur1) {
+
+
 }
 
 template <typename T>
@@ -83,7 +85,7 @@ void Liste<T>::supprimer(const T& element, comparateur<T> comp) {
 
 	while (ptrCourant != queue){
 		ptrTemp = ptrCourant->suivant;
-		if (comp(ptrCourant->Info, element)){
+		if (comp(ptrCourant->info, element)){
 			ptrCourant->precedent->suivant = ptrCourant->suivant;
 			ptrCourant->suivant->precedent = ptrCourant->precedent;
 			delete ptrCourant;
@@ -99,11 +101,32 @@ void Liste<T>::vider() {
 
 template <typename T>
 void Liste<T>::supprimer(size_t position) {
+
 }
 
 template <typename T>
 void Liste<T>::parcourir(void (* fonction)(T)) {
+    if (estVide()) return;
 
+    Element* ptrCourant = tete->suivant;
+
+	while (ptrCourant != queue){
+		fonction(ptrCourant->info);
+		ptrCourant = ptrCourant->suivant;
+	}
+}
+
+template <typename T>
+template <typename U>
+void Liste<T>::parcourir(void (*fonction)(T, U), U a){
+    if (estVide()) return;
+
+    Element* ptrCourant = tete->suivant;
+
+	while (ptrCourant != queue){
+		fonction(ptrCourant->info, a);
+		ptrCourant = ptrCourant->suivant;
+	}
 }
 
 template <typename T>

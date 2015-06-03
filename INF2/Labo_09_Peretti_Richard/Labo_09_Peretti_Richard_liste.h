@@ -11,7 +11,7 @@ template <typename T>
 using comparateur = bool (*)(const T&, const T&);
 
 struct Element{
-	Donnee Info;
+	Donnee info;
 	Element* precedent;
 	Element* suivant;
 

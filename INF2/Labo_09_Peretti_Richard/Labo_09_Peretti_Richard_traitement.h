@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Labo_09_Peretti_Richard_liste.h"
 
 void ecriture (std::ofstream fichier, std::string mot);

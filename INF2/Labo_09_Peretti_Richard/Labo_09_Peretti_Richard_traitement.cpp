@@ -56,7 +56,7 @@ bool chargerTrier (Liste<string> liste, string nomFichier)
 
 void afficher (Liste<string> liste)
 {
-//\    liste.parcourir(afficherMot);
+    //liste.parcourir(afficherMot);
 }
 
 void afficherMot (string mot)
@@ -67,16 +67,23 @@ void afficherMot (string mot)
 int corriger (Liste<string> liste, string nomFichier)
 {
     fstream fichier(nomFichier);
+    vector<string> motsFichier;
 
-     if(!fichier.is_open())
+    if(!fichier.is_open())
         return false;
 
-//    liste.parcourir(corrigerMot, motFichier)
+//    liste.parcourir(corrigerMot, motsFichier);
 
     fichier.close();
 }
 
-void corrigerMot (string motListe, string motFichier)
+void corrigerMot (string motListe, vector<string> motsFichier)
 {
+    for(size_t i = 0; i < motsFichier.size(); i++)
+    {
+        if(motsFichier.at(i) == motListe)
+        {
 
+        }
+    }
 }
