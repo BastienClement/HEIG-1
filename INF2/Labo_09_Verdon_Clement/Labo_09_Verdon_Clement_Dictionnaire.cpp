@@ -29,7 +29,7 @@ vector<string> Dictionnaire::chercherCorrection(const string& mot){
                         tabMot.push_back(motListe);
                        });
 
-    tabMot.push_back(mot + " [MOT ORIGINAL]");
+    tabMot.push_back(mot);
 
     motApres.parcourir([&](string motListe){
                         tabMot.push_back(motListe);
