@@ -72,7 +72,7 @@ Dans son modèle le plus simple, un logiciel de gestion de versions est chargé 
 Par la suite, il permet de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier particulier.
 Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
-\subsection{Gestion de version locale}
+\subsection{Gestion de versions locale}
 
 Une façon de mettre en place un système de gestion de versions très simpliste serait d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie.
 Il est alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
@@ -83,14 +83,14 @@ Ces sauvegardes sont cependant effectuées automatiquement à intervalles fixes 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=7.2cm]{img_lvcs} \\
-\caption{\small Exemple de gestion de versions locale simple}
+\caption{Exemple de gestion de versions locale simple}
 \end{center}
 \end{figure}
 
 Les logiciels spécialisés (tel que \textit{rcs}, développé depuis 1982) permettent à l'inverse d'effectuer des sauvegardes à des moments particuliers, typiquement lorsqu'une fonctionnalité du programme est terminée et prête à être enregistrée.
 Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{historique}, constituant les premières facettes de la gestion de versions.
 
-\subsection{Gestion de version centralisée}
+\subsection{Gestion de versions centralisée}
 
 Une autre facette de la gestion de versions est la \textit{collaboration}. 
 
@@ -104,8 +104,8 @@ C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \text
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=8cm]{img_cvcs} \\
-\caption{\small \textit{Workflow} typique d'un système de gestion de versions centralisé}
+\includegraphics[width=8cm]{img_cvcs}
+\caption{\textit{Workflow} typique d'un système de gestion de versions centralisé}
 \end{center}
 \end{figure}
 
@@ -116,7 +116,7 @@ En revanche, dans cette configuration, le dépôt central constitue un \textit{s
 S'il est inaccessible, la collaboration et l'envoi des modifications deviennent temporairement impossible.
 Si un problème plus grave survient, en l'absence de sauvegarde récente, une partie ou l'ensemble de l'historique du projet peut être définitivement perdu ou corrompu.
 
-\subsection{Gestion de version distribuée}
+\subsection{Gestion de versions distribuée}
 
 À l'inverse, dans un système décentralisé tel que Git (mais aussi \textit{Mercurial} ou \textit{Bazaar}), lorsqu'une copie locale du projet est effectuée, ce n'est pas uniquement les dernières versions des fichiers qui sont récupérées, mais l'ensemble de l'historique du dépôt.
 On parle alors de \textit{clônage}.
@@ -129,13 +129,13 @@ En utilisant un unique dépôt en ligne et accessible de tous, Git peut même re
 \begin{figure}[h]
 \begin{center}
 \vspace{1em}
-\includegraphics[width=13cm]{img_dvcs} \\
-\caption{\small Exemple d'organisation décentralisée avec un \textit{responsable d'intégration}}
+\includegraphics[width=12.5cm]{img_dvcs} \cite{progit}
+\caption{Exemple d'organisation décentralisée avec un \textit{responsable d'intégration}}
 \end{center}
 \end{figure}
 
-Dans l'exemple précédent, les développeurs clônent le dépôt de référence et effectue leurs modifications localement.
-Ils publient ensuite ces modifications dans un dépôt publiquement accessible et demande au responsable du projet de récupérer les changements pour les intégrer dans le dépôt officiel.
+Dans l'exemple donné, les développeurs clônent le dépôt de référence et effectue leurs modifications localement.
+Ils publient ensuite ces modifications dans un dépôt publiquement accessible et demande au responsable du projet de récupérer les changements pour les intégrer dans le dépôt officiel après validation.
 
 C'est le modèle encouragé par la plateforme GitHub (que nous aborderons plus tard) puisqu'il favorise une collaboration spontanée aux projets.
 Il n'y a besoin d'aucun accord ou droit d'accès particulier pour pouvoir commencer à modifier le logiciel original.
@@ -143,22 +143,83 @@ Le responsable du projet n'est impliqué qu'une fois la modification terminée e
 
 \section{Git}
 
-Cette seconde partie traitera des points plus spécifique à Git. Les origines du projet, mais aussi quelques points sur l'organisation interne des informations constituant un dépôt. 
-Ces informations sont utiles pour pouvoir aborder la notion de \textit{branches} et de \textit{tags} plus facilement.
+%Cette seconde partie traitera des points plus spécifique à Git: les origines du projet, ses principales caractéristiques mais aussi quelques points sur l'organisation interne du dépôt local.
 
 \subsection{Histoire}
 
-Les origines de Git sont étroitement liées à l'organisation du développement du noyau Linux, développés tout deux par Linus Torvalds.
+Les origines de Git sont étroitement liées au développement du noyau Linux, développés tous deux par Linus Torvalds.
 
 Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
 Face aux difficultés engendrées par la croissance du projet, la décision d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est prise.
-L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser avec quelques limitations le programme gratuitement pour le développement de logiciels libre.
+L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser gratuitement une version limitée de son logiciel pour le développement de logiciels libre.
 
-En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résiliation de la licence spécifique pour les logiciels libres.
+En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résiliation de la licence particulière pour les logiciels libres.
 Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
-L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
+L'utilisation depuis toujours controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le nouveau logiciel de gestion de versions utilisé par tous les développeurs du noyau Linux.
 
 \subsection{Caractéristiques}
+
+Destiné à l'un des plus grand projet open-source existant, Git a été conçu dès le départ avec beaucoup d'exigences sur la base de ce qui avait été appris avec l'utilisation de BitKeeper.
+
+\begin{enumerate}
+	\item {Entièrement distribué}, 
+	il n'y a aucun dépôt fondamentalement plus important.
+	
+	\item {Gestion du développement non-linéaire},
+	même avec des milliers de branches simultanées.
+	
+	\item {Capable de support de très gros projets}
+	tel que Linux tout en conservant vitesse d'exécution et optimisation de l'espace disque.
+\end{enumerate}
+
+Au fil du temps, Git a évolué en conservant ces caractéristiques faisant de lui un excellent logiciel dans son domaine.
+Il est maintenant largement utilisé en dehors du développement de Linux.
+
+\subsection{Structure du dépôt local}
+
+Le fonctionnement interne de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
+En effet, un dépôt n'est rien d'autre qu'une structure de répertoire et de fichiers associé à leur contenu.
+
+Lorsque l'utilisateur enregistre une nouvelle version de son projet (opération \textit{commit}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
+Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel.
+Conceptuellement, les fichiers sur lesquels travail actuellement l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine version du projet lors du \textit{commit}.
+
+\begin{figure}[h]
+\begin{center}
+\vspace{1em}
+\includegraphics[width=12cm]{img_snapshots} \cite{progit}
+\caption{L'historique du dépôt est une séquence de snapshots des fichiers du projet}
+\end{center}
+\end{figure}
+
+\subsection{\textit{Staging area}}
+
+En réalité, le répertoire de travail ne forme pas directement la prochaine révision du projet.
+Git possède en effet la particularité d'utiliser un état intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain \textit{commit}.
+
+Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au \textit{commit} actuel et devraient faire l'objet d'une révision séparée. Par exemple, deux modifications complètement indépendantes pourront par la suite plus facilement être individuellement annulées si elle sont enregistrée séparément dans l'historique.
+
+\subsection{États d'un fichier}
+
+
+
+\subsection{Intégrité des données}
+
+
+
+\subsection{Les trois zones contentant les fichiers}
+
+Les différentes versions des fichiers contenus dans un dépôt Git peuvent se trouver à tout moment dans trois zones différente:
+
+\begin{enumerate}
+	\item \textbf{Le répertoire de travail}, 
+	le dossier principal dans lequel travail l'utilisateur. 
+	Il contient les dernières versions des fichiers du projet ainsi que les modifications apportées mais pas encore enregistrées.
+	
+	\item \textbf{Le dépôt (répertoire {\tt .git})},
+	il contient l'ensemble des versions antérieurs des fichiers du projet sous forme compressée.
+	C'est un répertoire invisible à la racine du répertoire de travail.
+\end{enumerate}
 
 \subsection{Stockage adressé par contenu}
 
