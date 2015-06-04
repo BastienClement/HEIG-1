@@ -56,6 +56,7 @@
 \end{center}
 
 \pagebreak
+\pagenumbering{roman}
 
 \tableofcontents
 
@@ -201,12 +202,10 @@ Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes
 
 \subsection{États d'un fichier}
 
-
-
 \subsection{Intégrité des données}
 
-
-
+\iffalse
+%%%
 \subsection{Les trois zones contentant les fichiers}
 
 Les différentes versions des fichiers contenus dans un dépôt Git peuvent se trouver à tout moment dans trois zones différente:
@@ -220,31 +219,27 @@ Les différentes versions des fichiers contenus dans un dépôt Git peuvent se t
 	il contient l'ensemble des versions antérieurs des fichiers du projet sous forme compressée.
 	C'est un répertoire invisible à la racine du répertoire de travail.
 \end{enumerate}
+%%%
+\fi
 
-\subsection{Stockage adressé par contenu}
+\section{Branches}
 
-\subsection{Intégrité des données}
-
-\subsection{Les différents objets d'un dépôt}
-
-\subsection{\textit{Staging area}}
-
-\pagebreak
-\section{Branches et Tags}
-
-\subsection{Anatomie d'un \textit{commit}}
+\subsection{Pointeurs}
 
 \subsection{Divergences}
 
 \subsection{Fusion}
 
-\subsection{\textit{Rebasing}}
+\subsubsection{\textit{Fast-forward}}
+
+\subsubsection{\textit{Rebasing}}
+
+\subsubsection{\textit{Three-way merge}}
 
 \subsection{Conflits}
 
-\subsection{Tags}
+\section{Exemple d'organisation à base de branches}
 
-\pagebreak
 \section{GitHub}
 
 Il est difficile aujourd'hui de présenter Git sans mentionner rapidement le site internet GitHub.
@@ -255,22 +250,18 @@ GitHub fait partie des facteurs ayant contribué à l'adoption rapide de Git dan
 
 Destinée avant tout aux développeurs, l'interface est très simple et épurée, mettant l'accent sur le code source en tant qu'élément central du développement. Par exemple, la page principale d'un dépôt est simplement le navigateurs de fichier de ce dépôt suivi d'un fichier texte de description.
 
-\subsection{Modèle \textit{Fork / Pull Requests}}
-
 \section{Conclusion}
 
 Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de gestion de versions Git ainsi que des exemples d'organisation et d'utilisation illustrant la grande flexibilité du logiciel.
 
 \pagebreak
-\pagenumbering{roman}
+\pagenumbering{alph}
 \section{Annexes}
 
 \subsection{Téléchargement et installation de Git}
 
 Git peut être téléchargé depuis le site officiel du projet {\tt http://git-scm.com/}.
-
-Le logiciel est disponible pour tous les systèmes d'exploitation habituels.
-La version pour Windows intègre également une extensions pour l'explorateur de fichiers permettant d'accéder aux commandes de Git en utilisant les menus contextuels.
+Le logiciel est disponible pour tous les systèmes d'exploitation courants.
 
 \subsection{Offre GitHub pour les étudiants}
 
