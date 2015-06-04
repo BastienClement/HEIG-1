@@ -21,6 +21,7 @@
 \usepackage{float}
 %\floatstyle{boxed}
 \restylefloat{figure}
+\usepackage[nottoc,numbib]{tocbibind}
 
 \topmargin -10mm
 \headsep 5mm
@@ -145,7 +146,8 @@ Puisqu'il n'y a plus nécessairement de dépôt central unique, il est possible 
 %Ainsi, il suffit d'utiliser un simple clône sur un serveur pour reproduire le modèle de collaboration des logiciels centralisés sans les problèmes de disponibilités puisqu'il est toujours possible de transmettre ses changements par d'autres canaux.
 %En pratique, c'est le modèle d'utilisation de \textit{Git} le plus courant aujourd'hui.
 
-\section{Caractéristiques de Git}
+\pagebreak
+\section{Git}
 
 \subsection{Histoire}
 
@@ -159,7 +161,12 @@ En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\
 Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
 L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
 
-\subsection{Libre et Open-Source}
+\subsection{Installation}
+
+Git peut être téléchargé gratuitement depuis le site officiel du projet {\tt http://git-scm.com/}.
+
+Le logiciel est disponible sur tous les systèmes d'exploitation principaux.
+La version pour Windows intègre également une extensions pour l'explorateur de fichiers permettant d'accéder aux commandes de Git en utilisant les menus contextuels.
 
 \subsection{Branchement et fusion}
 
@@ -171,6 +178,7 @@ L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git 
 
 \subsection{\textit{Staging area}}
 
+\pagebreak
 \section{Organisation du développement avec branches}
 
 \subsection{Structure d'un \textit{commit}}
@@ -181,11 +189,12 @@ L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git 
 
 \subsection{Conflits}
 
+\pagebreak
 \section{GitHub}
 
-GitHub est un service d'hébergement et de gestion de développement de logiciels basé sur Git.
+GitHub est un site internet d'hébergement et de gestion de développement de logiciels basé sur Git.
 Il a été lancé le 10 avril 2008, soit 2 ans seulement après le projet Git lui-même et a joué un rôle important dans son adoption rapide par les développeurs.
-La plateforme est aujourd'hui un site incontournable dans le monde du logiciel open-source, utilisé même par de grands noms tel que Google ou Microsoft. 
+La plateforme est aujourd'hui un site incontournable dans le monde du logiciel open-source, utilisé même par de grands noms tel que Google et Microsoft. 
 
 \subsection{Modèle \textit{Fork / Pull Requests}}
 
@@ -198,12 +207,12 @@ Heusement, GitHub propose aux personnes possédant une adresse e-mail provenant 
 
 L'inscription se fait à l'adresse {\tt https://education.github.com/} et est accompagnée d'autres offres pour former le {\it Student Developer Pack}.
 
-\subsection{Services annexes}
-
 \section{Conclusion}
 
+-> Learning curve
+
 \pagebreak
-\pagenumbering{gobble}
+\pagenumbering{roman}
 
 \begin{thebibliography}{1}
 
