@@ -24,14 +24,14 @@
 \usepackage[nottoc,numbib]{tocbibind}
 
 \topmargin -10mm
-\headsep 5mm
+\headsep 8mm
 \headheight 10mm
 
 \linespread{1.0}
 \renewcommand{\arraystretch}{1.3}
 
 \setlength{\unitlength}{1cm}
-\setlength{\droptitle}{-1.6cm}
+\setlength{\droptitle}{5cm}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -45,14 +45,12 @@
 \lhead{\doccourse \\ \doctitle }
 \title{{\normalsize \doccourse} \\ \doctitle }
 
-\setlength{\droptitle}{3cm}
-
 \begin{document}
 \pagenumbering{gobble}
 
 \maketitle
 
-\vspace{4cm}
+\vspace{3cm}
 \begin{center}
 \includegraphics[width=5cm]{git_logo}
 \end{center}
@@ -71,17 +69,25 @@ Avant de s'y attaquer directement, il est nécessaire de commencer par une petit
 De quoi s'agit-il et pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
 Dans son modèle le plus simple, un logiciel de gestion de versions est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
-Par la suite, il est possible de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier spécifique.
+Par la suite, il permet de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier particulier.
 Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
 \subsection{Gestion de version locale}
 
 Une façon de mettre en place un système de gestion de versions très simpliste serait d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie.
 Il est alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
-Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur \textit{OS X} et \textit{File History} sur \textit{Windows}.
-Les sauvegardes sont cependant effectuées automatiquement à intervalles régulières et ne correspondent pas aux étapes du développement du logiciel.
 
-Les logiciels spécialisés (tel que \textit{rcs}, développé depuis 1982) permettent à l'inverse d'effectuer des sauvegardes à des moments particuliers, typiquement lorsqu'une fonctionnalité du programme est terminée et prête à être sauvegardée.
+Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur OS X et \textit{File History} sur Windows.
+Ces sauvegardes sont cependant effectuées automatiquement à intervalles fixes et ne correspondent pas aux étapes du développement du logiciel.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=7.2cm]{img_lvcs} \\
+\caption{\small Exemple de gestion de versions locale simple}
+\end{center}
+\end{figure}
+
+Les logiciels spécialisés (tel que \textit{rcs}, développé depuis 1982) permettent à l'inverse d'effectuer des sauvegardes à des moments particuliers, typiquement lorsqu'une fonctionnalité du programme est terminée et prête à être enregistrée.
 Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{historique}, constituant les premières facettes de la gestion de versions.
 
 \subsection{Gestion de version centralisée}
@@ -96,9 +102,9 @@ Comment garder une copie cohérente du projet lorsqu'un fichier est modifiés pa
 Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregistrés.
 C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \textit{svn}).
 
-\begin{figure}[H]
+\begin{figure}[ht]
 \begin{center}
-\includegraphics[width=7cm]{img_cvcs} \\
+\includegraphics[width=8cm]{img_cvcs} \\
 \caption{\small \textit{Workflow} typique d'un système de gestion de versions centralisé}
 \end{center}
 \end{figure}
@@ -117,33 +123,28 @@ On parle alors de \textit{clônage}.
 
 Il n'y a ainsi plus de dépôt central à proprement parler et chaque développeur possède naturellement un copie complète de l'historique du projet. Puisque toutes les informations sont disponibles localement, la majorités des opérations peuvent être effectuées hors-ligne et sont ainsi beaucoup plus rapides.
 
-%En l'absence de dépôt central, l'utilisateur est libre de choisir la méthode d'échange des modifications avec ses collaborateurs qui se résume à transmettre un fichier contenant l'ensembles des modifications apportées entre deux versions du projet.
-%Les autres développeurs pourront alors fusionner ces changements dans leur copie locale.
+L'absence de dépôt central permet d'organiser le développement de façon très flexible selon ce qui est le plus adapté à chaque situation.
+En utilisant un unique dépôt en ligne et accessible de tous, Git peut même reproduire l'organisation typique d'un système centralisé.
 
-Bien entendu, l'utilisation d'un dépôt centralisé simplifie grandement la collaboration et permet d'avoir une version de référence accessible à tous en permanence.
-Git supporte la notion de dépôt distant (\textit{remote}) depuis lesquels il peut récupérer ou envoyer des modifications.
-
-\begin{figure}[H]
+\begin{figure}[h]
 \begin{center}
 \vspace{1em}
-\includegraphics[width=7.5cm]{img_dvcs} \\
-\caption{\small Exemple d'organisation à plusieurs niveaux}
+\includegraphics[width=13cm]{img_dvcs} \\
+\caption{\small Exemple d'organisation décentralisée avec un \textit{responsable d'intégration}}
 \end{center}
 \end{figure}
 
-Dans l'exemple ci-dessus, les développeurs clônent le dépôt de référence et effectue leurs modifications.
-Ils transmettent ensuite ces modifications au responsable du projet qui se chargera de les valider et de les intégrer au code de référence.
-Par la suite, lorsque une nouvelle version du projet est prête à être distribuée, le dépôt est copié dans un dépôt particulier sur un serveur de déploiement.
-Cette opération déclenchera par exemple la compilation et distribution automatique du logiciel mis à jour.
-On peut noter que dans cette configuration, un simple développeur ne peut jamais modifier la version de référence sans passer par le responsable du projet.
+Dans l'exemple précédent, les développeurs clônent le dépôt de référence et effectue leurs modifications localement.
+Ils publient ensuite ces modifications dans un dépôt publiquement accessible et demande au responsable du projet de récupérer les changements pour les intégrer dans le dépôt officiel.
 
-Puisqu'il n'y a plus nécessairement de dépôt central unique, il est possible d'organiser le développement de façon très flexible en fonction de ce qui est le plus adapté à chaque situation.
+C'est le modèle encouragé par la plateforme GitHub (que nous aborderons plus tard) puisqu'il favorise une collaboration spontanée aux projets.
+Il n'y a besoin d'aucun accord ou droit d'accès particulier pour pouvoir commencer à modifier le logiciel original.
+Le responsable du projet n'est impliqué qu'une fois la modification terminée et en principe testée. Il ne lui reste plus qu'à relire les changements et décider de l'intégrer ou non au projet officiel.
 
-%Ainsi, il suffit d'utiliser un simple clône sur un serveur pour reproduire le modèle de collaboration des logiciels centralisés sans les problèmes de disponibilités puisqu'il est toujours possible de transmettre ses changements par d'autres canaux.
-%En pratique, c'est le modèle d'utilisation de \textit{Git} le plus courant aujourd'hui.
-
-\pagebreak
 \section{Git}
+
+Cette seconde partie traitera des points plus spécifique à Git. Les origines du projet, mais aussi quelques points sur l'organisation interne des informations constituant un dépôt. 
+Ces informations sont utiles pour pouvoir aborder la notion de \textit{branches} et de \textit{tags} plus facilement.
 
 \subsection{Histoire}
 
@@ -159,36 +160,37 @@ L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git 
 
 \subsection{Caractéristiques}
 
-\subsection{Branchement et fusion}
-
-\subsubsection{Conflits}
-
-\subsection{Distribué}
+\subsection{Stockage adressé par contenu}
 
 \subsection{Intégrité des données}
+
+\subsection{Les différents objets d'un dépôt}
 
 \subsection{\textit{Staging area}}
 
 \pagebreak
-\section{Organisation du développement avec branches}
+\section{Branches et Tags}
 
-\subsection{Structure d'un \textit{commit}}
+\subsection{Anatomie d'un \textit{commit}}
 
-\subsection{Branches}
+\subsection{Divergences}
 
 \subsection{Fusion}
 
+\subsection{\textit{Rebasing}}
+
 \subsection{Conflits}
+
+\subsection{Tags}
 
 \pagebreak
 \section{GitHub}
 
-Il est difficile aujourd'hui de présenter Git sans mentionner également le site internet GitHub.
+Il est difficile aujourd'hui de présenter Git sans mentionner rapidement le site internet GitHub.
 
-\subsection{Présentation}
+Lancé le 10 avril 2008, c'est un service indépendant d'hébergement et de gestion de développement de logiciels basé sur Git qui compte aujourd'hui plus de 9 millions d'utilisateurs.
 
-GitHub est un service indépendant d'hébergement et de gestion de développement de logiciels lancé le 10~avril~2008, soit 2 ans seulement après le projet Git.
-Il est un facteur ayant participé à son adoption rapide par les développeurs et est aujourd'hui une plateforme incontournable dans le monde du logiciel open-source, utilisée même par de grands noms tel que Google et Microsoft. 
+GitHub fait partie des facteurs ayant contribué à l'adoption rapide de Git dans le monde de l'\textit{open source} et est aujourd'hui une plateforme incontournable utilisée de façon intensive par de grands noms tel que Google, Microsoft et Facebook. 
 
 Destinée avant tout aux développeurs, l'interface est très simple et épurée, mettant l'accent sur le code source en tant qu'élément central du développement. Par exemple, la page principale d'un dépôt est simplement le navigateurs de fichier de ce dépôt suivi d'un fichier texte de description.
 
@@ -224,7 +226,7 @@ GitHub propose également un client Git simplifié permettant d'effectuer les t�
 Il est aussi directement lié à la plateforme en ligne permettant le clônage ou la publication de dépôts locaux en un clic.
 Il contient une version intégrée de Git. Il n'est donc pas nécessaire d'installer Git au préalable.
 
-\begin{figure}[H]
+\begin{figure}[h]
 	\center
 	\begin{tabularx}{\textwidth}{XX}
 		\begin{center}
