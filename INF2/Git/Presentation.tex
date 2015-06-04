@@ -16,10 +16,10 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{siunitx}
+\usepackage{tabularx}
 %\usepackage{showframe} % layout debug
 
 \usepackage{float}
-%\floatstyle{boxed}
 \restylefloat{figure}
 \usepackage[nottoc,numbib]{tocbibind}
 
@@ -30,7 +30,6 @@
 \linespread{1.0}
 \renewcommand{\arraystretch}{1.3}
 
-%\setlength\parindent{0pt}
 \setlength{\unitlength}{1cm}
 \setlength{\droptitle}{-1.6cm}
 
@@ -41,9 +40,6 @@
 \def \doccourse { INF2-B -- Présentation }
 \def \doctitle {Gestion de versions avec Git}
 \author{Bastien Clément \and Christophe Peretti}
-
-%\renewcommand{\thesection}{Objectif \arabic{section} :}
-%\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
 \rhead{\theauthor \\ \today}
 \lhead{\doccourse \\ \doctitle }
@@ -161,13 +157,6 @@ En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\
 Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
 L'utilisation controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le logiciel de gestion de versions utilisés par tous les développeurs du noyau Linux.
 
-\subsection{Installation}
-
-Git peut être téléchargé gratuitement depuis le site officiel du projet {\tt http://git-scm.com/}.
-
-Le logiciel est disponible sur tous les systèmes d'exploitation principaux.
-La version pour Windows intègre également une extensions pour l'explorateur de fichiers permettant d'accéder aux commandes de Git en utilisant les menus contextuels.
-
 \subsection{Caractéristiques}
 
 \subsection{Branchement et fusion}
@@ -200,8 +189,22 @@ La plateforme est aujourd'hui un site incontournable dans le monde du logiciel o
 
 \subsection{Modèle \textit{Fork / Pull Requests}}
 
+\section{Conclusion}
 
-\subsection{Offre pour les étudiants}
+Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de gestion de versions Git ainsi que des exemples d'organisation et d'utilisation illustrant la grande flexibilité du logiciel.
+
+\pagebreak
+\pagenumbering{roman}
+\section{Annexes}
+
+\subsection{Téléchargement et installation de Git}
+
+Git peut être téléchargé gratuitement depuis le site officiel du projet {\tt http://git-scm.com/}.
+
+Le logiciel est disponible sur tous les systèmes d'exploitation principaux.
+La version pour Windows intègre également une extensions pour l'explorateur de fichiers permettant d'accéder aux commandes de Git en utilisant les menus contextuels.
+
+\subsection{Offre GitHub pour les étudiants}
 
 L'hébergement de dépôt sur GitHub est entièrement gratuit pour les projets open-source.
 En revanche, il est nécessaire souscrire à un abonnement pour pouvoir créer des dépôts privés dont l'accès est limité aux personnes autorisées.
@@ -210,13 +213,39 @@ Heusement, GitHub propose aux personnes possédant une adresse e-mail provenant 
 
 L'inscription se fait à l'adresse {\tt https://education.github.com/} et est accompagnée d'autres offres pour former le {\it Student Developer Pack}.
 
-\section{Conclusion}
+\subsection{Client GitHub}
 
--> Learning curve
+GitHub propose également un client Git simplifié permettant d'effectuer les tâches les plus courantes de façon visuelle et intuitive, sans passer par la ligne de commande.
+Il est aussi directement lié à la plateforme en ligne permettant le clônage ou la publication de dépôts locaux en un clic. Il contient une version intégrée de Git. Il n'est donc pas nécessaire d'installer Git au préalable.
+
+\begin{figure}[H]
+	\center
+	\begin{tabularx}{\textwidth}{XX}
+		\begin{center}
+			\includegraphics[width=7cm]{img_gh_win}		
+			{\tt https://windows.github.com/}
+			\vspace{-0.4cm}
+		\end{center}
+		&
+		\begin{center}
+			\includegraphics[width=7cm]{img_gh_win}
+			{\tt https://mac.github.com/}
+			\vspace{-0.4cm}
+		\end{center}
+	\end{tabularx}
+	\caption{Interface du client GitHub sur Windows et Mac OS}
+\end{figure}
+
+%Il peut être téléchargé aux adresses 
+%\begin{enumerate}
+%	\item {\tt https://windows.github.com/}
+%	\item {\tt https://mac.github.com/}
+%\end{enumerate}
+
+Bien qu'il remplisse très bien son rôle dans la plupart des cas, certaines erreurs ou situations très particulières dans l'état du dépôt peuvent nécessiter l'utilisation de commande dans le terminal pour rétablir le bon fonctionnement.
+Quelques connaissances de Git en ligne de commande restent tout de même une bonne chose.
 
 \pagebreak
-\pagenumbering{roman}
-
 \begin{thebibliography}{1}
 
 \bibitem{progit}
