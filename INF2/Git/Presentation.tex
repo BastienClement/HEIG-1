@@ -310,7 +310,7 @@ C'est aussi implicitement la situation qui survient lorsque deux développeurs t
 
 \subsection{Fusion}
 
-Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches divergentes en une seule. Il alors est question de \textit{fusion} des branches. Pour ce faire, Git possède trois mécanismes principaux.
+Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches, qu'elles soient divergentes ou non, en une seule. Il alors est question de \textit{fusion} des branches. Pour se faire, Git possède trois mécanismes principaux.
 
 \subsubsection{\textit{Fast-forward}}
 
@@ -319,22 +319,24 @@ Un \textit{fast-forward} a lieu en absence de divergence. Le pointeur de la bran
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img_fastf}
-\caption{\textit{Fast-forward} de la branche master lors de la fusion sans divergence}
+\caption{\textit{Fast-forward} de la branche \textit{master} lors de la fusion sans divergence}
 \end{center}
 \end{figure}
 
 \subsubsection{\textit{Three-way merge}}
 
-Lorsqu'une divergence à eu lieu. Git utilise alors la technique du \textit{three-way merge} pour rassembler les deux branches automatiquement. Ce mécanisme requiert l'existence d'un \textit{ancêtre commun} en plus des deux versions divergentes sur lequel se baser pour déterminer le résultat de la fusion.
+Lorsqu'une divergence a eu lieu, Git utilise alors la technique du \textit{three-way merge} pour rassembler les deux branches automatiquement. 
+Ce mécanisme requiert l'existence d'un \textit{ancêtre commun} en plus des deux versions divergentes sur lequel se baser pour déterminer le résultat de la fusion, ce qui est en principe toujours le cas. 
+Le résultat est un commit qui a la particularité de posséder deux parents et qui combine l'ensemble des modifications des deux branches.
 
-Le résultat est un nouveau commit rassemblant l'ensemble des modifications des deux branches.
-
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=13cm]{img_twmerge}
 \caption{\textit{Three-way merge} de la branche \textit{exemple} dans la branche \textit{master}}
 \end{center}
 \end{figure}
+
+Git peut également généraliser la méthode à un nombre arbitraire de branches. La méthode est alors appelée \textit{octopus merge} et permet de rassembler d'un coup plusieurs branches divergentes.
 
 \subsubsection{\textit{Rebasing}}
 
