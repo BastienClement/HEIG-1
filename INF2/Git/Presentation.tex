@@ -195,6 +195,7 @@ Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapsh
 \end{center}
 \end{figure}
 
+\iffalse %%%
 \subsection{\textit{Staging area}}
 
 En réalité, le répertoire de travail ne forme pas directement la prochaine révision du projet.
@@ -212,8 +213,8 @@ L'utilisation de nombreux petits commit permet d'obtenir un historique plus pré
 \caption{Les trois zones dans lesquels résident les fichiers gérés par Git}
 \end{center}
 \end{figure}
+\fi %%%
 
-\vspace{-4mm}
 \subsection{Stockage adressé par contenu}
 
 La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}, c'est à dire une base de données qui identifie les informations sur la base de leur contenu plutôt que d'une clé ou d'un nom.
@@ -283,12 +284,12 @@ Cette information essentielle, appelée \textit{référence}, est enregistrée e
 \end{center}
 \end{figure}
 
-%Lors de l'enregistrement d'une nouvelle révision, la référence de la branche courante est avancée et pointe à présent sur le dernier commit de la chaîne.
+Lors de l'enregistrement d'une nouvelle révision, la référence de la branche courante est avancée pour pointer sur le dernier commit de la chaîne.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img_refs2}
-\caption{Lors d'un commit, la référence de la branche courante est avancée}
+\caption{La référence de la branche \textit{exemple} est avancée suite à un commit}
 \end{center}
 \end{figure}
 
@@ -306,6 +307,7 @@ Que ce passe-t-il à présent si des modifications sont enregistrées sur la bra
 \end{figure}
 
 Il est par exemple possible d'utiliser ce mécanisme pour développer deux fonctionnalités indépendantes sans que le développement de l'une d'elles n'impacte le développement de l'autre.
+
 C'est aussi implicitement la situation qui survient lorsque deux développeurs travaillent en parallèle sur la même version du logiciel, dans ce cas, il s'agit d'une divergence entre une branche et elle-même, mais dans un dépôt différent.
 
 \subsection{Fusion}
