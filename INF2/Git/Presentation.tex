@@ -259,7 +259,7 @@ C'est aussi implicitement la situation qui survient lorsque deux développeurs t
 
 \subsection{Méthodes de fusion}
 
-Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches, qu'elles soient divergentes ou non, en une seule. Il alors est question de \textit{fusion} des branches. Pour se faire, Git possède trois mécanismes principaux.
+Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches, qu'elles soient divergentes ou non, en une seule. Il est alors question de \textit{fusion} des branches. Pour se faire, Git possède trois mécanismes principaux.
 
 \subsubsection{\textit{Fast-forward}}
 
@@ -301,7 +301,7 @@ Cette dernière opération un peu particulière n'est pas strictement une fusion
 Il est important de noter que cette opération requiert la modification du commit original, plus particulièrement de la référence vers le commit antérieur.
 Puisque les informations commit sont modifiées, son adresse est nécessairement différente. Il s'agit en tout points d'un commit différent.
 
-Cette méthode est généralement utilisée pour intégrer les modifications d'un autre dépôt dans le notre tout en évitant la création d'un commit de fusion.
+Cette méthode est généralement utilisée pour intégrer les modifications d'un autre dépôt dans le nôtre tout en évitant la création d'un commit de fusion.
 Elle permet de conserver un historique fortement linéaire même lors de modifications apportées en parallèle.
 
 \subsection{Conflits}
@@ -316,8 +316,13 @@ Synchroniser régulièrement sa branche locale avec la branche de référence es
 
 \section{Conclusion}
 
-Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de gestion de versions Git ainsi que des exemples d'organisation et d'utilisation illustrant sa grande flexibilité. On remarque rapidement que l'utilisation d'un tel logiciel devient indispensable lors d'un développement logiciel, plus particulièrement dans le cas d'une collaboration de plusieurs développeurs.
+Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de gestion de versions Git ainsi que des exemples d'organisation et d'utilisation illustrant sa grande flexibilité. 
 
+La puissance de Git réside entre autre dans sa manière d'organiser les révisions d'un fichier, ainsi que celle de fusionner avec une incroyable efficacité les différentes branches de celui-ci. Nous avons vu que la seule chose qu'il reste à faire manuellement aux utilisateurs est la gestion des conflits, et cette tâche ne se produit, en principe, que très rarement lorsque les développeurs sont bien organisés.
+
+On remarquera enfin que l'utilisation d'un tel outil devient indispensable lors d'un développement logiciel, que ce soit pour garder une trace des différentes modifications qui y ont été apportées, ou plus généralement dans le cas d'une collaboration de plusieurs développeurs.
+
+Vous trouverez en complément de cette présentation quelques éléments d'information concernant le site internet GitHub, principale plateforme d'utilisation du logiciel Git.
 \pagebreak
 \pagenumbering{alph}
 \section{Compléments}
