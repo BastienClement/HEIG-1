@@ -310,13 +310,33 @@ C'est aussi implicitement la situation qui survient lorsque deux développeurs t
 
 \subsection{Fusion}
 
-Lorsque deux branches divergentes doivent être rassemblées en une seule, il est question de \textit{fusion} des branches.
+Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches divergentes en une seule. Il alors est question de \textit{fusion} des branches. Pour ce faire, Git possède trois mécanismes principaux.
 
 \subsubsection{\textit{Fast-forward}}
 
-\subsubsection{\textit{Rebasing}}
+Un \textit{fast-forward} a lieu en absence de divergence. Le pointeur de la branche \textit{en retard} est simplement avancé pour pointer vers le dernier commit.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img_fastf}
+\caption{\textit{Fast-forward} de la branche master lors de la fusion sans divergence}
+\end{center}
+\end{figure}
 
 \subsubsection{\textit{Three-way merge}}
+
+Lorsqu'une divergence à eu lieu. Git utilise alors la technique du \textit{three-way merge} pour rassembler les deux branches automatiquement. Ce mécanisme requiert l'existence d'un \textit{ancêtre commun} en plus des deux versions divergentes sur lequel se baser pour déterminer le résultat de la fusion.
+
+Le résultat est un nouveau commit rassemblant l'ensemble des modifications des deux branches.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=13cm]{img_twmerge}
+\caption{\textit{Three-way merge} de la branche \textit{exemple} dans la branche \textit{master}}
+\end{center}
+\end{figure}
+
+\subsubsection{\textit{Rebasing}}
 
 \subsection{Conflits}
 
