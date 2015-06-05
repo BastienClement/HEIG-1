@@ -340,6 +340,21 @@ Git peut également généraliser la méthode à un nombre arbitraire de branche
 
 \subsubsection{\textit{Rebasing}}
 
+Cette dernière opération un peu particulière n'est pas strictement une fusion. Elle consiste à recopier les commits d'une branche à la suite d'une autre.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[width=13cm]{img_rebase}
+\caption{\textit{Rebasing} de la branche \textit{exemple} sur la branche \textit{master}}
+\end{center}
+\end{figure}
+
+Il est important de noter que cette opération requiert la modification du commit original, plus particulièrement de la référence vers le commit antérieur.
+Puisque les informations commit sont modifiées, son adresse est nécessairement différente. Il s'agit en tout points d'un commit différent.
+
+Cette méthode est généralement utilisée pour intégrer les modifications d'un autre dépôt dans le notre tout en évitant la création d'un commit de fusion.
+Elle permet de conserver un historique fortement linéaire même lors de modifications apportées en parallèle.
+
 \subsection{Conflits}
 
 \subsection{Tags}
