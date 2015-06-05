@@ -144,11 +144,11 @@ Le responsable du projet n'est impliqué qu'une fois la modification terminée e
 
 \section{Git}
 
-%Cette seconde partie traitera des points plus spécifique à Git: les origines du projet, ses principales caractéristiques mais aussi quelques points sur l'organisation interne du dépôt local.
+Cette seconde partie abordera des points plus spécifique à Git: les origines du projet, ses principales caractéristiques mais aussi quelques points sur l'organisation interne du dépôt.
 
 \subsection{Histoire}
 
-Les origines de Git sont étroitement liées au développement du noyau Linux, développés tous deux par Linus Torvalds.
+L'histoire du projet Git est étroitement liée au développement du noyau Linux, développés tous deux par Linus Torvalds.
 
 Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
 Face aux difficultés engendrées par la croissance du projet, la décision d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est prise.
@@ -181,28 +181,75 @@ Il est maintenant largement utilisé en dehors du développement de Linux.
 Le fonctionnement interne de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
 En effet, un dépôt n'est rien d'autre qu'une structure de répertoire et de fichiers associé à leur contenu.
 
-Lorsque l'utilisateur enregistre une nouvelle version de son projet (opération \textit{commit}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
+Lorsque l'utilisateur enregistre une nouvelle version de son projet (appelée \textit{commit}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
 Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel.
-Conceptuellement, les fichiers sur lesquels travail actuellement l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine version du projet lors du \textit{commit}.
+Conceptuellement, les fichiers sur lesquels travail actuellement l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine version du projet lors du commit.
 
 \begin{figure}[h]
 \begin{center}
-\vspace{1em}
 \includegraphics[width=12cm]{img_snapshots} \cite{progit}
 \caption{L'historique du dépôt est une séquence de snapshots des fichiers du projet}
 \end{center}
 \end{figure}
 
-\subsection{\textit{Staging area}}
+\subsubsection{\textit{Staging area}}
 
 En réalité, le répertoire de travail ne forme pas directement la prochaine révision du projet.
-Git possède en effet la particularité d'utiliser un état intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain \textit{commit}.
+Git possède en effet la particularité d'utiliser un espace intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain commit.
 
-Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au \textit{commit} actuel et devraient faire l'objet d'une révision séparée. Par exemple, deux modifications complètement indépendantes pourront par la suite plus facilement être individuellement annulées si elle sont enregistrée séparément dans l'historique.
+Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au commit actuel et devraient faire l'objet d'une révision séparée.
+%Par exemple, deux modifications complètement indépendantes pourront par la suite plus facilement être annulées si elle sont enregistrée séparément dans l'historique.
 
-\subsection{États d'un fichier}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=11cm]{img_areas} \cite{progit}
+\caption{Les trois zones dans lesquels résident les fichiers gérés par Git}
+\end{center}
+\end{figure}
 
-\subsection{Intégrité des données}
+\subsection{Stockage adressé par contenu}
+
+La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}.
+C'est à dire une base de donnée qui identifie les informations sur la base de leur contenu plutôt qu'une clé ou un nom.
+Il est donc nécessaire de connaître le contenu de ce que l'on souhaite récupérer ce qui peut sembler paradoxal.
+
+Le système se base sur la fonction de hachage cryptographique SHA-1.
+Tout ce qui est contenu dans l'historique est premièrement hashé puis enregistrée sur le disque à un emplacement qui dépend de la valeur obtenue.
+Pour retrouver cette information, il est indispensable d'enregistrer ce hash quelque part, constituant ainsi un \textit{pointeur} contenant l'\textit{adresse} d'une information.
+
+Il y a principalement trois types d'objet dans la base de donnée de Git:
+
+\begin{enumerate}
+	\item Les {\bf commits},
+	ils contiennent l'ensemble des méta-informations d'une version particulière tel que l'auteur, la date et l'heure mais aussi l'adresse d'un tree représentant le dossier principal du projet et l'adresse du commit qui le précède, formant ainsi l'historique.
+	
+	\item Les {\bf trees},
+	ils listent l'ensemble des fichiers et sous-dossier d'un répertoire particulier ainsi que l'adresse de leur contenu.
+	L'adresse d'un sous-dossier sera l'adresse d'un autre \textit{tree}.
+	
+	\item Les {\bf blobs},
+	ils sont les fichiers eux-mêmes.
+\end{enumerate}
+
+Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification entrainera un changement de l'adresse du \textit{blob} et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=10cm]{img_structure} \cite{progit}
+\caption{Structure interne d'un dépôt Git avec \textit{commits}, \textit{trees} et \textit{blobs}}
+\end{center}
+\end{figure}
+
+Cette structure entraine naturellement deux propriétés très appréciées:
+
+\begin{enumerate}
+	\item \textbf{Déduplication}, 
+	si une information est identique à une autre déjà contenue dans la base de données, leurs adresses seront identiques et le contenu existant sera simplement réutilisé.
+	
+	\item \textbf{Intégrité},
+	l'adresse d'une information étant directement liée à son contenu, il est impossible qu'une corruption du dépôt passe inaperçue.
+	Chaque bit d'information récupéré de la base de données est toujours identique à celui qui y a été enregistré.
+\end{enumerate}
 
 \iffalse
 %%%
