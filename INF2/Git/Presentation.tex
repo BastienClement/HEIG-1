@@ -261,12 +261,14 @@ Cette structure entraine naturellement deux propriétés très appréciables:
 
 Jusqu'à maintenant, nous n'avons utilisé Git que pour enregistrer une séquence linéaire de modifications. Sa vraie force réside dans son excellent support de \textit{branches} représentant des modifications parallèles et indépendantes des fichiers du projet.
 
+\iffalse
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=11.5cm]{img_commits_chain} \cite{progit}
+\includegraphics[width=11.5cm]{img_commits_chain}
 \caption{Séquence linéaire de commits dans un dépôt}
 \end{center}
 \end{figure}
+\fi
 
 \subsection{Références}
 
@@ -276,12 +278,35 @@ Cette information essentielle, appelée \textit{référence}, est enregistrée e
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=6cm]{img_refs} \cite{progit}
+\includegraphics[width=6cm]{img_refs}
 \caption{Deux références pointant vers le même commit}
 \end{center}
 \end{figure}
 
+%Lors de l'enregistrement d'une nouvelle révision, la référence de la branche courante est avancée et pointe à présent sur le dernier commit de la chaîne.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img_refs2}
+\caption{Lors d'un commit, la référence de la branche courante est avancée}
+\end{center}
+\end{figure}
+
+Il est à tout moment possible de changer la branche sur laquelle on travail. Les fichiers du répertoire de travail sont alors mis à jour pour refléter l'état dans lequel ils étaient lors du dernier commit de la branche en question.
+
 \subsection{Divergences}
+
+Que ce passe-t-il à présent si des modifications sont enregistrées sur la branche \textit{master} ? Nous sommes alors face à une situation de divergence où le développement du projet s'est divisé en deux branches distinctes et indépendantes.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{img_divergence}
+\caption{Les branches \textit{master} et \textit{exemple} ont divergé}
+\end{center}
+\end{figure}
+
+Il est par exemple possible d'utiliser ce mécanisme pour développer deux fonctionnalités indépendantes sans que le développement de l'une d'elles n'impacte le développement de l'autre.
+C'est aussi implicitement la situation qui survient lorsque deux développeurs travaillent en parallèle sur la même version du logiciel, dans ce cas, il s'agit d'une divergence entre une branche et elle-même, mais dans un dépôt différent.
 
 \subsection{Fusion}
 
