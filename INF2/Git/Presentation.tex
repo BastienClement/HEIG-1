@@ -81,12 +81,14 @@ Il est alors possible de retourner dans une copie particulière pour avoir accè
 Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur OS X et \textit{File History} sur Windows.
 Ces sauvegardes sont cependant effectuées automatiquement à intervalles fixes et ne correspondent pas aux étapes du développement du logiciel.
 
+\iffalse %%%
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=7.2cm]{img_lvcs} \\
 \caption{Exemple de gestion de versions locale simple}
 \end{center}
 \end{figure}
+\fi %%%
 
 Les logiciels spécialisés (tel que \textit{rcs}, développé depuis 1982) permettent à l'inverse d'effectuer des sauvegardes à des moments particuliers, typiquement lorsqu'une fonctionnalité du programme est terminée et prête à être enregistrée.
 Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{historique}, constituant les premières facettes de la gestion de versions.
@@ -103,12 +105,14 @@ Comment garder une copie cohérente du projet lorsqu'un fichier est modifiés pa
 Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregistrés.
 C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \textit{svn}).
 
+\iffalse
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[width=8cm]{img_cvcs}
 \caption{\textit{Workflow} typique d'un système de gestion de versions centralisé}
 \end{center}
 \end{figure}
+\fi
 
 Lorsqu'un développeur souhaite modifier le logiciel, il commence par en effectuer une copie sur sa machine (opération \textit{checkout}), modifie et enregistre son travail localement (opération \textit{commit}), puis il termine en envoyant ses modifications sur le dépôt central (opération \textit{update}) pour qu'elles soient intégrées définitivement au logiciel.
 Il récupère au passage les modifications des autres développeurs et est informés des situations de conflits, c'est à dire deux modifications différentes sur la même partie de code, qu'il doit résoudre avant de pouvoir continuer.
@@ -127,24 +131,23 @@ Il n'y a ainsi plus de dépôt central à proprement parler et chaque développe
 L'absence de dépôt central permet d'organiser le développement de façon très flexible selon ce qui est le plus adapté à chaque situation.
 En utilisant un unique dépôt en ligne et accessible de tous, Git peut même reproduire l'organisation typique d'un système centralisé.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
-\vspace{1em}
-\includegraphics[width=12.5cm]{img_dvcs} \cite{progit}
+\includegraphics[width=11.5cm]{img_dvcs} \cite{progit}
 \caption{Exemple d'organisation décentralisée avec un \textit{responsable d'intégration}}
 \end{center}
 \end{figure}
 
 Dans l'exemple donné, les développeurs clônent le dépôt de référence et effectue leurs modifications localement.
-Ils publient ensuite ces modifications dans un dépôt publiquement accessible et demande au responsable du projet de récupérer les changements pour les intégrer dans le dépôt officiel après validation.
+Ils les publient ensuite dans un dépôt publiquement accessible et demande au responsable de récupérer les changements pour les intégrer dans le dépôt officiel après validation.
 
-C'est le modèle encouragé par la plateforme GitHub (que nous aborderons plus tard) puisqu'il favorise une collaboration spontanée aux projets.
-Il n'y a besoin d'aucun accord ou droit d'accès particulier pour pouvoir commencer à modifier le logiciel original.
-Le responsable du projet n'est impliqué qu'une fois la modification terminée et en principe testée. Il ne lui reste plus qu'à relire les changements et décider de l'intégrer ou non au projet officiel.
+%C'est le modèle encouragé par la plateforme GitHub (que nous aborderons plus tard) puisqu'il favorise une collaboration spontanée aux projets.
+%Il n'y a besoin d'aucun accord ou droit d'accès particulier pour pouvoir commencer à modifier le logiciel original.
+%Le responsable du projet n'est impliqué qu'une fois la modification terminée et en principe testée. Il ne lui reste plus qu'à relire les changements et décider de l'intégrer ou non au projet officiel.
 
 \section{Git}
 
-Cette seconde partie abordera des points plus spécifique à Git: les origines du projet, ses principales caractéristiques mais aussi quelques points sur l'organisation interne du dépôt.
+%Cette seconde partie abordera des points plus spécifique à Git: les origines du projet, ses principales caractéristiques mais aussi quelques points sur l'organisation interne du dépôt.
 
 \subsection{Histoire}
 
@@ -176,37 +179,36 @@ Destiné à l'un des plus grand projet open-source existant, Git a été conçu 
 Au fil du temps, Git a évolué en conservant ces caractéristiques faisant de lui un excellent logiciel dans son domaine.
 Il est maintenant largement utilisé en dehors du développement de Linux.
 
-\subsection{Structure du dépôt local}
+\subsection{Structure de l'historique du dépôt}
 
-Le fonctionnement interne de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
+Le fonctionnement de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
 En effet, un dépôt n'est rien d'autre qu'une structure de répertoire et de fichiers associé à leur contenu.
 
 Lorsque l'utilisateur enregistre une nouvelle version de son projet (appelée \textit{commit}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
-Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel.
-Conceptuellement, les fichiers sur lesquels travail actuellement l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine version du projet lors du commit.
+Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel. Les dernières version des fichier sur lesquels travail l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine révision du projet lors du commit.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=12cm]{img_snapshots} \cite{progit}
 \caption{L'historique du dépôt est une séquence de snapshots des fichiers du projet}
 \end{center}
 \end{figure}
 
-\subsubsection{\textit{Staging area}}
+\subsection{\textit{Staging area}}
 
 En réalité, le répertoire de travail ne forme pas directement la prochaine révision du projet.
-Git possède en effet la particularité d'utiliser un espace intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain commit.
+Git possède en effet la particularité d'utiliser un espace intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain commit. Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au commit actuel et devraient faire l'objet d'une révision séparée.
 
-Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au commit actuel et devraient faire l'objet d'une révision séparée.
 %Par exemple, deux modifications complètement indépendantes pourront par la suite plus facilement être annulées si elle sont enregistrée séparément dans l'historique.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
-\includegraphics[width=11cm]{img_areas} \cite{progit}
+\includegraphics[width=10cm]{img_areas} \cite{progit}
 \caption{Les trois zones dans lesquels résident les fichiers gérés par Git}
 \end{center}
 \end{figure}
 
+\vspace{-4mm}
 \subsection{Stockage adressé par contenu}
 
 La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}.
@@ -233,7 +235,7 @@ Il y a principalement trois types d'objet dans la base de donnée de Git:
 
 Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification entrainera un changement de l'adresse du \textit{blob} et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 \includegraphics[width=10cm]{img_structure} \cite{progit}
 \caption{Structure interne d'un dépôt Git avec \textit{commits}, \textit{trees} et \textit{blobs}}
