@@ -359,6 +359,14 @@ Elle permet de conserver un historique fortement linéaire même lors de modific
 
 \subsection{Conflits}
 
+Il peut arriver que deux branches divergentes contiennent des modifications différentes apportées à la même partie d'un fichier. Dans une telle situation, l'algorithme de fusion automatique n'est pas capable de déterminer le résultat approprié pour cette section.
+Peut-être l'une des deux modifications devrait être remplacée par l'autre ?
+Peut-être les deux devraient plutôt être combinées ?
+
+Dans ce cas, Git annonce un \textit{conflit} de fusion et arrête temporairement l'opération.
+Il est alors nécessaire d'intervenir manuellement pour résoudre l'ambiguïté avant de pouvoir terminer la fusion.
+Synchroniser régulièrement sa branche locale avec la branche de référence est une solution pour réduire le risque de collisions et simplifier leur résolution.
+
 \section{Conclusion}
 
 Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de gestion de versions Git ainsi que des exemples d'organisation et d'utilisation illustrant sa grande flexibilité. On remarque rapidement que l'utilisation d'un tel logiciel devient indispensable lors d'un développement logiciel, plus particulièrement dans le cas d'une collaboration de plusieurs développeurs.
