@@ -69,14 +69,14 @@
 Avant de s'y attaquer directement, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version.
 De quoi s'agit-il et pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
-Dans son modèle le plus simple, un logiciel de gestion de versions est chargé d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
+Basiquement, un logiciel de gestion de versions se charge d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
 Par la suite, il permet de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier particulier.
 Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
 \subsection{Gestion de versions locale}
 
-Une façon de mettre en place un système de gestion de versions très simpliste serait d'effectuer périodiquement des copies du dossier du projet en les annotant avec la date et l'heure de la copie.
-Il est alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
+Une façon de mettre en place un simple de gestion de versions très basique serait d'effectuer périodiquement des copies du projet en les annotant avec la date et l'heure.
+Il serait alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
 
 Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur OS X et \textit{File History} sur Windows.
 Ces sauvegardes sont cependant effectuées automatiquement à intervalles fixes et ne correspondent pas aux étapes du développement du logiciel.
@@ -95,7 +95,7 @@ Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{hi
 
 \subsection{Gestion de versions centralisée}
 
-Une autre facette de la gestion de versions est la \textit{collaboration}. 
+%Une autre facette de la gestion de versions est la \textit{collaboration}. 
 
 Le développement de logiciels, pour tout projet un minimum sérieux, implique généralement la collaboration de plusieurs développeurs.
 Même dans le cadre de nos laboratoires encore relativement simples, nous avons pu constater les difficultés liées au développement à plusieurs.
@@ -117,7 +117,7 @@ C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \text
 Lorsqu'un développeur souhaite modifier le logiciel, il commence par en effectuer une copie sur sa machine (opération \textit{checkout}), modifie et enregistre son travail localement (opération \textit{commit}), puis il termine en envoyant ses modifications sur le dépôt central (opération \textit{update}) pour qu'elles soient intégrées définitivement au logiciel.
 Il récupère au passage les modifications des autres développeurs et est informés des situations de conflits, c'est à dire deux modifications différentes sur la même partie de code, qu'il doit résoudre avant de pouvoir continuer.
 
-En revanche, dans cette configuration, le dépôt central constitue un \textit{single point of failure}.
+Dans cette configuration, le dépôt central constitue un \textit{single point of failure}.
 S'il est inaccessible, la collaboration et l'envoi des modifications deviennent temporairement impossible.
 Si un problème plus grave survient, en l'absence de sauvegarde récente, une partie ou l'ensemble de l'historique du projet peut être définitivement perdu ou corrompu.
 
@@ -126,9 +126,10 @@ Si un problème plus grave survient, en l'absence de sauvegarde récente, une pa
 À l'inverse, dans un système décentralisé tel que Git (mais aussi \textit{Mercurial} ou \textit{Bazaar}), lorsqu'une copie locale du projet est effectuée, ce n'est pas uniquement les dernières versions des fichiers qui sont récupérées, mais l'ensemble de l'historique du dépôt.
 On parle alors de \textit{clônage}.
 
-Il n'y a ainsi plus de dépôt central à proprement parler et chaque développeur possède naturellement un copie complète de l'historique du projet. Puisque toutes les informations sont disponibles localement, la majorités des opérations peuvent être effectuées hors-ligne et sont ainsi beaucoup plus rapides.
+Il n'y a ainsi plus de dépôt central à proprement parler et chaque développeur possède naturellement un copie complète de l'historique du projet.
+La majorités des opérations peuvent ainsi s'exécuter hors-ligne avec d'excellentes performances.
 
-L'absence de dépôt central permet d'organiser le développement de façon très flexible selon ce qui est le plus adapté à chaque situation.
+L'absence de dépôt central permet également d'organiser le développement de façon très flexible selon ce qui est le plus adapté à chaque situation.
 En utilisant un unique dépôt en ligne et accessible de tous, Git peut même reproduire l'organisation typique d'un système centralisé.
 
 \begin{figure}[ht]
@@ -159,7 +160,7 @@ L'éditeur proposait alors une licence gratuite permettant, sous certaines condi
 
 En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résiliation de la licence particulière pour les logiciels libres.
 Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
-L'utilisation depuis toujours controversée de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le nouveau logiciel de gestion de versions utilisé par tous les développeurs du noyau Linux.
+L'utilisation de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le nouveau logiciel de gestion de versions utilisé par les développeurs du noyau Linux.
 
 \subsection{Caractéristiques}
 
@@ -179,13 +180,13 @@ Destiné à l'un des plus grand projet open-source existant, Git a été conçu 
 Au fil du temps, Git a évolué en conservant ces caractéristiques faisant de lui un excellent logiciel dans son domaine.
 Il est maintenant largement utilisé en dehors du développement de Linux.
 
-\subsection{Structure de l'historique du dépôt}
+\subsection{Chaîne de révisions}
 
 Le fonctionnement de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
 En effet, un dépôt n'est rien d'autre qu'une structure de répertoire et de fichiers associé à leur contenu.
 
-Lorsque l'utilisateur enregistre une nouvelle version de son projet (appelée \textit{commit}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
-Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel. Les dernières version des fichier sur lesquels travail l'utilisateur (appelé le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine révision du projet lors du commit.
+Lorsque l'utilisateur enregistre une nouvelle version de son projet (appelée \textit{commit} ou \textit{révision}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
+Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel. Les dernières versions des fichier sur lesquels travail l'utilisateur (le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine révision du projet lors du commit.
 
 \begin{figure}[ht]
 \begin{center}
@@ -249,35 +250,19 @@ Cette structure entraine naturellement deux propriétés très appréciées:
 	si une information est identique à une autre déjà contenue dans la base de données, leurs adresses seront identiques et le contenu existant sera simplement réutilisé.
 	
 	\item \textbf{Intégrité},
-	l'adresse d'une information étant directement liée à son contenu, il est impossible qu'une corruption du dépôt passe inaperçue.
+	l'adresse d'une information étant directement liée à son contenu, il est impossible qu'une corruption du dépôt ne passe inaperçue.
 	Chaque bit d'information récupéré de la base de données est toujours identique à celui qui y a été enregistré.
 \end{enumerate}
 
-\iffalse
-%%%
-\subsection{Les trois zones contentant les fichiers}
-
-Les différentes versions des fichiers contenus dans un dépôt Git peuvent se trouver à tout moment dans trois zones différente:
-
-\begin{enumerate}
-	\item \textbf{Le répertoire de travail}, 
-	le dossier principal dans lequel travail l'utilisateur. 
-	Il contient les dernières versions des fichiers du projet ainsi que les modifications apportées mais pas encore enregistrées.
-	
-	\item \textbf{Le dépôt (répertoire {\tt .git})},
-	il contient l'ensemble des versions antérieurs des fichiers du projet sous forme compressée.
-	C'est un répertoire invisible à la racine du répertoire de travail.
-\end{enumerate}
-%%%
-\fi
-
 \section{Branches}
 
-\subsection{Pointeurs}
+Jusqu'à maintenant, nous n'avons utilisé Git que pour enregistrer une séquence linéaire de modifications. Sa vraie force réside dans son excellent support de \textit{branches} représentant des modifications parallèles et indépendantes des fichiers du projet.
 
 \subsection{Divergences}
 
 \subsection{Fusion}
+
+Lorsque deux branches divergentes doivent être rassemblées en une seule, il est question de \textit{fusion} des branches.
 
 \subsubsection{\textit{Fast-forward}}
 
@@ -286,8 +271,6 @@ Les différentes versions des fichiers contenus dans un dépôt Git peuvent se t
 \subsubsection{\textit{Three-way merge}}
 
 \subsection{Conflits}
-
-\section{Exemple d'organisation à base de branches}
 
 \section{GitHub}
 
@@ -305,7 +288,7 @@ Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de 
 
 \pagebreak
 \pagenumbering{alph}
-\section{Annexes}
+\section{Compléments}
 
 \subsection{Téléchargement et installation de Git}
 
@@ -323,7 +306,7 @@ L'inscription se fait à l'adresse {\tt https://education.github.com/} et est ac
 
 \subsection{Client GitHub}
 
-GitHub propose également un client Git simplifié permettant d'effectuer les tâches les plus courantes de façon visuelle et intuitive, sans passer par la ligne de commande.
+GitHub propose également un client Git permettant d'effectuer les tâches les plus courantes de façon visuelle et intuitive, sans passer par la ligne de commande.
 Il est aussi directement lié à la plateforme en ligne permettant le clônage ou la publication de dépôts locaux en un clic.
 Il contient une version intégrée de Git. Il n'est donc pas nécessaire d'installer Git au préalable.
 
@@ -352,7 +335,7 @@ Il contient une version intégrée de Git. Il n'est donc pas nécessaire d'insta
 %\end{enumerate}
 
 Bien qu'il remplisse très bien son rôle dans la plupart des cas, certaines erreurs ou situations très particulières peuvent nécessiter l'utilisation de commande dans le terminal pour rétablir le bon fonctionnement.
-Quelques connaissances de Git restent donc une bonne chose.
+Quelques connaissances de Git restent très utiles.
 
 \pagebreak
 \begin{thebibliography}{1}
