@@ -65,17 +65,17 @@
 
 \section{Introduction à la gestion de versions}
 
-\textit{Git} est un logiciel de gestion de versions libre et open-source.
-Avant de s'y attaquer directement, il est nécessaire de commencer par une petite introduction sur le concept de gestion de version.
+Git est un logiciel de gestion de versions libre et open-source.
+Avant de s'y attaquer directement, il est nécessaire de commencer par une petite introduction sur ce concept de gestion de versions.
 De quoi s'agit-il et pourquoi est-ce intéressant dans le domaine de la programmation logiciel ?
 
-Basiquement, un logiciel de gestion de versions se charge d'enregistrer les modifications apportées à un ensemble de fichier au cours du temps.
+Basiquement, un logiciel de gestion de versions se charge d'enregistrer les modifications apportées à un ensemble de fichiers au cours du temps.
 Par la suite, il permet de naviguer dans cet historique pour consulter ou récupérer d'anciennes versions d'un fichier particulier.
 Dans notre cas, nous l'utiliserons typiquement pour conserver l'historique du code source de nos programmes.
 
 \subsection{Gestion de versions locale}
 
-Une façon de mettre en place un simple de gestion de versions très basique serait d'effectuer périodiquement des copies du projet en les annotant avec la date et l'heure.
+Une façon de mettre en place un système de gestion de versions très basique serait d'effectuer périodiquement des copies du projet en les annotant avec la date et l'heure.
 Il serait alors possible de retourner dans une copie particulière pour avoir accès à une version antérieur d'un fichier.
 
 Des logiciels automatiques sur le même principe sont même intégrés directement aux système d'exploitation comme par exemple \textit{Time Machine} sur OS X et \textit{File History} sur Windows.
@@ -89,9 +89,9 @@ Ces logiciels fournissent ainsi un niveau de \textit{sécurité} et d'\textit{hi
 Le développement de logiciels, pour tout projet un minimum sérieux, implique généralement la collaboration de plusieurs développeurs.
 Même dans le cadre de nos laboratoires encore relativement simples, nous avons pu constater les difficultés liées au développement à plusieurs.
 Comment rester à jour sur le travail effectué par notre binôme ?
-Comment garder une copie cohérente du projet lorsqu'un fichier est modifiés par plus d'une personne au même moment ?
+Comment garder une copie cohérente du projet lorsqu'un fichier est modifié par plus d'une personne au même moment ?
 
-Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt} central dans lequel les fichiers constituant la version de référence du logiciel sont enregistrés.
+Les logiciels de gestion de versions centralisés règlent ce problème en se basant sur un \textit{dépôt central} dans lequel les fichiers constituant la version de référence du logiciel sont enregistrés.
 C'est le cas par exemple du logiciel \textit{Subversion} (souvent abrégé \textit{svn}).
 
 Lorsqu'un développeur souhaite modifier le logiciel, il commence par en effectuer une copie sur sa machine (opération \textit{checkout}), modifie et enregistre son travail localement (opération \textit{commit}), puis il termine en envoyant ses modifications sur le dépôt central (opération \textit{update}) pour qu'elles soient intégrées définitivement au logiciel.
@@ -110,7 +110,7 @@ Il n'y a ainsi plus de dépôt central à proprement parler et chaque développe
 La majorités des opérations peuvent ainsi s'exécuter hors-ligne avec d'excellentes performances.
 
 L'absence de dépôt central permet également d'organiser le développement de façon très flexible selon ce qui est le plus adapté à chaque situation.
-En utilisant un unique dépôt en ligne et accessible de tous, Git peut même reproduire l'organisation typique d'un système centralisé.
+En utilisant un dépôt disponible en ligne, Git peut même reproduire l'organisation typique d'un système centralisé.
 
 \begin{figure}[ht]
 \begin{center}
@@ -119,7 +119,7 @@ En utilisant un unique dépôt en ligne et accessible de tous, Git peut même re
 \end{center}
 \end{figure}
 
-Dans l'exemple donné, les développeurs clônent le dépôt de référence et effectue leurs modifications localement.
+Dans l'exemple donné, les développeurs clônent le dépôt de référence et effectuent leurs modifications localement.
 Ils les publient ensuite dans un dépôt publiquement accessible et demande au responsable de récupérer les changements pour les intégrer dans le dépôt officiel après validation.
 
 \section{Git}
@@ -128,26 +128,26 @@ Ils les publient ensuite dans un dépôt publiquement accessible et demande au r
 
 L'histoire du projet Git est étroitement liée au développement du noyau Linux, développés tous deux par Linus Torvalds.
 
-Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de \textit{patches} et d'archives.
+Dans un premier temps, de 1991 à 2002, les développeurs et contributeurs de Linux n'utilisaient pas de logiciels particuliers et échangeaient leur travail sous forme de patches et d'archives.
 Face aux difficultés engendrées par la croissance du projet, la décision d'utiliser le logiciel de gestion de versions propriétaire BitKeeper est prise.
 L'éditeur proposait alors une licence gratuite permettant, sous certaines conditions, d'utiliser gratuitement une version limitée de son logiciel pour le développement de logiciels libre.
 
 En 2005, un conflit entre un développeur indépendant de l'organisation OSDL (\textit{Open Source Development Labs}) et la société éditrice BitMover conduit à la résiliation de la licence particulière pour les logiciels libres.
-Bien que BitMover propose de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
-L'utilisation de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le nouveau logiciel de gestion de versions utilisé par les développeurs du noyau Linux.
+Bien que BitMover proposent alors de continuer à fournir gratuitement son logiciel à certains développeurs de Linux, elle le refuse à Linus Torvalds, également membre de l'OSDL.
+L'utilisation de BitKeeper est alors abandonnée et le projet Git est lancé avec pour but de devenir le nouveau logiciel de gestion de versions utilisé par les développeurs Linux.
 
 \subsection{Caractéristiques}
 
-Destiné à l'un des plus grand projet open-source existant, Git a été conçu dès le départ avec beaucoup d'exigences sur la base de ce qui avait été appris avec l'utilisation de BitKeeper.
+Destiné à l'un des plus grand projet open-source existant, Git a été conçu dès le départ avec beaucoup d'exigences sur la base de ce qui avait été appris avec l'utilisation de BitKeeper:
 
 \begin{enumerate}
 	\item {Entièrement distribué}, 
-	il n'y a aucun dépôt fondamentalement plus important.
+	il n'y a aucun dépôt fondamentalement plus important,
 	
 	\item {Gestion du développement non-linéaire},
-	même avec des milliers de branches simultanées.
+	même avec des milliers de branches simultanées,
 	
-	\item {Capable de support de très gros projets}
+	\item {Capable de supporter de très gros projets}
 	tel que Linux tout en conservant vitesse d'exécution et optimisation de l'espace disque.
 \end{enumerate}
 
@@ -156,13 +156,13 @@ Il est maintenant largement utilisé en dehors du développement de Linux.
 
 \subsection{Chaîne de révisions}
 
-Le fonctionnement de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestions de versions.
-En effet, un dépôt n'est rien d'autre qu'une structure de répertoire et de fichiers associés à leur contenu accompagnés d'un historique de modifications.
+Le fonctionnement de Git peut être comparé à celui d'un système de fichiers (tel que celui qui gère les fichiers d'un disque dur) sur lequel on a greffé des fonctionnalités de gestion de versions.
+En effet, un dépôt n'est rien d'autre qu'une structure de répertoires et de fichiers associés à leur contenu, accompagnée d'un historique de modifications.
 
 Lorsque l'utilisateur enregistre une nouvelle version de son projet (appelée \textit{commit} ou \textit{révision}), un \textit{snapshot} de l'état actuel des fichiers est enregistré dans l'historique du dépôt.
 Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapshot précédent est réutilisé tel quel. Un lien est également créé indiquant le commit antérieur, formant ainsi l'historique.
 
-Les dernières versions des fichier sur lesquels travail l'utilisateur (le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine révision du projet lors du commit.
+La dernière version des fichier sur lesquels travail l'utilisateur (le \textit{répertoire de travail}) sont à la fin de la chaine et formeront la prochaine révision du projet lors du prochain commit.
 
 \begin{figure}[ht]
 \begin{center}
@@ -173,21 +173,21 @@ Les dernières versions des fichier sur lesquels travail l'utilisateur (le \text
 
 \subsection{Stockage adressé par contenu}
 
-La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}). C'est à dire une base de données qui identifie les informations sur la base de leur contenu plutôt que d'une clé ou d'un nom.
+La base de données de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}). C'est à dire une base de données qui identifie les informations sur la base de leur contenu plutôt que d'une clé ou d'un nom.
 Il est donc nécessaire de connaître le contenu de ce que l'on souhaite récupérer pour pouvoir l'obtenir ce qui peut sembler paradoxal.
 
 Le système se base sur la fonction de hachage cryptographique SHA-1 qui associe à toute information une emprunte (ou \textit{hash}) de 40 caractères.
 Tout ce qui est contenu dans l'historique est premièrement hashé puis enregistré sur le disque à un emplacement qui dépend de la valeur obtenue.
-Pour retrouver cette information, il est indispensable d'enregistrer ce hash quelque part, constituant ainsi un \textit{pointeur} contenant l'\textit{adresse} d'une information.
+Pour retrouver cette information, il est indispensable d'enregistrer ce hash quelque part, constituant ainsi un \textit{pointeur} contenant l'\textit{adresse} de cette information.
 
-Il y a principalement trois types d'objet dans la base de donnée de Git:
+Il y a principalement trois types d'objets dans la base de données de Git:
 
 \begin{enumerate}
 	\item Les {\bf commits},
-	ils contiennent l'ensemble des méta-informations d'une révision particulière tel que son auteur, la date et une description mais aussi l'adresse d'un tree représentant le dossier principal du projet et l'adresse du commit qui le précède.
+	ils contiennent l'ensemble des méta-informations d'une révision particulière tel que son auteur, la date et une description mais aussi l'adresse d'un \textit{tree} représentant le dossier principal du projet et l'adresse du commit qui le précède.
 	
 	\item Les {\bf trees},
-	ils listent l'ensemble des fichiers et sous-dossier d'un répertoire particulier ainsi que l'adresse de leur contenu.
+	ils listent l'ensemble des fichiers et sous-dossiers d'un répertoire ainsi que l'adresse de leur contenu.
 	L'adresse d'un sous-dossier sera l'adresse d'un autre \textit{tree}.
 	
 	\item Les {\bf blobs},
@@ -201,7 +201,7 @@ Il y a principalement trois types d'objet dans la base de donnée de Git:
 \end{center}
 \end{figure}
 
-Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification entrainera un changement de l'adresse du \textit{blob} et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
+Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification provoquera un changement de cette adresse et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
 
 Cette structure entraine naturellement deux propriétés très appréciables:
 
@@ -216,18 +216,18 @@ Cette structure entraine naturellement deux propriétés très appréciables:
 
 \section{Branches}
 
-Jusqu'à maintenant, nous n'avons utilisé Git que pour enregistrer une séquence linéaire de modifications. Sa vraie force réside dans son excellent support de \textit{branches} représentant des modifications parallèles et indépendantes des fichiers du projet.
+Jusqu'à maintenant, nous n'avons considéré que l'enregistrement d'une séquence linéaire de modifications. La vraie force de Git réside dans son excellent support de \textit{branches} représentant des modifications parallèles et indépendantes des fichiers du projet.
 
 \subsection{Références}
 
-Nous avons vu dans la section précédente comment l'historique du dépôt était organisé en interne. Il reste un dernier problème: comment obtenir l'adresse du dernier commit permettant ensuite d'accéder à l'ensemble de la structure ?
+Dans la section précédente, nous avons vu comment l'historique du dépôt était organisé en une chaîne de commits. Il reste un dernier problème: comment obtenir l'adresse du dernier commit permettant ensuite d'accéder à l'ensemble de la structure ?
 
-Cette information essentielle, appelée \textit{référence}, est enregistrée en dehors de la base de données principale et associe un nom à un commit spécifique. Chaque branche de développement correspond donc simplement à une référence particulière indiquant le dernier commit de cette branche. Par défaut, un dépôt Git ne contient qu'une seule branche appelée \textit{master}. Il est également possible pour plusieurs références de pointer vers le même commit.
+Cette information essentielle, appelée \textit{référence}, est enregistrée en dehors de la base de données principale et associe un nom à un commit spécifique. Chaque branche de développement correspondent donc simplement à une référence particulière indiquant le dernier commit de cette branche. Par défaut, un dépôt Git ne contient qu'une seule branche appelée \textit{master}. Il est également possible pour plusieurs références de pointer vers le même commit.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=6cm]{img_refs}
-\caption{Deux références pointant vers le même commit}
+\caption{Deux références, \textit{master} et \textit{exemple}, pointant vers le même commit}
 \end{center}
 \end{figure}
 
@@ -259,24 +259,24 @@ C'est aussi implicitement la situation qui survient lorsque deux développeurs t
 
 \subsection{Méthodes de fusion}
 
-Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de rassembler deux branches, qu'elles soient divergentes ou non, en une seule. Il alors est question de \textit{fusion} des branches. Pour se faire, Git possède trois mécanismes principaux.
+Si les branches ont un intérêt, c'est parce qu'il est possible à un certain moment de les rassembler, qu'elles soient divergentes ou non, pour n'en former plus qu'une. Il est alors question de \textit{fusion} des branches. Pour ce faire, Git possède trois mécanismes principaux.
 
 \subsubsection{\textit{Fast-forward}}
 
-Un \textit{fast-forward} a lieu en absence de divergence. Le pointeur de la branche \textit{en retard} est simplement avancé pour pointer vers le dernier commit.
+Un \textit{fast-forward} a lieu en l'absence de divergences. La référence de la branche \textit{en retard} est simplement avancé pour pointer vers le dernier commit.
 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=8cm]{img_fastf}
-\caption{\textit{Fast-forward} de la branche \textit{master} lors de la fusion sans divergence}
+\caption{\textit{Fast-forward} de la branche \textit{master} lors d'une fusion sans divergences}
 \end{center}
 \end{figure}
 
 \subsubsection{\textit{Three-way merge}}
 
 Lorsqu'une divergence a eu lieu, Git utilise alors la technique du \textit{three-way merge} pour rassembler les deux branches automatiquement. 
-Ce mécanisme requiert l'existence d'un \textit{ancêtre commun} en plus des deux versions divergentes sur lequel se baser pour déterminer le résultat de la fusion, ce qui est en principe toujours le cas. 
-Le résultat est un commit qui a la particularité de posséder deux parents et qui combine l'ensemble des modifications des deux branches.
+Ce mécanisme requiert l'existence d'un \textit{ancêtre commun}, ce qui est en principe toujours le cas, sur lequel se baser pour déterminer le résultat de la fusion. 
+Le résultat est un nouveau commit qui a la particularité de posséder deux parents et qui combine l'ensemble des modifications des deux branches.
 
 \begin{figure}[ht]
 \begin{center}
@@ -285,7 +285,7 @@ Le résultat est un commit qui a la particularité de posséder deux parents et 
 \end{center}
 \end{figure}
 
-Git peut également généraliser la méthode à un nombre arbitraire de branches. La méthode est alors appelée \textit{octopus merge} et permet de rassembler d'un coup plusieurs branches divergentes.
+Git peut également généraliser le principe à un nombre arbitraire de branches. La méthode est alors appelée \textit{octopus merge} et permet de rassembler d'un coup plusieurs branches divergentes.
 
 \subsubsection{\textit{Rebasing}}
 
@@ -299,20 +299,20 @@ Cette dernière opération un peu particulière n'est pas strictement une fusion
 \end{figure}
 
 Il est important de noter que cette opération requiert la modification du commit original, plus particulièrement de la référence vers le commit antérieur.
-Puisque les informations commit sont modifiées, son adresse est nécessairement différente. Il s'agit en tout points d'un commit différent.
+Puisque les informations sont modifiées, son adresse est nécessairement différente. Il s'agit en tout points d'un commit différent.
 
-Cette méthode est généralement utilisée pour intégrer les modifications d'un autre dépôt dans le notre tout en évitant la création d'un commit de fusion.
+Cette méthode est généralement utilisée pour intégrer les modifications d'un autre dépôt dans le notre, tout en évitant la création d'un commit de fusion.
 Elle permet de conserver un historique fortement linéaire même lors de modifications apportées en parallèle.
 
 \subsection{Conflits}
 
-Il peut arriver que deux branches divergentes contiennent des modifications différentes apportées à la même partie d'un fichier. Dans une telle situation, l'algorithme de fusion automatique n'est pas capable de déterminer le résultat approprié pour cette section.
-Peut-être l'une des deux modifications devrait être remplacée par l'autre ?
-Peut-être les deux devraient plutôt être combinées ?
+Il peut arriver que deux branches divergentes contiennent des modifications différentes apportées à la même partie d'un fichier. Dans une telle situation, l'algorithme de fusion automatique n'est pas capable de déterminer le résultat approprié.
+Peut-être que l'une des deux modifications devrait être remplacée par l'autre ?
+Peut-être que les deux devraient plutôt être combinées ?
 
-Dans ce cas, Git annonce un \textit{conflit} de fusion et arrête temporairement l'opération.
-Il est alors nécessaire d'intervenir manuellement pour résoudre l'ambiguïté avant de pouvoir terminer la fusion.
-Synchroniser régulièrement sa branche locale avec la branche de référence est une solution pour réduire le risque de collisions et simplifier leur résolution.
+Dans ce cas, Git annonce un \textit{conflit} et arrête temporairement l'opération.
+Il est alors nécessaire d'intervenir manuellement pour résoudre l'ambiguïté avant de pouvoir terminer la fusion ou le \textit{rebasing}.
+Synchroniser régulièrement sa branche locale avec la branche de référence est une méthode pour réduire les risques de collisions et simplifier leur résolution.
 
 \section{Conclusion}
 
@@ -324,19 +324,19 @@ Cette présentation aura permis de découvrir une vue d'ensemble du logiciel de 
 
 \subsection{Téléchargement et installation de Git}
 
-Git peut être téléchargé depuis le site officiel du projet {\tt http://git-scm.com/}.
+Git peut être téléchargé depuis le site officiel du projet {\tt <http://git-scm.com/>}.
 
 Le logiciel est disponible pour tous les systèmes d'exploitation courants.
 
 \subsection{GitHub}
 
-Il est difficile aujourd'hui de présenter Git sans mentionner rapidement le site internet GitHub.
+Il est difficile aujourd'hui de présenter Git sans mentionner également le site internet GitHub.
 
 Lancé le 10 avril 2008, c'est un service indépendant d'hébergement et de gestion de développement de logiciels basé sur Git qui compte aujourd'hui plus de 9 millions d'utilisateurs.
 
-GitHub fait partie des facteurs ayant contribué à l'adoption rapide de Git dans le monde de l'\textit{open source} et est aujourd'hui une plateforme incontournable utilisée de façon intensive par de grands noms tel que Google, Microsoft et Facebook. 
+GitHub fait partie des facteurs ayant contribué à l'adoption rapide de Git dans le monde de l'open source et est aujourd'hui une plateforme incontournable, régulièrement utilisée par de grands noms tel que Google, Microsoft et Facebook. 
 
-Destinée avant tout aux développeurs, l'interface est très simple et épurée, mettant l'accent sur le code source en tant qu'élément central du développement. Par exemple, la page principale d'un dépôt est simplement le navigateurs de fichier de ce dépôt suivi d'un fichier texte de description.
+Destinée avant tout aux développeurs, l'interface est très simple et épurée, mettant l'accent sur le code source en tant qu'élément central du développement.
 
 \subsection{Offre GitHub pour les étudiants}
 
@@ -345,23 +345,23 @@ En revanche, il est nécessaire souscrire à un abonnement pour pouvoir créer d
 
 Heureusement, les personnes possédant une adresse e-mail provenant d'une université reconnue (dont la HEIG-VD fait partie!) peuvent demander un plan \textit{Micro} gratuit pendant toute la durée des études, soit 5 dépôts privés avec un nombre illimités de collaborateurs par dépôt.
 
-L'inscription se fait à l'adresse {\tt https://education.github.com/} et est accompagnée d'autres offres pour former le {\it Student Developer Pack}.
+L'inscription se fait à l'adresse {\tt <https://education.github.com/>} et est accompagnée d'autres offres pour former le {\it Student Developer Pack}.
 
 \subsection{Client GitHub}
 
-GitHub propose également un client Git permettant d'effectuer les tâches les plus courantes de façon visuelle et intuitive, sans passer par la ligne de commande.
+GitHub propose également un client Git permettant d'effectuer les tâches les plus courantes de façon visuelle et intuitive, sans utiliser par la ligne de commandes.
 Il est aussi directement lié à la plateforme en ligne permettant le clônage ou la publication de dépôts locaux en un clic.
-Il contient une version intégrée de Git. Il n'est donc pas nécessaire d'installer Git au préalable.
+Il contient une version intégrée de Git, il n'est donc pas nécessaire de l'installer au préalable.
 
 Il est peut être téléchargé à l'adresse
 
 \begin{itemize}
-	\item {\tt https://windows.github.com/}, pour le client Windows
-	\item {\tt https://mac.github.com/}, pour le client Mac OS
+	\item {\tt <https://windows.github.com/>}, pour le client Windows
+	\item {\tt <https://mac.github.com/>}, pour le client Mac OS
 \end{itemize}
 
 Bien qu'il remplisse très bien son rôle dans la plupart des cas, certaines erreurs ou situations très particulières peuvent nécessiter l'utilisation de commande dans le terminal pour rétablir le bon fonctionnement.
-Quelques connaissances de Git restent très utiles.
+Quelques connaissances de Git restent donc très utiles.
 
 \pagebreak
 \begin{thebibliography}{1}
