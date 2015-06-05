@@ -134,7 +134,7 @@ En utilisant un unique dépôt en ligne et accessible de tous, Git peut même re
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=11.5cm]{img_dvcs} \cite{progit}
+\includegraphics[width=11.5cm]{img_dvcs}
 \caption{Exemple d'organisation décentralisée avec un \textit{responsable d'intégration}}
 \end{center}
 \end{figure}
@@ -190,7 +190,7 @@ Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapsh
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=12cm]{img_snapshots} \cite{progit}
+\includegraphics[width=12cm]{img_snapshots}
 \caption{L'historique du dépôt est une séquence de snapshots des fichiers du projet}
 \end{center}
 \end{figure}
@@ -198,13 +198,17 @@ Par optimisation, lorsqu'un fichier n'a pas été modifié, le contenu du snapsh
 \subsection{\textit{Staging area}}
 
 En réalité, le répertoire de travail ne forme pas directement la prochaine révision du projet.
-Git possède en effet la particularité d'utiliser un espace intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain commit. Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au commit actuel et devraient faire l'objet d'une révision séparée.
+Git possède en effet la particularité d'utiliser un espace intermédiaire appelé \textit{staging area} dans lequel sont manuellement placés les fichiers à sauvegarder lors du prochain commit. 
+
+Ceci permet de sélectionner avec précision quels fichiers, voir quelles lignes de ceux-ci, devront être capturés et ainsi ignorer certaines modifications dont la sauvegarde ne serait pas pertinente au commit actuel et devraient faire l'objet d'une révision séparée.
+
+L'utilisation de nombreux petits commit permet d'obtenir un historique plus précis et facilite certaines opérations comme par exemple l'annulation (\textit{revert}) d'un changement spécifique. Si plusieurs changements indépendants sont rassemblés en un commit, l'historique perd en clarté.
 
 %Par exemple, deux modifications complètement indépendantes pourront par la suite plus facilement être annulées si elle sont enregistrée séparément dans l'historique.
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[width=10cm]{img_areas} \cite{progit}
+\includegraphics[width=9cm]{img_areas} \cite{progit}
 \caption{Les trois zones dans lesquels résident les fichiers gérés par Git}
 \end{center}
 \end{figure}
@@ -212,19 +216,18 @@ Git possède en effet la particularité d'utiliser un espace intermédiaire appe
 \vspace{-4mm}
 \subsection{Stockage adressé par contenu}
 
-La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}.
-C'est à dire une base de donnée qui identifie les informations sur la base de leur contenu plutôt qu'une clé ou un nom.
+La base de donnée de Git est un \textit{stockage adressé par contenu} (en anglais \textit{Content Addressable Storage}, c'est à dire une base de données qui identifie les informations sur la base de leur contenu plutôt que d'une clé ou d'un nom.
 Il est donc nécessaire de connaître le contenu de ce que l'on souhaite récupérer ce qui peut sembler paradoxal.
 
 Le système se base sur la fonction de hachage cryptographique SHA-1.
-Tout ce qui est contenu dans l'historique est premièrement hashé puis enregistrée sur le disque à un emplacement qui dépend de la valeur obtenue.
+Tout ce qui est contenu dans l'historique est premièrement hashé puis enregistré sur le disque à un emplacement qui dépend de la valeur obtenue.
 Pour retrouver cette information, il est indispensable d'enregistrer ce hash quelque part, constituant ainsi un \textit{pointeur} contenant l'\textit{adresse} d'une information.
 
 Il y a principalement trois types d'objet dans la base de donnée de Git:
 
 \begin{enumerate}
 	\item Les {\bf commits},
-	ils contiennent l'ensemble des méta-informations d'une version particulière tel que l'auteur, la date et l'heure mais aussi l'adresse d'un tree représentant le dossier principal du projet et l'adresse du commit qui le précède, formant ainsi l'historique.
+	ils contiennent l'ensemble des méta-informations d'une révision particulière tel que l'auteur, la date et l'heure mais aussi l'adresse d'un tree représentant le dossier principal du projet et l'adresse du commit qui le précède, formant ainsi l'historique.
 	
 	\item Les {\bf trees},
 	ils listent l'ensemble des fichiers et sous-dossier d'un répertoire particulier ainsi que l'adresse de leur contenu.
@@ -234,16 +237,16 @@ Il y a principalement trois types d'objet dans la base de donnée de Git:
 	ils sont les fichiers eux-mêmes.
 \end{enumerate}
 
-Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification entrainera un changement de l'adresse du \textit{blob} et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
-
-\begin{figure}[ht]
+\begin{figure}[H]
 \begin{center}
-\includegraphics[width=10cm]{img_structure} \cite{progit}
+\includegraphics[width=9.1cm]{img_structure} \cite{progit}
 \caption{Structure interne d'un dépôt Git avec \textit{commits}, \textit{trees} et \textit{blobs}}
 \end{center}
 \end{figure}
 
-Cette structure entraine naturellement deux propriétés très appréciées:
+Puisque l'adresse d'un blob dépend de son contenu, il est évident qu'une modification entrainera un changement de l'adresse du \textit{blob} et que la propagation de ce changement dans les \textit{trees} entrainera un nouvel arbre raçine à une adresse différente, correspondant à une nouvelle révision.
+
+Cette structure entraine naturellement deux propriétés très appréciables:
 
 \begin{enumerate}
 	\item \textbf{Déduplication}, 
@@ -258,6 +261,26 @@ Cette structure entraine naturellement deux propriétés très appréciées:
 
 Jusqu'à maintenant, nous n'avons utilisé Git que pour enregistrer une séquence linéaire de modifications. Sa vraie force réside dans son excellent support de \textit{branches} représentant des modifications parallèles et indépendantes des fichiers du projet.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=11.5cm]{img_commits_chain} \cite{progit}
+\caption{Séquence linéaire de commits dans un dépôt}
+\end{center}
+\end{figure}
+
+\subsection{Références}
+
+Nous avons vu dans la section précédente comment l'historique du dépôt était organisé en interne. Il reste un dernier problème: comment obtenir l'adresse du dernier commit permettant ensuite d'accéder à l'ensemble de la structure ?
+
+Cette information essentielle, appelée \textit{référence}, est enregistrée en dehors de la base de données principale et associe un nom à un commit spécifique. Chaque branche de développement correspond donc simplement à une référence particulière indiquant le dernier commit de cette branche. Par défaut, un dépôt Git ne contient qu'une seule branche appelée \textit{master}. Il est également possible pour plusieurs références de pointer vers le même commit.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=6cm]{img_refs} \cite{progit}
+\caption{Deux références pointant vers le même commit}
+\end{center}
+\end{figure}
+
 \subsection{Divergences}
 
 \subsection{Fusion}
@@ -271,6 +294,8 @@ Lorsque deux branches divergentes doivent être rassemblées en une seule, il es
 \subsubsection{\textit{Three-way merge}}
 
 \subsection{Conflits}
+
+\subsection{Tags}
 
 \section{Conclusion}
 
