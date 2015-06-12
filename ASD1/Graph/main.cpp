@@ -77,6 +77,21 @@ void read_file(const MFn& cb_movie, const AFn& cb_actor) {
 	s.close();
 }
 
+vector<int> path(const Graph& g, const unordered_map<string, int>& indices, string A, string B) {
+	static vector<int> parents;
+	static string origin = "";
+
+	if (indices.count(A) == 0 || indices.count(B) == 0)
+		throw "Sommet introuvable";
+
+	if (A != origin) {
+		parents = ParentsBFS(g, indices.at(A));
+		origin = A;
+	}
+
+	return PathBFS(parents, indices.at(B));
+}
+
 int main() {
 	unordered_map<int, string> labels;
 	unordered_map<string, int> indices;
@@ -100,7 +115,7 @@ int main() {
 		g.addEdge(current_movie, indices[actor]);
 	});
 
-	auto parents = ParentsBFS(g, indices["Bacon, Kevin"]);
+	const string KEVIN_BACON = "Bacon, Kevin";
 
 	while (true) {
 		string start;
@@ -115,7 +130,7 @@ int main() {
 			srand(time(NULL));
 			for (const pair<string, int>& item : indices) {
 				const int idx = item.second;
-				const int d = PathBFS(parents, idx).size();
+				const int d = path(g, indices, KEVIN_BACON, labels[idx]).size();
 				if (d > max || (d == max && rand() % 2)) {
 					max = d;
 					max_idx = idx;
@@ -124,19 +139,17 @@ int main() {
 			start = labels[max_idx];
 		}
 
-		if (indices.count(start) == 0) {
-			cout << "Il n'y a pas de sommet avec ce label..." << endl << endl;
-			continue;
+		try {
+			auto p = path(g, indices, KEVIN_BACON, start);
+			cout << endl;
+			for (const int& idx : p) {
+				cout << labels[idx] << endl;
+			}
+			cout << endl << "DISTANCE = " << p.size() / 2 << endl;
+		} catch (const char* err) {
+			cout << err << endl;
 		}
 
-		auto path = PathBFS(parents, indices[start]);
-
-		cout << endl;
-		for (const int& idx : path) {
-			cout << labels[idx] << endl;
-		}
-
-		cout << endl << "DISTANCE = " << path.size() / 2 << endl;
 		cout << endl;
 	}
 }
